@@ -1,18 +1,29 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
 import android.app.Application;
-import android.content.Context;
+
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 public class ClinicalTrialClient extends Application {
-    private static Context context;
+    private ClinicalTrialModel model;
 
     public void onCreate() {
         super.onCreate();
-        ClinicalTrialClient.context = getApplicationContext();
+        try {
+            model = new ClinicalTrialModel("android", getApplicationContext().getFilesDir().toString());
+            Clinic clinic = model.getDefaultClinic();
+            if (clinic != null) {
+                clinic.getId();
+            }
+
+        } catch (TrialCatalogException e) {
+
+        }
     }
 
-    public static Context getAppContext() {
-        return ClinicalTrialClient.context;
+    public ClinicalTrialModel getModel() {
+        return model;
     }
-
 }
