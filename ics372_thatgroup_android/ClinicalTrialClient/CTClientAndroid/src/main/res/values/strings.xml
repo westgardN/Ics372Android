@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">My Application</string>
-    <string name="clinical_trial_client">Clinical Trial Client</string>
-    <string name="clinics">CLINICS</string>
-    <string name="readings">READINGS</string>
-    <string name="patients">PATIENTS</string>
-    <string name="export_files">EXPORT FILES</string>
-    <string name="import_files">IMPORT FILES</string>
-</resources>
