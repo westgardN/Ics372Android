@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Clinical Trial Client</string>
+    <string name="main_patients">Patients</string>
+    <string name="main_clinics">Clinics</string>
+    <string name="main_readings">Readings</string>
+    <string name="main_add_reading">Add Reading</string>
+    <string name="main_export">Export</string>
+    <string name="main_import">Import</string>
     <string name="action_settings">Settings</string>
 </resources>
