@@ -8,48 +8,13 @@
     tools:context="edu.metrostate.ics372.thatgroup.clinicaltrial.android.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:id="@+id/export button"
-        android:layout_width="152dp"
-        android:layout_height="66dp"
-        android:text="EXPORT"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="472dp" />
-
-    <Button
-        android:id="@+id/import button"
-        android:layout_width="152dp"
-        android:layout_height="66dp"
-        android:text="IMPORT"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="472dp" />
-
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="300dp"
-        android:layout_height="29dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="serif"
-        android:lineSpacingExtra="12sp"
-        android:text="Clinical Trial Client"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62"
-        tools:layout_editor_absoluteX="44dp" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="376dp"
-        android:layout_height="407dp"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="65dp">
-
-    </FrameLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
