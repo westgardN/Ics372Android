@@ -12,12 +12,8 @@ public class ClinicalTrialClient extends Application {
     public void onCreate() {
         super.onCreate();
         try {
-            model = new ClinicalTrialModel("android", getApplicationContext().getFilesDir().toString());
-            Clinic clinic = model.getDefaultClinic();
-            if (clinic != null) {
-                clinic.getId();
-            }
-
+            String dbName = getResources().getString(R.string.trial_name);
+            model = new ClinicalTrialModel(dbName, getApplicationContext().getFilesDir().toString());
         } catch (TrialCatalogException e) {
 
         }
