@@ -8,4 +8,12 @@
     <string name="main_export">Export</string>
     <string name="main_import">Import</string>
     <string name="action_settings">Settings</string>
+    <string name="title_reading_list">Readings</string>
+    <string name="title_reading_detail">Reading Detail</string>
+    <string name="reading_detail_clinic_id_lbl">Clinic ID: %1$s</string>
+    <string name="reading_detail_patient_id_lbl">Patient ID: %1$s</string>
+    <string name="reading_detail_type_lbl">Type: %1$s</string>
+    <string name="reading_detail_value_lbl">Value: %1$s</string>
+    <string name="reading_detail_date_lbl">Date Taken: %1$s</string>
+    <string name="reading_detail_time_lbl">Time Taken: %1$d:%2$d:%3$d %4$s</string>
 </resources>
