@@ -43,7 +43,7 @@ public class ReadingDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.reading_detail, container, false);
+        View rootView = inflater.inflate(R.layout.reading_detail_fragment, container, false);
 
         if (reading != null) {
             ((TextView) rootView.findViewById(R.id.reading_detail_clinic_id)).setText(

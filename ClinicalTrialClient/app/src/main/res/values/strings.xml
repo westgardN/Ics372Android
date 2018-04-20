@@ -12,13 +12,21 @@
     <string name="title_reading_list">Readings</string>
     <string name="title_reading_detail">Reading Detail</string>
 
-    <string name="add_edit_reading_id">ID: </string>
-    <string name="add_edit_reading_clinic_id">Clinic ID: </string>
-    <string name="add_edit_reading_patient_id">Patient ID: </string>
-    <string name="add_edit_reading_type">Type: </string>
-    <string name="add_edit_reading_value">Value: </string>
-    <string name="add_edit_reading_date">Date: </string>
-    <string name="add_edit_reading_time">Time: </string>
+    <string name="add_edit_reading_id">ID:</string>
+    <string name="add_edit_reading_clinic_id">Clinic ID:</string>
+    <string name="add_edit_reading_patient_id">Patient ID:</string>
+    <string name="add_edit_reading_type">Type:</string>
+    <string name="add_edit_reading_value">Value:</string>
+    <string name="add_edit_reading_date">Date:</string>
+    <string name="add_edit_reading_time">Time:</string>
+    <string-array name="reading_types">
+        <item>Weight</item>
+        <item>Temperature</item>
+        <item>Steps</item>
+        <item>Blood Pressure</item>
+    </string-array>
+    <string name="add_edit_reading_clr_btn_lbl">Clear</string>
+    <string name="add_edit_reading_submit_btn_lbl">Submit</string>
 
     <string name="reading_detail_clinic_id_lbl">Clinic ID: %1$s</string>
     <string name="reading_detail_patient_id_lbl">Patient ID: %1$s</string>

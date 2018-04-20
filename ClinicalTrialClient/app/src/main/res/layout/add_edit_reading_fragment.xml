@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,31 +9,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:minWidth="75dp"
                 android:text="@string/add_edit_reading_id"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/add_edit_reading_id_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
+                android:inputType="text"
                 android:textSize="18sp" />
 
         </LinearLayout>
 
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/textView4"
@@ -43,22 +43,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/add_edit_reading_clinic_id"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:minWidth="75dp"/>
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            <EditText
+                android:id="@+id/add_edit_reading_clinic_id_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/textView5"
@@ -66,35 +67,107 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/add_edit_reading_patient_id"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:minWidth="75dp"/>
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/add_edit_reading_patient_id_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="text"
+            android:minWidth="75dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/add_edit_reading_type"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:minWidth="75dp"/>
 
         <Spinner
-            android:id="@+id/planets_spinner"
+            android:id="@+id/add_edit_reading_value_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="150dp" />
+            android:entries="@array/reading_types"
+            android:minWidth="223dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add_edit_reading_date"
+            android:textSize="18sp"
+            android:minWidth="75dp"/>
+
+        <EditText
+            android:id="@+id/add_edit_reading_date_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/add_edit_reading_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="75dp"
+            android:text="@string/add_edit_reading_time"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editText10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="time" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/add_edit_reading_clr_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_edit_reading_clr_btn_lbl"
+            android:layout_marginBottom="6dp"/>
+
+        <Button
+            android:id="@+id/add_edit_reading_submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_edit_reading_submit_btn_lbl" />
     </LinearLayout>
 </LinearLayout>
