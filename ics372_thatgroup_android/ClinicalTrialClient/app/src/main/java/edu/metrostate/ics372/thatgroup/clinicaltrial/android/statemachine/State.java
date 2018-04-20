@@ -7,5 +7,7 @@ public interface State {
 
     void onCleanup();
 
-    void onPrevious();
+    void onSave();
+
+    void onReturn();
 }
