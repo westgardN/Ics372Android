@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".readingsactivity.ReadingDetailFragment" >
+
+    <LinearLayout
+        android:id="@+id/reading_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/reading_datail_clinic_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reading_detail_clinic_id_lbl"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/reading_detail_patient_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reading_detail_patient_id_lbl"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/reading_detail_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reading_detail_type_lbl"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/reading_detail_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reading_detail_value_lbl"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/reading_detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reading_detail_date_lbl"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/reading_detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reading_detail_time_lbl"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+</FrameLayout>
