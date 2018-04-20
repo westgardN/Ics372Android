@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".readingsactivity.ReadingDetailFragment" >
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:padding="16dp"
+        tools:context=".readingsactivity.ReadingDetailFragment"
         android:id="@+id/reading_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/reading_datail_clinic_id"
+            android:id="@+id/reading_detail_clinic_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -62,4 +59,3 @@
             android:textSize="24sp" />
 
     </LinearLayout>
-</FrameLayout>

@@ -1,6 +1,4 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.presenter;
-
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
@@ -24,7 +22,12 @@ public class ReadingPresenter {
       type = ReadingFactory.getPrettyReadingType(reading);
       value = reading.getValue().toString();
       date = reading.getDate().toLocalDate().toString();
-      time = String.format(Locale.getDefault(),"%d:%d:%d", reading.getDate().getHour(), reading.getDate().getMinute(), reading.getDate().getSecond());
+      time = String.format(
+              Locale.getDefault(),"%d:%d:%d",
+              reading.getDate().getHour(),
+              reading.getDate().getMinute(),
+              reading.getDate().getSecond()
+      );
     }
 
     public Reading getReading() {

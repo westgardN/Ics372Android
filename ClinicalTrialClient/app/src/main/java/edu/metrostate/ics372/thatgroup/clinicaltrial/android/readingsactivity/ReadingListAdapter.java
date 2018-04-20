@@ -10,42 +10,44 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.presenter.ReadingsPresenter;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 
 public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.ViewHolder> {
 
-    private final ReadingsActivity mParentActivity;
-    private final List<Reading> mValues;
-    private final boolean mTwoPane;
+    private final ReadingsActivity parentActivity;
+    private final List<Reading> readings;
+    private final boolean twoPane;
+    private final ReadingsPresenter readingsPresenter;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Reading reading = (Reading) view.getTag();
-
-            if (mTwoPane) {
+            readingsPresenter.setActiveReading(reading);
+            if (twoPane) {
                 Bundle arguments = new Bundle();
-                //arguments.putString(ReadingDetailFragment.ARG_ITEM_ID, reading.getId());
-                arguments.putSerializable(ReadingDetailFragment.ARG_ITEM_ID, reading);
+                arguments.putSerializable(ReadingDetailFragment.READING_TAG, reading);
                 ReadingDetailFragment fragment = new ReadingDetailFragment();
                 fragment.setArguments(arguments);
-                mParentActivity.getSupportFragmentManager().beginTransaction()
+                parentActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.reading_detail_container, fragment)
                         .commit();
             } else {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, ReadingActivity.class);
-                intent.putExtra(ReadingDetailFragment.ARG_ITEM_ID, reading);
+                intent.putExtra(ReadingDetailFragment.READING_TAG, reading);
                 context.startActivity(intent);
             }
         }
     };
 
-    ReadingListAdapter(ReadingsActivity parent,
+    ReadingListAdapter(ReadingsActivity parentActivity,
                                   List<Reading> readings,
-                                  boolean twoPane) {
-        mValues = readings;
-        mParentActivity = parent;
-        mTwoPane = twoPane;
+                                  boolean twoPane, ReadingsPresenter readingsPresenter) {
+        this.readings = readings;
+        this.parentActivity = parentActivity;
+        this.twoPane = twoPane;
+        this.readingsPresenter = readingsPresenter;
     }
 
     @Override
@@ -57,16 +59,15 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
 
     @Override
     public void onBindViewHolder(final ReadingListAdapter.ViewHolder holder, int position) {
-        holder.mIdView.setText(mValues.get(position).getId());
-        // holder.mContentView.setText(mValues.get(position));
-
-        holder.itemView.setTag(mValues.get(position));
+        holder.mIdView.setText(readingsPresenter.getReadingId(readings.get(position)));
+        holder.mContentView.setText(readingsPresenter.getReadingType(readings.get(position)));
+        holder.itemView.setTag(readings.get(position));
         holder.itemView.setOnClickListener(mOnClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return readings.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,8 +76,8 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
 
         ViewHolder(View view) {
             super(view);
-            mIdView = (TextView) view.findViewById(R.id.id_text);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id_text);
+            mContentView = view.findViewById(R.id.content);
         }
     }
 }
