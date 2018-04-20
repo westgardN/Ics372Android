@@ -1,49 +1,40 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine;
 
-public enum ClinicalTrialEvent implements Event {
-    ON_IMPORT("onImport"),
-    ON_IMPORT_ERROR("onImportError"),
-    ON_IMPORT_OK("onImportOk"),
-    ON_IMPORT_CANCEL("onImportCancel"),
-    ON_EXPORT("onExport"),
-    ON_EXPORT_ERROR("onExportError"),
-    ON_EXPORT_OK("onExportOk"),
-    ON_EXPORT_CANCEL("onExportCancel"),
-    ON_CLINICS("onClinics"),
-    ON_CLINIC_ERROR("onClinicError"),
-    ON_CLINIC_OK("onClinicOk"),
-    ON_CLINIC_CANCEL("onClinicCancel"),
-    ON_CLINIC_ADD("onClinicAdd"),
-    ON_CLINIC_SELECT("onClinicSelect"),
-    ON_CLINIC_VIEW("onClinicView"),
-    ON_CLINIC_UPDATE("OnClinicUpdate"),
-    ON_PATIENTS("onPatients"),
-    ON_PATIENT_ERROR("onPatientError"),
-    ON_PATIENT_OK("onPatientOk"),
-    ON_PATIENT_CANCEL("onPatientCancel"),
-    ON_PATIENT_ADD("onPatientAdd"),
-    ON_PATIENT_SELECT("onPatientSelect"),
-    ON_PATIENT_VIEW("onPatientView"),
-    ON_PATIENT_UPDATE("OnPatientUpdate"),
-    ON_READINGS("onReadings"),
-    ON_READING_ERROR("onReadingError"),
-    ON_READING_OK("onReadingOk"),
-    ON_READING_CANCEL("onReadingCancel"),
-    ON_READING_ADD("onReadingAdd"),
-    ON_READING_SELECT("onReadingSelect"),
-    ON_READING_VIEW("onReadingView"),
-    ON_READING_UPDATE("onReadingUpdate"),
-    ON_START("onStart"),
-    ON_EXIT("onExit");
-
-    private final String name;
-
-    private ClinicalTrialEvent(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
+public enum ClinicalTrialEvent {
+    ON_HOME,
+    ON_PREVIOUS,
+    ON_IMPORT,
+    ON_IMPORT_ERROR,
+    ON_IMPORT_OK,
+    ON_IMPORT_CANCEL,
+    ON_EXPORT,
+    ON_EXPORT_ERROR,
+    ON_EXPORT_OK,
+    ON_EXPORT_CANCEL,
+    ON_CLINICS,
+    ON_CLINIC_ERROR,
+    ON_CLINIC_OK,
+    ON_CLINIC_CANCEL,
+    ON_CLINIC_ADD,
+    ON_CLINIC_SELECT,
+    ON_CLINIC_VIEW,
+    ON_CLINIC_UPDATE,
+    ON_PATIENTS,
+    ON_PATIENT_ERROR,
+    ON_PATIENT_OK,
+    ON_PATIENT_CANCEL,
+    ON_PATIENT_ADD,
+    ON_PATIENT_SELECT,
+    ON_PATIENT_VIEW,
+    ON_PATIENT_UPDATE,
+    ON_READINGS,
+    ON_READING_ERROR,
+    ON_READING_OK,
+    ON_READING_CANCEL,
+    ON_READING_ADD,
+    ON_READING_SELECT,
+    ON_READING_VIEW,
+    ON_READING_UPDATE,
+    ON_START,
+    ON_EXIT;
 }

@@ -15,7 +15,7 @@ public class ClinicalTrialClient extends Application {
         try {
             String dbName = getResources().getString(R.string.trial_name);
             model = new ClinicalTrialModel(dbName, getApplicationContext().getFilesDir().toString());
-            machine = new ClinicalTrialStateMachine();
+            machine = new ClinicalTrialStateMachine(this);
         } catch (TrialCatalogException e) {
 
         }
