@@ -21,11 +21,6 @@ class ImportActivityState extends ClinicalTrialState {
     }
 
     @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
 

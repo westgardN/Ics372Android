@@ -57,18 +57,18 @@ public class ClinicalTrialStateMachine {
 
     public void transition(ClinicalTrialState destinationState, boolean returnable) {
         if (returnable) {
-            Log.i(getClass().getSimpleName(),"Saving state: " + currentState.toString());
+            Log.i(getClass().getSimpleName(),"Saving state: " + currentState.getName());
             currentState.onSave();
             previousStates.push(currentState);
         }
 
-        Log.i(getClass().getSimpleName(),"Leaving state: " + currentState.toString());
+        Log.i(getClass().getSimpleName(),"Leaving state: " + currentState.getName());
 
         currentState.onCleanup();
 
         currentState = destinationState;
         notifyChange();
-        Log.i(getClass().getSimpleName(),"Entering state: " + currentState.toString());
+        Log.i(getClass().getSimpleName(),"Entering state: " + currentState.getName());
     }
 
     public void transition() {
@@ -77,11 +77,11 @@ public class ClinicalTrialStateMachine {
             return;
         }
 
-        Log.i(getClass().getSimpleName(),"Leaving state: " + currentState.toString());
+        Log.i(getClass().getSimpleName(),"Leaving state: " + currentState.getName());
         currentState.onCleanup();
         currentState = previousStates.pop();
         currentState.onReturn();
-        Log.i(getClass().getSimpleName(),"Returning to state: " + currentState.toString());
+        Log.i(getClass().getSimpleName(),"Returning to state: " + currentState.getName());
         notifyChange();
 
     }

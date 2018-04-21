@@ -16,21 +16,6 @@ public class MainActivityState extends ClinicalTrialState {
     }
 
     @Override
-    public String getName() {
-        String answer = "";
-
-        Activity act = getActivity();
-
-        if (act != null) {
-            answer = act.getLocalClassName();
-        } else {
-            getMachine().getApplication().getClass().getSimpleName();
-        }
-
-        return answer;
-    }
-
-    @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
 

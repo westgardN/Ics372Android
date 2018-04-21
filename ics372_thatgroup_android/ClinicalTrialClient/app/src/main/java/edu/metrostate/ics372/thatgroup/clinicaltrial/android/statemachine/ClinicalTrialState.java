@@ -136,4 +136,19 @@ public abstract class ClinicalTrialState implements State {
     public List<Reading> getReadings() {
         return new ArrayList<>();
     }
+
+    @Override
+    public String getName() {
+        String answer = "";
+
+        Activity act = getActivity();
+
+        if (act != null) {
+            answer = act.getLocalClassName();
+        } else {
+            getMachine().getApplication().getClass().getSimpleName();
+        }
+
+        return answer;
+    }
 }
