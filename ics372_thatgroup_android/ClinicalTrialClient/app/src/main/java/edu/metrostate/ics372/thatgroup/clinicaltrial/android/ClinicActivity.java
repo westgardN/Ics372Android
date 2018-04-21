@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
@@ -15,6 +16,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 public class ClinicActivity extends AppCompatActivity {
 
+    private ClinicalTrialStateMachine machine;
     private ClinicalTrialModel model;
     private Clinic activeClinic;
     private List<Reading> allReadings;
@@ -27,11 +29,14 @@ public class ClinicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        machine = ((ClinicalTrialClient)getApplication()).getMachine();
+        model = machine.getApplication().getModel();
+
         setContentView(R.layout.activity_clinic);
         textViewName = findViewById (R.id.textViewName);
         textViewId = findViewById (R.id.textViewId);
 
-        model = ((ClinicalTrialClient)getApplication()).getModel();
+
         Intent intent = getIntent();
         String intentID = intent.getStringExtra("ClinicID");
         try {

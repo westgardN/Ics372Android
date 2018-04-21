@@ -14,4 +14,7 @@
     <string name="title_activity_clinic">ClinicActivity</string>
     <string name="clinic_name">Name</string>
     <string name="clinic_id">ID</string>
+    <string name="clinic_added">Clinic Added: </string>
+    <string name="err_clinic_not_added">Unable to add the clinic.</string>
+    <string name="err_clinic_not_updated">Unable to update the clinic.</string>
 </resources>

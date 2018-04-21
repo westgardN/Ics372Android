@@ -1,10 +1,9 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states;
 
-import android.app.Activity;
 import android.content.Context;
 
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ImportActivity;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.MainActivity;
+
+
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
