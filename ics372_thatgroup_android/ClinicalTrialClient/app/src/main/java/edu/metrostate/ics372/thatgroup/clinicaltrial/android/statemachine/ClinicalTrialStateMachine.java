@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ApplicationStartState;
 
 public class ClinicalTrialStateMachine {
     Deque<ClinicalTrialState> previousStates;
@@ -24,7 +25,7 @@ public class ClinicalTrialStateMachine {
 
     public ClinicalTrialStateMachine(ClinicalTrialClient app) {
         application = app;
-        currentState = null;
+        currentState = new ApplicationStartState(this, app);
 
         previousStates = new LinkedList<>();
         listeners = new LinkedList<>();
@@ -45,7 +46,7 @@ public class ClinicalTrialStateMachine {
     }
 
     public void process(ClinicalTrialEvent event) {
-        Log.i(getClass().getSimpleName().toString(),"Received Event: " + event.toString());
+        Log.i(getClass().getSimpleName(),"Received Event: " + event.toString());
         currentState.process(event);
         notifyChange();
     }
@@ -56,33 +57,40 @@ public class ClinicalTrialStateMachine {
 
     public void transition(ClinicalTrialState destinationState, boolean returnable) {
         if (returnable) {
-            Log.i(getClass().getSimpleName().toString(),"Saving state: " + currentState.toString());
+            Log.i(getClass().getSimpleName(),"Saving state: " + currentState.toString());
             currentState.onSave();
             previousStates.push(currentState);
         }
-        Log.i(getClass().getSimpleName().toString(),"Leaving state: " + currentState.toString());
+
+        Log.i(getClass().getSimpleName(),"Leaving state: " + currentState.toString());
+
         currentState.onCleanup();
+
         currentState = destinationState;
         notifyChange();
-        Log.i(getClass().getSimpleName().toString(),"Entering state: " + currentState.toString());
+        Log.i(getClass().getSimpleName(),"Entering state: " + currentState.toString());
     }
 
     public void transition() {
         if (!hasPrevious()) {
-            Log.i(getClass().getSimpleName().toString(),"No previous state to transition to.");
+            Log.i(getClass().getSimpleName(),"No previous state to transition to.");
             return;
         }
 
-        Log.i(getClass().getSimpleName().toString(),"Leaving state: " + currentState.toString());
+        Log.i(getClass().getSimpleName(),"Leaving state: " + currentState.toString());
         currentState.onCleanup();
         currentState = previousStates.pop();
         currentState.onReturn();
+        Log.i(getClass().getSimpleName(),"Returning to state: " + currentState.toString());
         notifyChange();
-        Log.i(getClass().getSimpleName().toString(),"Entering state: " + currentState.toString());
 
     }
 
     public boolean hasPrevious() {
         return !previousStates.isEmpty();
+    }
+
+    public void clearPreviousStates() {
+
     }
 }
