@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void openClinic(View view){
-        Intent intent =  new Intent(MainActivity.this,ClinicActivity.class);
+        Intent intent =  new Intent(MainActivity.this,ClinicsActivity.class);
         startActivity(intent);
     }
 

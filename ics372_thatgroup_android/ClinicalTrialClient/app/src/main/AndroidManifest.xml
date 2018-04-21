@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ClinicActivity"></activity>
+        <activity android:name=".ClinicsActivity" />
+        <activity
+            android:name=".ClinicActivity"
+            android:label="@string/title_activity_clinic"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,68 +1,54 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 public class ClinicActivity extends AppCompatActivity {
 
-    private ListView uiclinicList;
-    private ArrayList<String> clinicStringList;
-    private List<Clinic> clinicsProperty;
     private ClinicalTrialModel model;
-    private PropertyChangeListener listener;
+    private Clinic activeClinic;
+    private List<Reading> allReadings;
+    private List<Reading> activeClinicReadings;
+    private ArrayList<String> activeClinicReadingsString;
+    private TextView textViewName;
+    private TextView textViewId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinic);
-        uiclinicList = findViewById(R.id.clinicListView);
-        clinicStringList = new ArrayList<>();
+        textViewName = findViewById (R.id.textViewName);
+        textViewId = findViewById (R.id.textViewId);
 
+        model = ((ClinicalTrialClient)getApplication()).getModel();
+        Intent intent = getIntent();
+        String intentID = intent.getStringExtra("ClinicID");
         try {
-            model = new ClinicalTrialModel("android", getApplicationContext().getFilesDir().toString());
+            activeClinic = model.getClinic(intentID);
+            allReadings = model.getReadings();
         } catch (TrialCatalogException e) {
-            //catch statement
+            e.printStackTrace();
         }
-
-
-        //array adapter & click listener test
-        for(int x=1; x<20; x++){
-            clinicStringList.add("test "+x);
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, clinicStringList);
-        uiclinicList.setAdapter(arrayAdapter);
-        uiclinicList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
-            {
-                String selectedIndex = clinicStringList.get(position);
-                Toast.makeText(getApplicationContext(), "Index Selected : "+selectedIndex,   Toast.LENGTH_LONG).show();
+        textViewName.setText(activeClinic.getName());
+        textViewId.setText(activeClinic.getId());
+        for(int x=1; x<=allReadings.size(); x++){
+            if(allReadings.get(x).getClinicId().equals( activeClinic.getId())){
+                activeClinicReadings.add(allReadings.get(x));
+                activeClinicReadingsString.add(allReadings.get(x).getId());
             }
-        });
-    }
+        }
 
-    protected void newClinic(View view) {
-        String newClinicClicked = "new Clinic Clicked";
-        Toast.makeText(getApplicationContext(), newClinicClicked,   Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
 }
