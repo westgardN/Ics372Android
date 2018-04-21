@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicsActivityState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.MainActivityState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
@@ -27,12 +30,15 @@ public class ClinicsActivity extends AppCompatActivity {
     private List<Clinic> clinicsProperty;
     private ClinicalTrialModel model;
     private PropertyChangeListener listener;
+    private ClinicalTrialStateMachine machine;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ClinicalTrialStateMachine machine = ((ClinicalTrialClient)getApplication()).getMachine();
         setContentView(R.layout.activity_clinics);
+
         uiclinicList = findViewById(R.id.clinicListView);
         clinicStringList = new ArrayList<>();
         model = ((ClinicalTrialClient)getApplication()).getModel();
@@ -67,14 +73,20 @@ public class ClinicsActivity extends AppCompatActivity {
     }
 
     protected void newClinic(View view) {
-        String newClinicClicked = clinicsProperty.get(1).getName();
-        Toast.makeText(getApplicationContext(), newClinicClicked,   Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(ClinicsActivity.this,NewClinicActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        //machine.transition(new MainActivityState(machine,this));
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         model.removePropertyChangeListener(listener);
+        super.onDestroy();
     }
 
 }
