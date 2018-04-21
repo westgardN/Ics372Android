@@ -9,11 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingActivity;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingFragment;
+//import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingFragment;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity.ReadingActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity.ReadingFragment;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;

@@ -12,6 +12,8 @@
     <string name="title_reading_list">Readings</string>
     <string name="title_reading_detail">Reading Detail</string>
 
+    <string name="title_edit_reading">Edit Reading: %1$s</string>
+
     <string name="add_edit_reading_id">ID:</string>
     <string name="add_edit_reading_clinic_id">Clinic ID:</string>
     <string name="add_edit_reading_patient_id">Patient ID:</string>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +12,11 @@ import android.view.MenuItem;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.ReadingsActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 
 public class ReadingActivity extends AppCompatActivity {
-
-
+    Reading selectedReading;
+    FloatingActionButton editReadingFab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,16 +24,8 @@ public class ReadingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, AddEditReadingActivity.class);
-                intent.putExtra(AddEditReadingActivity.EDIT, AddEditReadingActivity.EDIT);
-                context.startActivity(intent);
-            }
-        });
+        editReadingFab = findViewById(R.id.edit_reading_fab);
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -42,17 +34,16 @@ public class ReadingActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-
+            selectedReading = (Reading) getIntent().getSerializableExtra(ReadingFragment.READING_TAG);
             arguments.putSerializable(
-                    ReadingFragment.READING_TAG,getIntent()
-                            .getSerializableExtra(ReadingFragment.READING_TAG)
-            );
+                    ReadingFragment.READING_TAG, selectedReading);
             ReadingFragment fragment = new ReadingFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.reading_detail_container, fragment)
                     .commit();
         }
+        setupListeners();
     }
 
     @Override
@@ -63,5 +54,18 @@ public class ReadingActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setupListeners() {
+        editReadingFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, AddEditReadingActivity.class);
+                intent.putExtra(ReadingFragment.READING_TAG, selectedReading);
+                System.out.println(selectedReading.toString());
+                context.startActivity(intent);
+            }
+        });
     }
 }
