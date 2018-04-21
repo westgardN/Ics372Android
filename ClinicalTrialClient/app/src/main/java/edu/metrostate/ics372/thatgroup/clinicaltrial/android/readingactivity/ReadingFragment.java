@@ -1,4 +1,4 @@
-package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity;
+package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -12,16 +12,16 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.Objects;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.presenter.ReadingPresenter;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity.ReadingPresenter;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 
-public class ReadingDetailFragment extends Fragment {
+public class ReadingFragment extends Fragment {
 
     public static final String READING_TAG = "reading";
     private Serializable reading;
     private ReadingPresenter readingPresenter;
 
-    public ReadingDetailFragment() {
+    public ReadingFragment() {
     }
 
     @Override

@@ -3,7 +3,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:padding="16dp"
-        tools:context=".readingsactivity.ReadingDetailFragment"
+        tools:context=".readingactivity.ReadingFragment"
         android:id="@+id/reading_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

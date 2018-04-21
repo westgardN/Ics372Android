@@ -1,4 +1,4 @@
-package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.presenter;
+package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 import java.util.Locale;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;

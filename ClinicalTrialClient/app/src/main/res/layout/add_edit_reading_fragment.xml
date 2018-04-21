@@ -1,74 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top|center"
-        android:orientation="vertical"
-        android:padding="35dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_edit_reading_form"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    android:padding="25dp"
+    tools:context=".addeditreadingactivity.AddEditReadingActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="6dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minWidth="75dp"
-                android:text="@string/add_edit_reading_id"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/add_edit_reading_id_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+    <LinearLayout
+        android:id="@+id/reading_id_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-            android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/add_edit_reading_id_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/add_edit_reading_clinic_id"
-            android:textSize="18sp"
-            android:minWidth="75dp"/>
+            android:labelFor="@id/add_edit_reading_id_txt"
+            android:minWidth="75dp"
+            android:text="@string/add_edit_reading_id"
+            android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/add_edit_reading_clinic_id_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text" />
+        <EditText
+            android:id="@+id/add_edit_reading_id_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/reading_clinic_id_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/add_edit_reading_clinic_id_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:labelFor="@+id/add_edit_reading_clinic_id_txt"
+            android:minWidth="75dp"
+            android:text="@string/add_edit_reading_clinic_id"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/add_edit_reading_clinic_id_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reading_patient_id_con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/add_edit_reading_patient_id_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@id/add_edit_reading_patient_id_txt"
+            android:minWidth="75dp"
             android:text="@string/add_edit_reading_patient_id"
-            android:textSize="18sp"
-            android:minWidth="75dp"/>
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/add_edit_reading_patient_id_txt"
@@ -81,43 +91,75 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/reading_type_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
+            android:id="@+id/add_edit_reading_type_lbl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:labelFor="@id/add_edit_reading_type_spinner"
+            android:minWidth="75dp"
             android:text="@string/add_edit_reading_type"
-            android:textSize="18sp"
-            android:minWidth="75dp"/>
+            android:textSize="18sp" />
 
         <Spinner
-            android:id="@+id/add_edit_reading_value_spinner"
+            android:id="@+id/add_edit_reading_type_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/reading_types"
-            android:minWidth="223dp"
+            android:minHeight="45dp"
+            android:minWidth="234dp"
             android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/reading_value_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/add_edit_reading_value_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:labelFor="@id/add_edit_reading_value_txt"
+            android:minWidth="75dp"
+            android:text="@string/add_edit_reading_value"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/add_edit_reading_value_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:minWidth="75dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reading_date_con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/add_edit_reading_date_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@id/add_edit_reading_date_txt"
+            android:minWidth="75dp"
             android:text="@string/add_edit_reading_date"
-            android:textSize="18sp"
-            android:minWidth="75dp"/>
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/add_edit_reading_date_txt"
@@ -129,22 +171,24 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/reading_time_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/add_edit_reading_time_txt"
+            android:id="@+id/add_edit_reading_time_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:labelFor="@id/add_edit_reading_time_txt"
             android:minWidth="75dp"
             android:text="@string/add_edit_reading_time"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editText10"
+            android:id="@+id/add_edit_reading_time_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -153,6 +197,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/add_edit_reading_btns_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -161,8 +206,8 @@
             android:id="@+id/add_edit_reading_clr_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_edit_reading_clr_btn_lbl"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginBottom="6dp"
+            android:text="@string/add_edit_reading_clr_btn_lbl" />
 
         <Button
             android:id="@+id/add_edit_reading_submit_btn"

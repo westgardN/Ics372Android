@@ -1,5 +1,6 @@
-package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity;
+package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.ReadingsActivity;
 
 public class ReadingActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +28,10 @@ public class ReadingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Context context = view.getContext();
+                Intent intent = new Intent(context, AddEditReadingActivity.class);
+                intent.putExtra(AddEditReadingActivity.EDIT, AddEditReadingActivity.EDIT);
+                context.startActivity(intent);
             }
         });
 
@@ -38,10 +44,10 @@ public class ReadingActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
 
             arguments.putSerializable(
-                    ReadingDetailFragment.READING_TAG,getIntent()
-                            .getSerializableExtra(ReadingDetailFragment.READING_TAG)
+                    ReadingFragment.READING_TAG,getIntent()
+                            .getSerializableExtra(ReadingFragment.READING_TAG)
             );
-            ReadingDetailFragment fragment = new ReadingDetailFragment();
+            ReadingFragment fragment = new ReadingFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.reading_detail_container, fragment)
