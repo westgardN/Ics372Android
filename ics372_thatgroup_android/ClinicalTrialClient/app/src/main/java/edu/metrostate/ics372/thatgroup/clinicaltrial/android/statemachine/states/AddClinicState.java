@@ -33,6 +33,9 @@ public class AddClinicState extends ClinicState {
         ClinicalTrialStateMachine machine = getMachine();
 
         switch (event) {
+            case ON_ERROR:
+                machine.transition(new ClinicErrorState(machine, getCurrentActivity()), true);
+                break;
             case ON_OK:
                 Activity current = getCurrentActivity();
 
@@ -56,6 +59,8 @@ public class AddClinicState extends ClinicState {
                 }
                 machine.transition();
                 break;
+            default:
+                super.process(event);
         }
     }
 

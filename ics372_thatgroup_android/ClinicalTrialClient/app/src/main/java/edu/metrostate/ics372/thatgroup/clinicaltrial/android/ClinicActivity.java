@@ -9,6 +9,7 @@ import android.view.View;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
@@ -81,5 +82,19 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
 
         state.setClinic(presenter.getClinic());
         machine.process(ClinicalTrialEvent.ON_ADD_READING);
+    }
+
+    @Override
+    public void onInputError() {
+        machine.process(ClinicalTrialEvent.ON_ERROR);
+        presenter.updateView(false);
+    }
+
+    @Override
+    public void onInputOk() {
+        if (machine.getCurrentState() instanceof ClinicErrorState) {
+            machine.process(ClinicalTrialEvent.ON_OK);
+        }
+        presenter.updateView(false);
     }
 }

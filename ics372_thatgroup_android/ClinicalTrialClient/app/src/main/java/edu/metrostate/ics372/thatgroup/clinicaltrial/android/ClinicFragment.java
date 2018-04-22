@@ -4,13 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
 
@@ -23,9 +27,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
  * create an instance of this fragment.
  */
 public class ClinicFragment extends Fragment implements ClinicView,
-        Button.OnClickListener {
-    private static final int TEXT_NONE = 0;
-    private static final int TEXT_TEXT = 1;
+        Button.OnClickListener, TextWatcher {
+    private static final int MAX_CLINIC_ID = 32;
+    private static final int MAX_CLINIC_NAME = 255;
 
     private ClinicPresenter presenter;
     private static final String ARG_CLINIC = "clinic";
@@ -67,6 +71,12 @@ public class ClinicFragment extends Fragment implements ClinicView,
         ((Button)getView().findViewById(R.id.view_readings)).setOnClickListener(this);
         ((Button)getView().findViewById(R.id.add_reading)).setOnClickListener(this);
         ((Button)getView().findViewById(R.id.save_clinic)).setOnClickListener(this);
+
+        TextView id = (TextView)getView().findViewById(R.id.clinic_id);
+        TextView name = (TextView)getView().findViewById(R.id.clinic_name);
+
+        id.addTextChangedListener(this);
+        name.addTextChangedListener(this);
     }
 
     @Override
@@ -201,6 +211,98 @@ public class ClinicFragment extends Fragment implements ClinicView,
         this.presenter.setView(this);
     }
 
+    private boolean validate() {
+        boolean answer = false;
+        Clinic clinic = presenter.getClinic();
+
+        if ((clinic.getId().isEmpty() ||
+                validate(clinic.getId(), MAX_CLINIC_ID, false)) &&
+                (clinic.getName().isEmpty() ||
+                        validate(clinic.getName(), MAX_CLINIC_NAME, true))) {
+            answer = true;
+        }
+
+        return answer;
+    }
+
+    private boolean validate(String text, int maxLength, boolean allowSpace) {
+        boolean answer = false;
+        String matchString = allowSpace ? getString(R.string.regex_no_special_chars_allow_spaces)
+                : getString(R.string.regex_no_special_chars);
+
+        if (text != null && !text.trim().isEmpty() && text.trim().length() <= maxLength) {
+            if (text.matches(matchString)) {
+                answer = true;
+            }
+        }
+
+        return answer;
+    }
+
+    /**
+     * This method is called to notify you that, within <code>s</code>,
+     * the <code>count</code> characters beginning at <code>start</code>
+     * are about to be replaced by new text with length <code>after</code>.
+     * It is an error to attempt to make changes to <code>s</code> from
+     * this callback.
+     *
+     * @param s
+     * @param start
+     * @param count
+     * @param after
+     */
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    /**
+     * This method is called to notify you that, within <code>s</code>,
+     * the <code>count</code> characters beginning at <code>start</code>
+     * have just replaced old text that had length <code>before</code>.
+     * It is an error to attempt to make changes to <code>s</code> from
+     * this callback.
+     *
+     * @param s
+     * @param start
+     * @param before
+     * @param count
+     */
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    /**
+     * This method is called to notify you that, somewhere within
+     * <code>s</code>, the text has been changed.
+     * It is legitimate to make further changes to <code>s</code> from
+     * this callback, but be careful not to get yourself into an infinite
+     * loop, because any changes you make will cause this method to be
+     * called again recursively.
+     * (You are not told where the change took place because other
+     * afterTextChanged() methods may already have made other changes
+     * and invalidated the offsets.  But if you need to know here,
+     * you can use {@link Spannable#setSpan} in {@link #onTextChanged}
+     * to mark your place and then look up from here where the span
+     * ended up.
+     *
+     * @param s
+     */
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(!validate()) {
+            if (mListener != null) {
+                mListener.onInputError();
+            }
+        } else {
+            if (mListener != null) {
+                mListener.onInputOk();
+            }
+
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -217,5 +319,9 @@ public class ClinicFragment extends Fragment implements ClinicView,
         void onViewReadingsClicked();
 
         void onAddReadingClicked();
+
+        void onInputError();
+
+        void onInputOk();
     }
 }

@@ -39,18 +39,25 @@ public class ClinicPresenter implements BasePresenter{
     public void unsubscribe(){ }
 
     public void  updateView() {
+        updateView(true);
+    }
+
+    public void  updateView(boolean setData) {
         if (view != null && clinic != null) {
             ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
 
-            view.setClinicId(clinic.getId());
-            view.setClinicName(clinic.getName());
-
-            view.setDisabledId(!state.canAdd());
-            view.setDisabledName(!(state.canUpdate() || state.canAdd()));
-
-            view.setVisibleAddReading(state.canAddReading());
-            view.setVisibleViewReadings(state.canViewReadings());
-            view.setVisibleSave((state.canUpdate() || state.canAdd()));
+            if (setData) {
+                view.setClinicId(clinic.getId());
+                view.setClinicName(clinic.getName());
+                view.setDisabledId(!state.canAdd());
+                view.setDisabledName(!(state.canUpdate() || state.canAdd()));
+                view.setVisibleAddReading(state.canAddReading());
+                view.setVisibleViewReadings(state.canViewReadings());
+                view.setVisibleSave((state.canUpdate() || state.canAdd()));
+                view.setDisabledSave(true);
+            } else {
+                view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
+            }
         }
     }
 }
