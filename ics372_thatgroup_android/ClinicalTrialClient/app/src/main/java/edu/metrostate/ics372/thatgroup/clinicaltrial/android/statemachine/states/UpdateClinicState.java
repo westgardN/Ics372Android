@@ -42,7 +42,7 @@ public class UpdateClinicState extends ClinicalTrialState {
                 if (current != null && !current.isDestroyed()) {
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(
-                            getContext().getResources().getString(R.string.intent_updated),
+                            getContext().getResources().getString(R.string.intent_updated_or_added),
                             clinic);
                     getCurrentActivity().setResult(RESULT_OK, returnIntent);
                     getCurrentActivity().finish();
