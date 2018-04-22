@@ -21,4 +21,7 @@
     <string name="REGEX_NO_SPECIAL_CHARS_ALLOW_SPACES">^[A-Za-z0-9_\\s]+$</string>
     <string name="REGEX_NO_SPECIAL_CHARS">^[A-Za-z0-9_]+$</string>
     <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
