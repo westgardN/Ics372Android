@@ -132,6 +132,20 @@ public class TrialCatalogTest {
     }
 
     @Test
+    public void testGetPatient() throws TrialCatalogException {
+        Patient patient = new Patient("test", TEST_TRIAL_ID, LocalDate.now(), null, PatientStatus.COMPLETED_ID);
+
+        testInsertPatient();
+        boolean expected = true;
+        boolean actual = catalog.exists(patient);
+        assertEquals(expected, actual);
+
+        Patient existingPatient = catalog.get(patient);
+
+        assertEquals(existingPatient, patient);
+    }
+
+    @Test
     public void testUpdatePatient() throws TrialCatalogException {
         Patient patient = new Patient("test", TEST_TRIAL_ID, LocalDate.of(2007, 1, 18), LocalDate.of(2018, 3, 18), PatientStatus.FAILED_ID);
 

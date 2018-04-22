@@ -10,12 +10,12 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ApplicationStartState;
 
 public class ClinicalTrialStateMachine {
-    Deque<ClinicalTrialState> previousStates;
-    ClinicalTrialState currentState;
+    Deque<State> previousStates;
+    State currentState;
     List<ClinicalTrialChangedEventListener> listeners;
     ClinicalTrialClient application;
 
-    public ClinicalTrialState getCurrentState() {
+    public State getCurrentState() {
         return currentState;
     }
 
@@ -90,7 +90,5 @@ public class ClinicalTrialStateMachine {
         return !previousStates.isEmpty();
     }
 
-    public void clearPreviousStates() {
-
-    }
+    public void clearPreviousStates() { previousStates.clear(); }
 }
