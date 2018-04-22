@@ -2,9 +2,13 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
 public interface ClinicView extends BaseView<ClinicPresenter>{
 
-    void setId(String id);
+    void setClinicId(String id);
 
-    void setName(String name);
+    void setClinicName(String name);
+
+    String getClinicId();
+
+    String getClinicName();
 
     void setVisibleAddReading(boolean visible);
 

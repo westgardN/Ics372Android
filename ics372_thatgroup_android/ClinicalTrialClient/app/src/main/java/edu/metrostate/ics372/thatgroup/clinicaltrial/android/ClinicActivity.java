@@ -9,6 +9,7 @@ import android.view.View;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
@@ -30,17 +31,25 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
         setContentView(R.layout.activity_clinic);
 
         Intent intent = getIntent();
-        Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_update_clinic));
+        Clinic clinic = null;
 
-        if (obj instanceof Clinic) {
-            Clinic clinic = (Clinic) obj;
+        if (intent.hasExtra(getResources().getString(R.string.intent_update_clinic))) {
+            Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_update_clinic));
 
-            presenter.setClinic(clinic);
-            ClinicFragment fragment = ClinicFragment.newInstance(clinic);
-            fragment.setPresenter(presenter);
-
-            getFragmentManager().beginTransaction().add(R.id.fragment_clinic, fragment).commit();
+            if (obj instanceof Clinic) {
+                clinic = (Clinic) obj;
+            }
         }
+
+        if (clinic == null) {
+            clinic = new Clinic();
+        }
+
+        presenter.setClinic(clinic);
+        ClinicFragment fragment = ClinicFragment.newInstance(clinic);
+        fragment.setPresenter(presenter);
+
+        getFragmentManager().beginTransaction().add(R.id.fragment_clinic, fragment).commit();
     }
 
     @Override
@@ -52,16 +61,25 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
 
     @Override
     public void onSaveClicked() {
+        ClinicState state = (ClinicState)machine.getCurrentState();
+
+        state.setClinic(presenter.getClinic());
         machine.process(ClinicalTrialEvent.ON_OK);
     }
 
     @Override
     public void onViewReadingsClicked() {
+        ClinicState state = (ClinicState)machine.getCurrentState();
+
+        state.setClinic(presenter.getClinic());
         machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
     }
 
     @Override
     public void onAddReadingClicked() {
+        ClinicState state = (ClinicState)machine.getCurrentState();
+
+        state.setClinic(presenter.getClinic());
         machine.process(ClinicalTrialEvent.ON_ADD_READING);
     }
 }

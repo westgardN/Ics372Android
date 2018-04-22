@@ -130,13 +130,23 @@ public class ClinicFragment extends Fragment implements ClinicView,
     }
 
     @Override
-    public void setId(String id) {
+    public void setClinicId(String id) {
         ((TextView)getView().findViewById(R.id.clinic_id)).setText(id);
     }
 
     @Override
-    public void setName(String name) {
+    public void setClinicName(String name) {
         ((TextView)getView().findViewById(R.id.clinic_name)).setText(name);
+    }
+
+    @Override
+    public String getClinicId() {
+        return ((TextView)getView().findViewById(R.id.clinic_id)).getText().toString();
+    }
+
+    @Override
+    public String getClinicName() {
+        return ((TextView)getView().findViewById(R.id.clinic_name)).getText().toString();
     }
 
     @Override

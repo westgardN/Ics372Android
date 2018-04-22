@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.AddClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.UpdateClinicState;
@@ -24,6 +25,8 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         final ClinicalTrialStateMachine machine =
                 ((ClinicalTrialClient)getApplication()).getMachine();
         final ClinicalTrialModel model = machine.getApplication().getModel();
+        final ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
+        state.setCurrentActivity(this);
         ClinicsPresenter presenter = new ClinicsPresenter();
 
         try {
@@ -71,7 +74,6 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         final ClinicalTrialStateMachine machine =
                 ((ClinicalTrialClient)getApplication()).getMachine();
         final ClinicalTrialModel model = machine.getApplication().getModel();

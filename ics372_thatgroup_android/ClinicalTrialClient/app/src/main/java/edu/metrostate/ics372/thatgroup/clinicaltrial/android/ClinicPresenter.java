@@ -19,7 +19,18 @@ public class ClinicPresenter implements BasePresenter{
 
     public void setClinic(Clinic clinic) { this.clinic = clinic; }
 
-    public Clinic getClinic() { return clinic; }
+    public Clinic getClinic() {
+        if (view != null) {
+            if (clinic == null) {
+                clinic = new Clinic();
+            }
+
+            clinic.setId(view.getClinicId());
+            clinic.setName(view.getClinicName());
+        }
+
+        return clinic;
+    }
 
     @Override
     public void subscribe(){ updateView(); }
@@ -31,8 +42,8 @@ public class ClinicPresenter implements BasePresenter{
         if (view != null && clinic != null) {
             ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
 
-            view.setId(clinic.getId());
-            view.setName(clinic.getName());
+            view.setClinicId(clinic.getId());
+            view.setClinicName(clinic.getName());
 
             view.setDisabledId(state.canAdd());
             view.setDisabledName((state.canUpdate() || state.canAdd()));

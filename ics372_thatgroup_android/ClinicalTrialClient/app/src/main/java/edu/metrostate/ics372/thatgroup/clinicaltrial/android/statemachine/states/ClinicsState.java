@@ -40,12 +40,12 @@ public class ClinicsState extends ClinicalTrialState {
                 break;
             case ON_SELECT:
                 if (hasClinic()) {
-                    machine.transition(new UpdateClinicState(machine, getContext(), getClinic()), true);
+                    machine.transition(new UpdateClinicState(machine, getCurrentActivity(), getClinic()), true);
                 }
                 break;
             case ON_ADD:
                 if (canAdd()) {
-                    machine.transition(new AddClinicState(machine, getContext()), true);
+                    machine.transition(new AddClinicState(machine, getCurrentActivity()), true);
                 }
                 break;
             default:

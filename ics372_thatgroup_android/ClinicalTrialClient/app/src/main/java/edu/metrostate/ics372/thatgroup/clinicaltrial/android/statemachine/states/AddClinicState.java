@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 
-public class AddClinicState extends ClinicalTrialState {
-    public static final int ADD_CLINIC = 1;
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
+public class AddClinicState extends ClinicState {
 
     public AddClinicState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
@@ -29,7 +34,26 @@ public class AddClinicState extends ClinicalTrialState {
 
         switch (event) {
             case ON_OK:
+                Activity current = getCurrentActivity();
+
+                if (current != null && !current.isDestroyed()) {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(
+                            getContext().getResources().getString(R.string.intent_updated_or_added),
+                            clinic);
+                    getCurrentActivity().setResult(RESULT_OK, returnIntent);
+                    getCurrentActivity().finish();
+                }
+                machine.transition();
+                break;
+            case ON_CANCEL:
             case ON_PREVIOUS:
+                current = getCurrentActivity();
+
+                if (current != null && !current.isDestroyed()) {
+                    getCurrentActivity().setResult(RESULT_CANCELED);
+                    getCurrentActivity().finish();
+                }
                 machine.transition();
                 break;
         }
@@ -49,5 +73,16 @@ public class AddClinicState extends ClinicalTrialState {
     public void onReturn() {
 
     }
+
+    @Override
+    public boolean canUpdate() {
+        return false;
+    }
+
+    @Override
+    public boolean canAdd() {
+        return true;
+    }
+
 }
 

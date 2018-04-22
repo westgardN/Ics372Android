@@ -12,11 +12,10 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class UpdateClinicState extends ClinicalTrialState {
-    public static final int UPDATE_CLINIC = 2;
-    private Clinic clinic;
+public class UpdateClinicState extends ClinicState {
 
     public UpdateClinicState(ClinicalTrialStateMachine machine, Context context, Clinic clinic) {
         super(machine, context);
@@ -54,7 +53,7 @@ public class UpdateClinicState extends ClinicalTrialState {
                 current = getCurrentActivity();
 
                 if (current != null && !current.isDestroyed()) {
-                    getCurrentActivity().setResult(RESULT_OK);
+                    getCurrentActivity().setResult(RESULT_CANCELED);
                     getCurrentActivity().finish();
                 }
                 machine.transition();
@@ -90,14 +89,6 @@ public class UpdateClinicState extends ClinicalTrialState {
     @Override
     public boolean canViewReadings() {
         return hasReadings();
-    }
-
-    public Clinic getClinic() {
-        return clinic;
-    }
-
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
     }
 
     @Override
