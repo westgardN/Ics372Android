@@ -20,5 +20,7 @@ public enum ClinicalTrialEvent {
     ON_ACTIVE,
     ON_COMPLETE,
     ON_FAILED,
-    ON_WITHDRAWN;
+    ON_WITHDRAWN,
+    ON_VIEW_READINGS,
+    ON_ADD_READING
 }
