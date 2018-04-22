@@ -45,8 +45,8 @@ public class ClinicPresenter implements BasePresenter{
             view.setClinicId(clinic.getId());
             view.setClinicName(clinic.getName());
 
-            view.setDisabledId(state.canAdd());
-            view.setDisabledName((state.canUpdate() || state.canAdd()));
+            view.setDisabledId(!state.canAdd());
+            view.setDisabledName(!(state.canUpdate() || state.canAdd()));
 
             view.setVisibleAddReading(state.canAddReading());
             view.setVisibleViewReadings(state.canViewReadings());

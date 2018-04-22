@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -184,12 +185,14 @@ public class ClinicFragment extends Fragment implements ClinicView,
 
     @Override
     public void setDisabledId(boolean disabled) {
-        ((TextView)getView().findViewById(R.id.clinic_id)).setInputType(disabled ? TEXT_NONE : TEXT_TEXT);
+        ((TextView)getView().findViewById(R.id.clinic_id)).setInputType(disabled ?
+                InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
     }
 
     @Override
     public void setDisabledName(boolean disabled) {
-        ((TextView)getView().findViewById(R.id.clinic_name)).setInputType(disabled ? TEXT_NONE : TEXT_TEXT);
+        ((TextView)getView().findViewById(R.id.clinic_name)).setInputType(disabled ?
+                InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
     }
 
     @Override
