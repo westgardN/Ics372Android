@@ -5,11 +5,13 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.AddClinicState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.UpdateClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
@@ -87,6 +89,18 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
 
                         try {
                             model.updateOrAdd(clinic);
+                            String msg = "";
+
+                            if (requestCode == ClinicState.ADD_CLINIC) {
+                                msg = getString(R.string.clinic_added);
+                            } else {
+                                msg = getString(R.string.clinic_updated);
+                            }
+
+                            msg += " " + clinic.getName();
+
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
                         } catch (TrialCatalogException e) {
                             e.printStackTrace();
                         }

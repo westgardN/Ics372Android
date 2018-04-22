@@ -10,6 +10,7 @@ import android.widget.Toast;
 import android.text.TextWatcher;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
@@ -42,7 +43,9 @@ public class NewClinicActivity extends AppCompatActivity {
                         && (validate(editTextID.getText().toString(),200,false)))) {
                     machine.process(ClinicalTrialEvent.ON_ERROR);
                 } else {
-                    machine.process(ClinicalTrialEvent.ON_OK);
+                    if (machine.getCurrentState() instanceof ErrorState) {
+                        machine.process(ClinicalTrialEvent.ON_OK);
+                    }
                 }
             }
 

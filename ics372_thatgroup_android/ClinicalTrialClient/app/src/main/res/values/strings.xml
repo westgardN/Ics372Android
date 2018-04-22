@@ -2,6 +2,7 @@
     <string name="app_name">Clinical Trial Client</string>
     <string name="action_settings">Settings</string>
     <string name="clinic_added">Clinic Added: </string>
+    <string name="clinic_updated">Clinic Updated: </string>
     <string name="clinic_id">ID</string>
     <string name="clinic_name">Name</string>
     <string name="clinic_add">Add Clinic</string>
