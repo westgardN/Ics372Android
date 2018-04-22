@@ -27,12 +27,20 @@ public class ImportActivity extends AppCompatActivity {
         fileDialog.showDialog();
     }
 
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    public void onBackPressed() {
+        super.onBackPressed();
         ClinicalTrialStateMachine machine = ((ClinicalTrialClient)getApplication()).getMachine();
 
         machine.process(ClinicalTrialEvent.ON_PREVIOUS);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

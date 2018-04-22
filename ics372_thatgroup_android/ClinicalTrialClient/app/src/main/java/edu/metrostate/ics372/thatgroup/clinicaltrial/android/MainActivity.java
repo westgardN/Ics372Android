@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (view.getId()) {
             case R.id.button_clinics:
+                machine.process(ClinicalTrialEvent.ON_CLINICS);
                 break;
             case R.id.button_patients:
                 break;
@@ -46,8 +47,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
     }
-
-
-
 
 }
