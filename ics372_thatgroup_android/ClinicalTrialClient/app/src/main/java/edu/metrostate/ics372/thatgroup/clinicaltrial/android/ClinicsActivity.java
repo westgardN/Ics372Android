@@ -24,16 +24,6 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         final ClinicalTrialStateMachine machine =
                 ((ClinicalTrialClient)getApplication()).getMachine();
         final ClinicalTrialModel model = machine.getApplication().getModel();
-//        final ListView viewClinics = findViewById(R.id.clinics);
-//        final Button add = findViewById(R.id.add);
-//        try {
-//            ArrayAdapter<Clinic> arrayAdapter = new ArrayAdapter<>(this,
-//                    android.R.layout.simple_list_item_1, model.getClinics());
-//            viewClinics.setAdapter(arrayAdapter);
-//            viewClinics.setOnItemClickListener(this);
-//        } catch (TrialCatalogException e) {
-//            e.printStackTrace();
-//        }
         ClinicsPresenter presenter = new ClinicsPresenter();
 
         try {
@@ -82,14 +72,24 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        final ClinicalTrialModel model = machine.getApplication().getModel();
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == UpdateClinicState.UPDATE_CLINIC) {
+            if (requestCode == UpdateClinicState.UPDATE_CLINIC || requestCode == AddClinicState.ADD_CLINIC) {
+                if (data != null) {
+                    Object obj = data.getSerializableExtra(getResources().getString(R.string.intent_updated_or_added));
+                    if (obj instanceof Clinic) {
+                        Clinic clinic = (Clinic) obj;
 
-            }
-
-            if (requestCode == AddClinicState.ADD_CLINIC) {
-
+                        try {
+                            model.updateOrAdd(clinic);
+                        } catch (TrialCatalogException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
     }
