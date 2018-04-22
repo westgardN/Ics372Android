@@ -17,6 +17,16 @@ public abstract class ClinicalTrialState implements State {
     private ClinicalTrialStateMachine machine;
     private Context context;
     private Activity activity;
+    private Activity currentActivity;
+
+
+    public Activity getCurrentActivity() {
+        return currentActivity;
+    }
+
+    public void setCurrentActivity(Activity currentActivity) {
+        this.currentActivity = currentActivity;
+    }
 
     public ClinicalTrialState(ClinicalTrialStateMachine machine, Context context) {
         if (machine == null) {
@@ -56,9 +66,11 @@ public abstract class ClinicalTrialState implements State {
         return context;
     }
 
-    public Activity getActivity() {
+    public Activity getFromActivity() {
         return activity;
     }
+
+
 
     @Override
     public String toString() {
@@ -70,6 +82,14 @@ public abstract class ClinicalTrialState implements State {
     }
 
     public boolean canAdd() {
+        return false;
+    }
+
+    public boolean canAddReading() {
+        return false;
+    }
+
+    public boolean canViewReadings() {
         return false;
     }
 

@@ -1,5 +1,6 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.view.View;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.AddClinicState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.UpdateClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
@@ -34,7 +37,6 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         ClinicsPresenter presenter = new ClinicsPresenter();
 
         try {
-            Clinic defaultClinic = model.getDefaultClinic();
 
             presenter.setClinics(model.getClinics());
 
@@ -68,5 +70,27 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    /**
+     * Dispatch incoming result to the correct fragment.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == UpdateClinicState.UPDATE_CLINIC) {
+
+            }
+
+            if (requestCode == AddClinicState.ADD_CLINIC) {
+
+            }
+        }
     }
 }

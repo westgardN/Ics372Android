@@ -18,7 +18,7 @@ public class NewClinicActivityState extends ClinicalTrialState {
     public NewClinicActivityState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
         this.machine = machine;
-        Activity act = getActivity();
+        Activity act = getFromActivity();
         Intent intent = new Intent(act, ClinicActivity.class);
         act.startActivity(intent);
     }

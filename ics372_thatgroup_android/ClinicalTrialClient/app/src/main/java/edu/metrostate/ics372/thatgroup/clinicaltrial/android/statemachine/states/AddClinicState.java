@@ -5,19 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicActivity;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
 public class AddClinicState extends ClinicalTrialState {
-    static final int ADD_CLINIC = 1;
+    public static final int ADD_CLINIC = 1;
 
     public AddClinicState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
-        Activity act = getActivity();
+        Activity act = getFromActivity();
 
         if (act != null) {
             Intent intent = new Intent(act, ClinicActivity.class);

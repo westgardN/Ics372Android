@@ -10,6 +10,7 @@
     <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
+    <string name="intent_updated">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>
     <string name="intent_update_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.clinic</string>
     <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
     <string name="main_add_reading">Add Reading</string>

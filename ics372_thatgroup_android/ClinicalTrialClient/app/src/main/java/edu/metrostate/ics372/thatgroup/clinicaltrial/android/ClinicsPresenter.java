@@ -2,9 +2,12 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
 import java.util.List;
 
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
 public class ClinicsPresenter implements BasePresenter{
+    private ClinicalTrialStateMachine machine;
+
     private ClinicsView view = null;
 
     private List<Clinic> clinics = null;
@@ -14,7 +17,9 @@ public class ClinicsPresenter implements BasePresenter{
     public void setClinics(List<Clinic> clinics) { this.clinics = clinics; }
 
     @Override
-    public void subscribe(){ updateView(); }
+    public void subscribe(){
+        updateView();
+    }
 
     @Override
     public void unsubscribe(){ }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicsActivity;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.NewClinicActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
@@ -17,7 +16,7 @@ public class ClinicsState extends ClinicalTrialState {
     public ClinicsState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
-        Activity act = getActivity();
+        Activity act = getFromActivity();
         Intent intent = new Intent(act, ClinicsActivity.class);
         act.startActivity(intent);
     }

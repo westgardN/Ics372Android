@@ -15,7 +15,7 @@ class ImportActivityState extends ClinicalTrialState {
     public ImportActivityState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
-        Activity act = getActivity();
+        Activity act = getFromActivity();
         Intent intent = new Intent(act, ImportActivity.class);
         act.startActivity(intent);
     }

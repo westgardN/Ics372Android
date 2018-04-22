@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
@@ -20,8 +21,12 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
  * Use the {@link ClinicFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClinicFragment extends Fragment implements ClinicView {
-    ClinicPresenter presenter;
+public class ClinicFragment extends Fragment implements ClinicView,
+        Button.OnClickListener {
+    private static final int TEXT_NONE = 0;
+    private static final int TEXT_TEXT = 1;
+
+    private ClinicPresenter presenter;
     private static final String ARG_CLINIC = "clinic";
 
     private Clinic clinic;
@@ -57,6 +62,10 @@ public class ClinicFragment extends Fragment implements ClinicView {
     public void onStart() {
         super.onStart();
         presenter.subscribe();
+
+        ((Button)getView().findViewById(R.id.view_readings)).setOnClickListener(this);
+        ((Button)getView().findViewById(R.id.add_reading)).setOnClickListener(this);
+        ((Button)getView().findViewById(R.id.save_clinic)).setOnClickListener(this);
     }
 
     @Override
@@ -74,14 +83,30 @@ public class ClinicFragment extends Fragment implements ClinicView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_clinic, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.save_clinic:
+                if (mListener != null) {
+                    mListener.onSaveClicked();
+                }
+                break;
+            case R.id.view_readings:
+                if (mListener != null) {
+                    mListener.onViewReadingsClicked();
+                }
+                break;
+            case R.id.add_reading:
+                if (mListener != null) {
+                    mListener.onAddReadingClicked();
+                }
+                break;
         }
     }
 
@@ -115,6 +140,49 @@ public class ClinicFragment extends Fragment implements ClinicView {
     }
 
     @Override
+    public void setVisibleAddReading(boolean visible) {
+        ((Button)getView().findViewById(R.id.add_reading)).setVisibility(visible ?
+                View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setVisibleViewReadings(boolean visible) {
+        ((Button)getView().findViewById(R.id.view_readings)).setVisibility(visible ?
+                View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setVisibleSave(boolean visible) {
+        ((Button)getView().findViewById(R.id.save_clinic)).setVisibility(visible ?
+                View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setDisabledAddReading(boolean disabled) {
+        ((Button)getView().findViewById(R.id.add_reading)).setEnabled(!disabled);
+    }
+
+    @Override
+    public void setDisabledViewReadings(boolean disabled) {
+        ((Button)getView().findViewById(R.id.view_readings)).setEnabled(!disabled);
+    }
+
+    @Override
+    public void setDisabledSave(boolean disabled) {
+        ((Button)getView().findViewById(R.id.save_clinic)).setEnabled(!disabled);
+    }
+
+    @Override
+    public void setDisabledId(boolean disabled) {
+        ((TextView)getView().findViewById(R.id.clinic_id)).setInputType(disabled ? TEXT_NONE : TEXT_TEXT);
+    }
+
+    @Override
+    public void setDisabledName(boolean disabled) {
+        ((TextView)getView().findViewById(R.id.clinic_name)).setInputType(disabled ? TEXT_NONE : TEXT_TEXT);
+    }
+
+    @Override
     public void setPresenter(ClinicPresenter presenter) {
         this.presenter = presenter;
         this.presenter.setView(this);
@@ -131,7 +199,10 @@ public class ClinicFragment extends Fragment implements ClinicView {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onSaveClicked();
+
+        void onViewReadingsClicked();
+
+        void onAddReadingClicked();
     }
 }
