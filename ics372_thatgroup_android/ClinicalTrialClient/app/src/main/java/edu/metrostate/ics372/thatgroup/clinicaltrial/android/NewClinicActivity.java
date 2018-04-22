@@ -15,7 +15,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
-public class NewClinicActivity extends AppCompatActivity implements NewClinicView {
+public class NewClinicActivity extends AppCompatActivity {
 
     private ClinicalTrialModel model;
     private ClinicalTrialStateMachine machine;

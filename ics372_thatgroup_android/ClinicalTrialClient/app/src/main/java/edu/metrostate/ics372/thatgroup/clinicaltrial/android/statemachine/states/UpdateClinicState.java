@@ -6,19 +6,24 @@ import android.content.Intent;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicsActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
-public class ClinicActivityState extends ClinicalTrialState {
-    Activity activity;
-
-    public ClinicActivityState(ClinicalTrialStateMachine machine, Context context) {
+public class UpdateClinicState extends ClinicalTrialState {
+    static final int UPDATE_CLINIC = 2;
+    public UpdateClinicState(ClinicalTrialStateMachine machine, Context context, Clinic clinic) {
         super(machine, context);
 
         Activity act = getActivity();
-        Intent intent = new Intent(act, ClinicActivity.class);
-        act.startActivity(intent);
+
+        if (clinic != null && act != null) {
+            Intent intent = new Intent(act, ClinicActivity.class);
+            intent.putExtra(context.getResources().getString(R.string.intent_update_clinic), clinic);
+            act.startActivityForResult(intent, UPDATE_CLINIC);
+        }
     }
 
     @Override
@@ -26,11 +31,10 @@ public class ClinicActivityState extends ClinicalTrialState {
         ClinicalTrialStateMachine machine = getMachine();
 
         switch (event) {
+            case ON_OK:
             case ON_PREVIOUS:
                 machine.transition();
                 break;
-            case ON_VIEW_READINGS:
-                machine.transition();
         }
     }
 

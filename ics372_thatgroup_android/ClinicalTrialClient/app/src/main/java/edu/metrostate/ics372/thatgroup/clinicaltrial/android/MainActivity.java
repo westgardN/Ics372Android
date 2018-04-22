@@ -26,15 +26,19 @@ public class MainActivity extends AppCompatActivity {
                 machine.process(ClinicalTrialEvent.ON_CLINICS);
                 break;
             case R.id.button_patients:
+                machine.process(ClinicalTrialEvent.ON_PATIENTS);
                 break;
             case R.id.button_readings:
+                machine.process(ClinicalTrialEvent.ON_READINGS);
                 break;
             case R.id.button_add_reading:
+                machine.process(ClinicalTrialEvent.ON_ADD_READING);
                 break;
             case R.id.button_import:
                 machine.process(ClinicalTrialEvent.ON_IMPORT);
                 break;
             case R.id.button_export:
+                machine.process(ClinicalTrialEvent.ON_EXPORT);
                 break;
         }
     }

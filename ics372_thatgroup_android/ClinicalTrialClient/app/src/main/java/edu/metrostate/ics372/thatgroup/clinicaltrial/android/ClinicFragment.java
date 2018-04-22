@@ -3,35 +3,32 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewClinicFragment.OnFragmentInteractionListener} interface
+ * {@link ClinicFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewClinicFragment#newInstance} factory method to
+ * Use the {@link ClinicFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewClinicFragment extends Fragment implements NewClinicView {
-    NewClinicPresenter presenter;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class ClinicFragment extends Fragment implements ClinicView {
+    ClinicPresenter presenter;
+    private static final String ARG_CLINIC = "clinic";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Clinic clinic;
 
     private OnFragmentInteractionListener mListener;
 
-    public NewClinicFragment() {
+    public ClinicFragment() {
         // Required empty public constructor
     }
 
@@ -39,16 +36,14 @@ public class NewClinicFragment extends Fragment implements NewClinicView {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewClinicFragment.
+     * @param clinic Parameter 1.
+     * @return A new instance of fragment ClinicFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewClinicFragment newInstance(String param1, String param2) {
-        NewClinicFragment fragment = new NewClinicFragment();
+    public static ClinicFragment newInstance(Clinic clinic) {
+        ClinicFragment fragment = new ClinicFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_CLINIC, clinic);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,14 +56,18 @@ public class NewClinicFragment extends Fragment implements NewClinicView {
     @Override
     public void onStart() {
         super.onStart();
+        presenter.subscribe();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Object obj = getArguments().getSerializable(ARG_CLINIC);
+            if (obj instanceof Clinic) {
+                this.clinic = (Clinic) obj;
+            }
         }
     }
 
@@ -76,7 +75,7 @@ public class NewClinicFragment extends Fragment implements NewClinicView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_clinic, container, false);
+        return inflater.inflate(R.layout.fragment_clinic, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,7 +88,6 @@ public class NewClinicFragment extends Fragment implements NewClinicView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        presenter.subscribe();
 
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -108,16 +106,16 @@ public class NewClinicFragment extends Fragment implements NewClinicView {
 
     @Override
     public void setId(String id) {
-        ((TextView)getView().findViewById(R.id.editTextName)).setText(price);
+        ((TextView)getView().findViewById(R.id.clinic_id)).setText(id);
     }
 
     @Override
     public void setName(String name) {
-
+        ((TextView)getView().findViewById(R.id.clinic_name)).setText(name);
     }
 
     @Override
-    public void setPresenter(NewClinicPresenter presenter) {
+    public void setPresenter(ClinicPresenter presenter) {
         this.presenter = presenter;
         this.presenter.setView(this);
     }

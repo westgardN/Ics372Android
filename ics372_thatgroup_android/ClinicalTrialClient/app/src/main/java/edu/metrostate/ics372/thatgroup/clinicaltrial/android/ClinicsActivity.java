@@ -1,79 +1,72 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
-import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.MainActivityState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
-public class ClinicsActivity extends AppCompatActivity {
-
-    private ListView uiclinicList;
-    private ArrayList<String> clinicStringList;
-    private List<Clinic> clinicsProperty;
-    private ClinicalTrialStateMachine machine;
-    private ClinicalTrialModel model;
-    private PropertyChangeListener listener;
+public class ClinicsActivity extends AppCompatActivity implements ClinicsFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        machine = ((ClinicalTrialClient)getApplication()).getMachine();
-        model = machine.getApplication().getModel();
         setContentView(R.layout.activity_clinics);
 
-        uiclinicList = findViewById(R.id.clinicListView);
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        final ClinicalTrialModel model = machine.getApplication().getModel();
+//        final ListView viewClinics = findViewById(R.id.clinics);
+//        final Button add = findViewById(R.id.add);
+//        try {
+//            ArrayAdapter<Clinic> arrayAdapter = new ArrayAdapter<>(this,
+//                    android.R.layout.simple_list_item_1, model.getClinics());
+//            viewClinics.setAdapter(arrayAdapter);
+//            viewClinics.setOnItemClickListener(this);
+//        } catch (TrialCatalogException e) {
+//            e.printStackTrace();
+//        }
+        ClinicsPresenter presenter = new ClinicsPresenter();
 
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        clinicStringList = new ArrayList<>();
         try {
-            clinicsProperty = model.getClinics();
+            Clinic defaultClinic = model.getDefaultClinic();
+
+            presenter.setClinics(model.getClinics());
+
+            ClinicsFragment fragment = ClinicsFragment.newInstance();
+            fragment.setPresenter(presenter);
+
+            getFragmentManager().beginTransaction().add(R.id.fragment_clinics, fragment).commit();
         } catch (TrialCatalogException e) {
-            e.printStackTrace();
         }
-        for(int x=0; x<= clinicsProperty.size()-1; x++){
-            clinicStringList.add(clinicsProperty.get(x).getName());
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, clinicStringList);
-        uiclinicList.setAdapter(arrayAdapter);
-        uiclinicList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
-            {
-                Intent intent =  new Intent(ClinicsActivity.this,ClinicActivity.class);
-                intent.putExtra("ClinicID",clinicsProperty.get(position).getId());
-                startActivity(intent);
-            }
-        });
-
-    }
-    protected void newClinic(View view) {
-        machine.process(ClinicalTrialEvent.ON_CLINICS);
-
     }
 
+    public void onClick(View view) {
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+
+        machine.process(ClinicalTrialEvent.ON_ADD);
+    }
+
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        super.onBackPressed();
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
         machine.process(ClinicalTrialEvent.ON_PREVIOUS);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

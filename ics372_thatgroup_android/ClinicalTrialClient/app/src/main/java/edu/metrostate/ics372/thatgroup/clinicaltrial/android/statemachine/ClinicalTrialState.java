@@ -141,14 +141,11 @@ public abstract class ClinicalTrialState implements State {
     public String getName() {
         String answer = "";
 
-        Activity act = getActivity();
-
-        if (act != null) {
-            answer = act.getLocalClassName();
-        } else {
-            getMachine().getApplication().getClass().getSimpleName();
-        }
+        answer = getClass().getSimpleName();
 
         return answer;
     }
+
+    @Override
+    public void process(ClinicalTrialEvent event) {  }
 }

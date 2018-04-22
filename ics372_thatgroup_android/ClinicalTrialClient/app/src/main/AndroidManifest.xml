@@ -28,7 +28,6 @@
             android:label="@string/title_activity_clinic"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ImportActivity" />
-        <activity android:name=".NewClinicActivity"></activity>
     </application>
 
 </manifest>
