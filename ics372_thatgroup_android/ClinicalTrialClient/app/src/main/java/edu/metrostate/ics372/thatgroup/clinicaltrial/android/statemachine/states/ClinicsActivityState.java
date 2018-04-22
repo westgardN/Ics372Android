@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicsActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.NewClinicActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
@@ -27,6 +28,9 @@ public class ClinicsActivityState extends ClinicalTrialState {
         switch (event) {
             case ON_PREVIOUS:
                 machine.transition();
+                break;
+            case ON_CLINICS:
+                machine.transition(new NewClinicActivityState(machine, getContext()), true);
                 break;
         }
     }

@@ -17,4 +17,8 @@
     <string name="clinic_added">Clinic Added: </string>
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
+    <string name="main_view_readings">View Readings</string>
+    <string name="REGEX_NO_SPECIAL_CHARS_ALLOW_SPACES">^[A-Za-z0-9_\\s]+$</string>
+    <string name="REGEX_NO_SPECIAL_CHARS">^[A-Za-z0-9_]+$</string>
+    <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
 </resources>

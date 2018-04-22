@@ -66,15 +66,13 @@ public class ClinicsActivity extends AppCompatActivity {
 
     }
     protected void newClinic(View view) {
-        Intent intent = new Intent(ClinicsActivity.this,NewClinicActivity.class);
-        startActivity(intent);
+        machine.process(ClinicalTrialEvent.ON_CLINICS);
 
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
-        ClinicalTrialStateMachine machine = ((ClinicalTrialClient)getApplication()).getMachine();
         machine.process(ClinicalTrialEvent.ON_PREVIOUS);
     }
 
