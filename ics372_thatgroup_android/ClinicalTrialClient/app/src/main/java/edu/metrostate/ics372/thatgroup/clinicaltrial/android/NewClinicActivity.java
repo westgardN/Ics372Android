@@ -89,7 +89,7 @@ public class NewClinicActivity extends AppCompatActivity implements NewClinicVie
 
     private boolean validate(String text, int maxLength, boolean allowSpace) {
         boolean answer = false;
-        String matchString = allowSpace ? getString(R.string.REGEX_NO_SPECIAL_CHARS_ALLOW_SPACES) : getString(R.string.REGEX_NO_SPECIAL_CHARS);
+        String matchString = allowSpace ? getString(R.string.regex_no_special_chars_allow_spaces) : getString(R.string.regex_no_special_chars);
 
         if (text != null && !text.trim().isEmpty() && text.trim().length() <= maxLength) {
             if (text.matches(matchString)) {

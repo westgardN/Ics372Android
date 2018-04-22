@@ -18,8 +18,8 @@
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
     <string name="main_view_readings">View Readings</string>
-    <string name="REGEX_NO_SPECIAL_CHARS_ALLOW_SPACES">^[A-Za-z0-9_\\s]+$</string>
-    <string name="REGEX_NO_SPECIAL_CHARS">^[A-Za-z0-9_]+$</string>
+    <string name="regex_no_special_chars_allow_spaces">^[A-Za-z0-9_\\s]+$</string>
+    <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>
     <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
