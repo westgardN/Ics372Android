@@ -1,8 +1,6 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
@@ -11,12 +9,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
+public class ClinicErrorState extends ClinicalTrialState {
 
-public class ErrorState extends ClinicalTrialState {
-
-    public ErrorState(ClinicalTrialStateMachine machine, Context context) {
+    public ClinicErrorState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
         ClinicalTrialClient app = machine.getApplication();
         Toast.makeText(
