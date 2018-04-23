@@ -132,7 +132,7 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
 
     private void getPatientStatus(Patient patient) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("Example");
+        b.setTitle(getResources().getString(R.string.patient_status_title));
         List<PatientStatus> types = null;
         try {
             types = machine.getApplication().getModel().getPatientStatuses();
