@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="80dp" >
+    tools:layout_editor_absoluteY="81dp" >
 
     <TextView
         android:id="@+id/title"
@@ -12,14 +12,19 @@
         android:layout_height="wrap_content"
         android:text="@string/clinic_title"
         android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_clinic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <FrameLayout
         android:id="@+id/fragment_clinic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="462dp"
+        tools:layout_editor_absoluteY="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintStart_toStartOf="@id/title" />
 
 </android.support.constraint.ConstraintLayout>

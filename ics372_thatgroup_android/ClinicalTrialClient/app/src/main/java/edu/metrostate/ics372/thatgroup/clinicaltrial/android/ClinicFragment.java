@@ -66,7 +66,9 @@ public class ClinicFragment extends Fragment implements ClinicView,
     @Override
     public void onStart() {
         super.onStart();
-        presenter.subscribe();
+        if (presenter != null) {
+            presenter.subscribe();
+        }
 
         ((Button)getView().findViewById(R.id.view_readings)).setOnClickListener(this);
         ((Button)getView().findViewById(R.id.add_reading)).setOnClickListener(this);
@@ -137,7 +139,7 @@ public class ClinicFragment extends Fragment implements ClinicView,
     public void onDetach() {
         super.onDetach();
         mListener = null;
-
+        presenter = null;
     }
 
     @Override
@@ -203,13 +205,14 @@ public class ClinicFragment extends Fragment implements ClinicView,
 
     private boolean validate() {
         boolean answer = false;
-        Clinic clinic = presenter.getClinic();
+        if (presenter != null) {
+            Clinic clinic = presenter.getClinic();
 
-        if (validate(clinic.getId(), MAX_CLINIC_ID, false) &&
-                validate(clinic.getName(), MAX_CLINIC_NAME, true)) {
-            answer = true;
+            if (validate(clinic.getId(), MAX_CLINIC_ID, false) &&
+                    validate(clinic.getName(), MAX_CLINIC_NAME, true)) {
+                answer = true;
+            }
         }
-
         return answer;
     }
 

@@ -18,6 +18,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogExce
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 public class ClinicsActivity extends AppCompatActivity implements ClinicsFragment.OnFragmentInteractionListener {
+    ClinicsPresenter presenter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         final ClinicalTrialModel model = machine.getApplication().getModel();
         final ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
         state.setCurrentActivity(this);
-        ClinicsPresenter presenter = new ClinicsPresenter();
+        presenter = new ClinicsPresenter();
 
         try {
 
@@ -88,21 +89,26 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
                         Clinic clinic = (Clinic) obj;
 
                         try {
-                            model.updateOrAdd(clinic);
                             String msg = "";
+                            if (model.updateOrAdd(clinic)) {
+                                if (requestCode == ClinicState.ADD_CLINIC) {
+                                    msg = getString(R.string.clinic_added);
+                                    if (presenter != null) {
+                                        presenter.addClinic(clinic);
+                                    }
+                                } else {
+                                    msg = getString(R.string.clinic_updated);
+                                    if (presenter != null) {
+                                        presenter.updateClinic(clinic);
+                                    }
+                                }
 
-                            if (requestCode == ClinicState.ADD_CLINIC) {
-                                msg = getString(R.string.clinic_added);
-                            } else {
-                                msg = getString(R.string.clinic_updated);
+                                msg += " " + clinic.getName();
                             }
-
-                            msg += " " + clinic.getName();
-
                             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
                         } catch (TrialCatalogException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

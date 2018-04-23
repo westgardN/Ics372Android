@@ -64,7 +64,9 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
     @Override
     public void onStart() {
         super.onStart();
-        presenter.subscribe();
+        if (presenter != null) {
+            presenter.subscribe();
+        }
 
         final ListView viewClinics = ((ListView)getView().findViewById(R.id.clinics));
         viewClinics.setOnItemClickListener(this);
@@ -89,6 +91,7 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        presenter = null;
     }
 
     @Override
@@ -139,6 +142,21 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
                 android.R.layout.simple_list_item_1, clinics);
         ((ListView)getView().findViewById(R.id.clinics)).setAdapter(arrayAdapter);
     }
+
+    @Override
+    public void addClinic(Clinic clinic) {
+        ListView view = ((ListView)getView().findViewById(R.id.clinics));
+        ArrayAdapter<Clinic> adapter = (ArrayAdapter<Clinic>) view.getAdapter();
+
+        adapter.add(clinic);
+    }
+
+    @Override
+    public void updateClinic(Clinic clinic) {
+        ListView view = ((ListView)getView().findViewById(R.id.clinics));
+        ArrayAdapter<Clinic> adapter = (ArrayAdapter<Clinic>) view.getAdapter();
+        adapter.remove(clinic);
+        adapter.add(clinic);    }
 
     @Override
     public void setPresenter(ClinicsPresenter presenter) {
