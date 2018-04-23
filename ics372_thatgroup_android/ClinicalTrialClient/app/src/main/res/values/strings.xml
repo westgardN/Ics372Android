@@ -12,6 +12,7 @@
     <string name="err_clinic_fill_out_name_and_id">Please fill out both the name and id fields. The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
+    <string name="err_patient_fill_out_id">Please fill id fields The id field can only contain letters, numbers, and underscores.</string>
     <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
     <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
     <string name="intent_updated_or_added">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>
