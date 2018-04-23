@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Objects;
+
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.PatientActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.PatientStatus;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -35,7 +38,7 @@ public class UpdatePatientState extends PatientState {
 
         switch (event) {
             case ON_ERROR:
-                machine.transition(new ClinicErrorState(machine, getCurrentActivity()), true);
+                machine.transition(new PatientErrorState(machine, getCurrentActivity()), true);
                 break;
             case ON_OK:
                 Activity current = getCurrentActivity();
@@ -100,6 +103,28 @@ public class UpdatePatientState extends PatientState {
             answer = getMachine().getApplication().getModel().hasReadings(patient);
         } catch (TrialCatalogException e) {
             e.printStackTrace();
+        }
+
+        return answer;
+    }
+
+    @Override
+    public boolean canEndTrial() {
+        boolean answer = false;
+
+        if (patient != null && Objects.equals(patient.getStatusId(), PatientStatus.ACTIVE_ID)) {
+            answer = true;
+        }
+
+        return answer;
+    }
+
+    @Override
+    public boolean canStartTrial() {
+        boolean answer = false;
+
+        if (patient != null && !Objects.equals(patient.getStatusId(), PatientStatus.ACTIVE_ID)) {
+            answer = true;
         }
 
         return answer;

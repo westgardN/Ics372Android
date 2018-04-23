@@ -18,6 +18,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.State;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicsState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientsState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 
@@ -119,15 +120,15 @@ public class PatientsFragment extends Fragment  implements PatientsView,
                 ((ClinicalTrialClient)getActivity().getApplication()).getMachine();
         Object obj = parent.getAdapter().getItem(position);
 
-        if (obj instanceof Clinic) {
-            Clinic clinic = (Clinic) obj;
+        if (obj instanceof Patient) {
+            Patient patient = (Patient) obj;
             State state = machine.getCurrentState();
 
-            if (state instanceof ClinicsState) {
-                ClinicsState clinicsState = (ClinicsState)state;
+            if (state instanceof PatientsState) {
+                PatientsState patientsState = (PatientsState)state;
 
-                if (clinicsState != null && clinic != null) {
-                    clinicsState.setClinic(clinic);
+                if (patientsState != null && patient != null) {
+                    patientsState.setPatient(patient);
                     machine.process(ClinicalTrialEvent.ON_SELECT);
                 }
             }

@@ -21,14 +21,12 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_clinic);
+
         machine = ((ClinicalTrialClient)getApplication()).getMachine();
         ClinicalTrialState current = (ClinicalTrialState) machine.getCurrentState();
         current.setCurrentActivity(this);
         presenter = new ClinicPresenter(machine);
-
-        ClinicalTrialModel model = machine.getApplication().getModel();
-
-        setContentView(R.layout.activity_clinic);
 
         Intent intent = getIntent();
         Clinic clinic = null;

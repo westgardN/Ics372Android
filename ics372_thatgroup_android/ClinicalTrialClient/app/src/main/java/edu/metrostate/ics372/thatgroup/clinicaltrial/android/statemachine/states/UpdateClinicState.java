@@ -105,5 +105,7 @@ public class UpdateClinicState extends ClinicState {
 
         return answer;
     }
+
+
 }
 

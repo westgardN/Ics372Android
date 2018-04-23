@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
 
@@ -30,9 +28,9 @@ public class ClinicFragment extends Fragment implements ClinicView,
         Button.OnClickListener, TextWatcher {
     private static final int MAX_CLINIC_ID = 32;
     private static final int MAX_CLINIC_NAME = 255;
+    private static final String ARG_CLINIC = "clinic";
 
     private ClinicPresenter presenter;
-    private static final String ARG_CLINIC = "clinic";
 
     private Clinic clinic;
 
@@ -49,7 +47,6 @@ public class ClinicFragment extends Fragment implements ClinicView,
      * @param clinic Parameter 1.
      * @return A new instance of fragment ClinicFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ClinicFragment newInstance(Clinic clinic) {
         ClinicFragment fragment = new ClinicFragment();
         Bundle args = new Bundle();

@@ -31,7 +31,7 @@ public class AddPatientState extends PatientState {
 
         switch (event) {
             case ON_ERROR:
-                machine.transition(new ClinicErrorState(machine, getCurrentActivity()), true);
+                machine.transition(new PatientErrorState(machine, getCurrentActivity()), true);
                 break;
             case ON_OK:
                 Activity current = getCurrentActivity();

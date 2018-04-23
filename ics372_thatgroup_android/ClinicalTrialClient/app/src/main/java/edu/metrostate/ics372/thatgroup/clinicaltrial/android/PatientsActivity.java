@@ -90,13 +90,13 @@ public class PatientsActivity extends AppCompatActivity implements PatientsFragm
                         try {
                             String msg = "";
                             if (model.updateOrAdd(patient)) {
-                                if (requestCode == ClinicState.ADD_CLINIC) {
-                                    msg = getString(R.string.clinic_added);
+                                if (requestCode == PatientState.ADD_PATIENT) {
+                                    msg = getString(R.string.patient_added);
                                     if (presenter != null) {
                                         presenter.addPatient(patient);
                                     }
                                 } else {
-                                    msg = getString(R.string.clinic_updated);
+                                    msg = getString(R.string.patient_updated);
                                     if (presenter != null) {
                                         presenter.updatePatient(patient);
                                     }

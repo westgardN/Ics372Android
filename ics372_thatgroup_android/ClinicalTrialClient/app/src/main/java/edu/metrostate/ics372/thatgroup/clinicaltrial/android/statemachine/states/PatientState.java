@@ -19,8 +19,11 @@ public abstract class PatientState extends ClinicalTrialState {
         return patient;
     }
 
-    public void setClinic(Patient patient) {
+    public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    public boolean canEndTrial() { return false; }
+
+    public boolean canStartTrial() { return false; }
 }
