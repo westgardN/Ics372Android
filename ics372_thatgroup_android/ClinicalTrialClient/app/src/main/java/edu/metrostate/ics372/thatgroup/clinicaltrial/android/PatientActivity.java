@@ -1,8 +1,13 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.DatePicker;
+import android.widget.Toast;
+
+import java.time.LocalDate;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
@@ -10,6 +15,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.PatientStatus;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class PatientActivity extends AppCompatActivity implements PatientFragment.OnFragmentInteractionListener {
     private ClinicalTrialStateMachine machine;
@@ -63,12 +71,91 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
 
     @Override
     public void onStartTrialClicked() {
+        Patient patient = presenter.getPatient();
 
+        if (patient != null) {
+            getTrialDateAndStatus(patient, true);
+        }
     }
 
     @Override
     public void onEndTrialClicked() {
+        Patient patient = presenter.getPatient();
 
+        if (patient != null) {
+            getTrialDateAndStatus(patient, false);
+        }
+    }
+
+    private void getTrialDateAndStatus(Patient patient, boolean start) {
+        LocalDate date = LocalDate.now();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (DatePicker view, int year, int monthOfYear, int dayOfMonth)  -> {
+                LocalDate ld = LocalDate.of(year, monthOfYear + 1, dayOfMonth);
+                if (!start) {
+                    if (isDateOnOrAfter(ld, patient.getTrialStartDate()) && isDateOnOrBefore(ld, LocalDate.now())) {
+                        patient.setTrialEndDate(LocalDate.from(ld));
+                        getPatientStatus(patient);
+                    } else {
+                        if (ld != null) {
+                            Toast.makeText(
+                                    machine.getApplication(), Strings.ERR_DATE_MSG,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    if (isDateOnOrBefore(ld, LocalDate.now())) {
+                        patient.setTrialStartDate(LocalDate.from(ld));
+                        patient.setTrialEndDate(null);
+                        patient.setStatusId(PatientStatus.ACTIVE_ID);
+                    } else {
+                        if (ld != null) {
+                            Toast.makeText(
+                                    machine.getApplication(), Strings.ERR_DATE_MSG,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                PatientState state = (PatientState)machine.getCurrentState();
+                state.setPatient(patient);
+                presenter.setPatient(patient);
+                presenter.updateView();
+            }, date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+        datePickerDialog.show();
+    }
+
+    private void getPatientStatus(Patient patient) {
+
+    }
+
+    private boolean isDateOnOrAfter(LocalDate ldA, LocalDate ldB) {
+        boolean answer = false;
+
+        if (ldA != null && ldB != null) {
+            if (ldA.isEqual(ldB) || ldA.isAfter(ldB)) {
+                answer = true;
+            }
+        } else if (ldA != null && ldB == null) {
+            answer = true;
+        }
+
+        return answer;
+    }
+
+    private boolean isDateOnOrBefore(LocalDate ldA, LocalDate ldB) {
+        boolean answer = false;
+
+        if (ldA != null && ldB != null) {
+            if (ldA.isEqual(ldB) || ldA.isBefore(ldB)) {
+                answer = true;
+            }
+        } else if (ldA != null && ldB == null) {
+            answer = true;
+        }
+
+        return answer;
     }
 
     @Override

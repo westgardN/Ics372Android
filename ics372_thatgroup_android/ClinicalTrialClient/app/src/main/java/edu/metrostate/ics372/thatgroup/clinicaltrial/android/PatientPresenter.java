@@ -30,6 +30,7 @@ public class PatientPresenter implements BasePresenter{
             patient.setTrialStartDate(view.getStartDate());
             patient.setTrialEndDate(view.getEndDate());
             patient.setStatusId(view.getStatusId());
+            patient.setTrialId(machine.getApplication().getModel().getTrialId());
         }
 
         return patient;
@@ -52,7 +53,6 @@ public class PatientPresenter implements BasePresenter{
             if (state instanceof PatientState) {
                 PatientState pState = (PatientState)state;
                 if (setData) {
-                    view.setPatientId(patient.getId());
                     view.setStartDate(patient.getTrialStartDate());
                     view.setEndDate(patient.getTrialEndDate());
                     view.setStatusId(patient.getStatusId());
@@ -63,8 +63,9 @@ public class PatientPresenter implements BasePresenter{
                     view.setVisibleEndTrial(!state.canAdd());
                     view.setVisibleAddReading(state.canAddReading());
                     view.setVisibleViewReadings(state.canViewReadings());
-                    view.setVisibleSave(state.canAdd());
+//                    view.setVisibleSave(state.canAdd());
                     view.setDisabledSave(true);
+                    view.setPatientId(patient.getId());
                 } else {
                     view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
                     view.setDisabledStartTrial(!pState.canStartTrial());

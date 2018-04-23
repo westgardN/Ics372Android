@@ -27,6 +27,7 @@ public class ClinicPresenter implements BasePresenter{
 
             clinic.setId(view.getClinicId());
             clinic.setName(view.getClinicName());
+            clinic.setTrialId(machine.getApplication().getModel().getTrialId());
         }
 
         return clinic;
@@ -47,7 +48,6 @@ public class ClinicPresenter implements BasePresenter{
             ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
 
             if (setData) {
-                view.setClinicId(clinic.getId());
                 view.setClinicName(clinic.getName());
                 view.setDisabledId(!state.canAdd());
                 view.setDisabledName(!(state.canUpdate() || state.canAdd()));
@@ -55,6 +55,7 @@ public class ClinicPresenter implements BasePresenter{
                 view.setVisibleViewReadings(state.canViewReadings());
                 view.setVisibleSave((state.canUpdate() || state.canAdd()));
                 view.setDisabledSave(true);
+                view.setClinicId(clinic.getId());
             } else {
                 view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
             }

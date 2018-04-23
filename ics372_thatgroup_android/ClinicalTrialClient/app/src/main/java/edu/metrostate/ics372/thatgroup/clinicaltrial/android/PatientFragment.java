@@ -217,7 +217,7 @@ public class PatientFragment extends Fragment implements PatientView,
 
     @Override
     public void setStartDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String strDate = "";
 
         if (date != null) {
@@ -229,7 +229,7 @@ public class PatientFragment extends Fragment implements PatientView,
 
     @Override
     public void setEndDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String strDate = "";
 
         if (date != null) {
@@ -256,7 +256,7 @@ public class PatientFragment extends Fragment implements PatientView,
 
         if (date != null && !date.isEmpty()) {
             try {
-                answer = LocalDate.parse(date);
+                answer = LocalDate.parse(date, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
             } catch (DateTimeParseException ex) {
 
             }
@@ -272,7 +272,7 @@ public class PatientFragment extends Fragment implements PatientView,
 
         if (date != null && !date.isEmpty()) {
             try {
-                answer = LocalDate.parse(date);
+                answer = LocalDate.parse(date, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
             } catch (DateTimeParseException ex) {
 
             }
@@ -346,9 +346,7 @@ public class PatientFragment extends Fragment implements PatientView,
     private boolean validate() {
         boolean answer = false;
         if (presenter != null) {
-            Patient patient = presenter.getPatient();
-
-            if (validate(patient.getId(), MAX_PATIENT_ID, false)) {
+            if (validate(getPatientId(), MAX_PATIENT_ID, false)) {
                 answer = true;
             }
         }

@@ -203,10 +203,8 @@ public class ClinicFragment extends Fragment implements ClinicView,
     private boolean validate() {
         boolean answer = false;
         if (presenter != null) {
-            Clinic clinic = presenter.getClinic();
-
-            if (validate(clinic.getId(), MAX_CLINIC_ID, false) &&
-                    validate(clinic.getName(), MAX_CLINIC_NAME, true)) {
+            if (validate(getClinicId(), MAX_CLINIC_ID, false) &&
+                    validate(getClinicName(), MAX_CLINIC_NAME, true)) {
                 answer = true;
             }
         }
