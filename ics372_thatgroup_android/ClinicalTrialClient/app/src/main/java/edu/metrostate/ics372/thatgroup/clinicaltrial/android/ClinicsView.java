@@ -7,8 +7,4 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 public interface ClinicsView extends BaseView<ClinicsPresenter>{
 
     void setClinics(List<Clinic> clinics);
-
-    void addClinic(Clinic clinic);
-
-    void updateClinic(Clinic clinic);
 }

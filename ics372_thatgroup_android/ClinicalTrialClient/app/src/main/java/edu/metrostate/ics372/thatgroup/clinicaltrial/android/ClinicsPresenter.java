@@ -19,9 +19,6 @@ public class ClinicsPresenter implements BasePresenter{
     public void addClinic(Clinic clinic) {
         if (clinics != null) {
             clinics.add(clinic);
-//            if (view != null) {
-//                view.addClinic(clinic);
-//            }
         }
     }
 
@@ -30,9 +27,6 @@ public class ClinicsPresenter implements BasePresenter{
             clinics.remove(clinic);
 
             clinics.add(clinic);
-//            if (view != null) {
-//                view.updateClinic(clinic);
-//            }
         }
     }
 

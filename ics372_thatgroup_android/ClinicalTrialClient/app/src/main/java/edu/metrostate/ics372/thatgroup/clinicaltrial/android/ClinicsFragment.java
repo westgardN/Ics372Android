@@ -144,21 +144,6 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
     }
 
     @Override
-    public void addClinic(Clinic clinic) {
-        ListView view = ((ListView)getView().findViewById(R.id.clinics));
-        ArrayAdapter<Clinic> adapter = (ArrayAdapter<Clinic>) view.getAdapter();
-
-        adapter.add(clinic);
-    }
-
-    @Override
-    public void updateClinic(Clinic clinic) {
-        ListView view = ((ListView)getView().findViewById(R.id.clinics));
-        ArrayAdapter<Clinic> adapter = (ArrayAdapter<Clinic>) view.getAdapter();
-        adapter.remove(clinic);
-        adapter.add(clinic);    }
-
-    @Override
     public void setPresenter(ClinicsPresenter presenter) {
         this.presenter = presenter;
         this.presenter.setView(this);
