@@ -36,6 +36,7 @@
     <string name="patient_title">Patient</string>
     <string name="patient_updated">Patient Updated: </string>
     <string name="patients_title">Patients</string>
+    <string name="patient_status_title">Select the reason the patient ended the trial</string>
     <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>
     <string name="regex_no_special_chars_allow_spaces">^[A-Za-z0-9_\\s]+$</string>
     <string name="save">Save</string>
