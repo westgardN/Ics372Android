@@ -9,6 +9,7 @@
     <string name="clinic_title">Clinic</string>
     <string name="clinics_title">Clinics</string>
     <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
+    <string name="err_clinic_fill_out_name_and_id">Please fill out both the name and id fields. The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
     <string name="intent_updated_or_added">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>

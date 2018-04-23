@@ -16,10 +16,6 @@ public interface ClinicView extends BaseView<ClinicPresenter>{
 
     void setVisibleSave(boolean visible);
 
-    void setDisabledAddReading(boolean visible);
-
-    void setDisabledViewReadings(boolean visible);
-
     void setDisabledSave(boolean visible);
 
     void setDisabledId(boolean visible);

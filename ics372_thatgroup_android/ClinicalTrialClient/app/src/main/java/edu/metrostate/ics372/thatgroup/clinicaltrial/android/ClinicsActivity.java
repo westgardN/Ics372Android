@@ -81,7 +81,7 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         final ClinicalTrialModel model = machine.getApplication().getModel();
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == UpdateClinicState.UPDATE_CLINIC || requestCode == AddClinicState.ADD_CLINIC) {
+            if (requestCode == ClinicState.UPDATE_CLINIC || requestCode == ClinicState.ADD_CLINIC) {
                 if (data != null) {
                     Object obj = data.getSerializableExtra(getResources().getString(R.string.intent_updated_or_added));
                     if (obj instanceof Clinic) {

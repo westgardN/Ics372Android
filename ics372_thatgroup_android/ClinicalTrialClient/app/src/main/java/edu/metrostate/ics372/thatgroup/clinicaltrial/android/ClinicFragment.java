@@ -179,16 +179,6 @@ public class ClinicFragment extends Fragment implements ClinicView,
     }
 
     @Override
-    public void setDisabledAddReading(boolean disabled) {
-        ((Button)getView().findViewById(R.id.add_reading)).setEnabled(!disabled);
-    }
-
-    @Override
-    public void setDisabledViewReadings(boolean disabled) {
-        ((Button)getView().findViewById(R.id.view_readings)).setEnabled(!disabled);
-    }
-
-    @Override
     public void setDisabledSave(boolean disabled) {
         ((Button)getView().findViewById(R.id.save_clinic)).setEnabled(!disabled);
     }
@@ -215,10 +205,8 @@ public class ClinicFragment extends Fragment implements ClinicView,
         boolean answer = false;
         Clinic clinic = presenter.getClinic();
 
-        if ((clinic.getId().isEmpty() ||
-                validate(clinic.getId(), MAX_CLINIC_ID, false)) &&
-                (clinic.getName().isEmpty() ||
-                        validate(clinic.getName(), MAX_CLINIC_NAME, true))) {
+        if (validate(clinic.getId(), MAX_CLINIC_ID, false) &&
+                validate(clinic.getName(), MAX_CLINIC_NAME, true)) {
             answer = true;
         }
 

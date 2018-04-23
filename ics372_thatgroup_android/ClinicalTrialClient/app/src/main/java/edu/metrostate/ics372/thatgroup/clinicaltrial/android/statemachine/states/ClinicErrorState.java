@@ -16,7 +16,7 @@ public class ClinicErrorState extends ClinicalTrialState {
         ClinicalTrialClient app = machine.getApplication();
         Toast.makeText(
                 app.getApplicationContext(),
-                getFromActivity().getResources().getString(R.string.err_clinic_not_added),
+                getFromActivity().getResources().getString(R.string.err_clinic_fill_out_name_and_id),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -32,7 +32,7 @@ public class ClinicErrorState extends ClinicalTrialState {
             case ON_ERROR:
                 Toast.makeText(
                         app.getApplicationContext(),
-                        getFromActivity().getResources().getString(R.string.err_clinic_not_added),
+                        getFromActivity().getResources().getString(R.string.err_clinic_fill_out_name_and_id),
                         Toast.LENGTH_SHORT).show();
                 break;
             case ON_CANCEL:
