@@ -23,8 +23,13 @@ public class MainActivityState extends ClinicalTrialState {
                 machine.transition(new ImportActivityState(machine, getContext()), true);
                 break;
             case ON_CLINICS:
-                machine.transition(new ClinicsActivityState(machine, getContext()), true);
+                machine.transition(new ClinicsState(machine, getContext()), true);
                 break;
+            case ON_PATIENTS:
+                machine.transition(new PatientsState(machine, getContext()), true);
+                break;
+            default:
+                super.process(event);
         }
     }
 

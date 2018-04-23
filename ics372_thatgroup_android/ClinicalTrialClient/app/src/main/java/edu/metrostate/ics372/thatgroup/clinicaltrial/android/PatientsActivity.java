@@ -10,36 +10,35 @@ import android.widget.Toast;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.AddClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicState;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.UpdateClinicState;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
-public class ClinicsActivity extends AppCompatActivity implements ClinicsFragment.OnFragmentInteractionListener {
-    ClinicsPresenter presenter = null;
+public class PatientsActivity extends AppCompatActivity implements PatientsFragment.OnFragmentInteractionListener{
+    PatientsPresenter presenter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clinics);
+        setContentView(R.layout.activity_patients);
 
         final ClinicalTrialStateMachine machine =
                 ((ClinicalTrialClient)getApplication()).getMachine();
         final ClinicalTrialModel model = machine.getApplication().getModel();
         final ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
         state.setCurrentActivity(this);
-        presenter = new ClinicsPresenter();
+        presenter = new PatientsPresenter();
 
         try {
 
-            presenter.setClinics(model.getClinics());
+            presenter.setPatients(model.getPatients());
 
-            ClinicsFragment fragment = ClinicsFragment.newInstance();
+            PatientsFragment fragment = PatientsFragment.newInstance();
             fragment.setPresenter(presenter);
 
-            getFragmentManager().beginTransaction().add(R.id.fragment_clinics, fragment).commit();
+            getFragmentManager().beginTransaction().add(R.id.fragment_patients, fragment).commit();
         } catch (TrialCatalogException e) {
         }
     }
@@ -82,28 +81,28 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         final ClinicalTrialModel model = machine.getApplication().getModel();
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == ClinicState.UPDATE_CLINIC || requestCode == ClinicState.ADD_CLINIC) {
+            if (requestCode == PatientState.UPDATE_PATIENT || requestCode == PatientState.ADD_PATIENT) {
                 if (data != null) {
                     Object obj = data.getSerializableExtra(getResources().getString(R.string.intent_updated_or_added));
-                    if (obj instanceof Clinic) {
-                        Clinic clinic = (Clinic) obj;
+                    if (obj instanceof Patient) {
+                        Patient patient = (Patient) obj;
 
                         try {
                             String msg = "";
-                            if (model.updateOrAdd(clinic)) {
-                                if (requestCode == ClinicState.ADD_CLINIC) {
-                                    msg = getString(R.string.clinic_added);
+                            if (model.updateOrAdd(patient)) {
+                                if (requestCode == PatientState.ADD_PATIENT) {
+                                    msg = getString(R.string.patient_added);
                                     if (presenter != null) {
-                                        presenter.addClinic(clinic);
+                                        presenter.addPatient(patient);
                                     }
                                 } else {
-                                    msg = getString(R.string.clinic_updated);
+                                    msg = getString(R.string.patient_updated);
                                     if (presenter != null) {
-                                        presenter.updateClinic(clinic);
+                                        presenter.updatePatient(patient);
                                     }
                                 }
 
-                                msg += " " + clinic.getName();
+                                msg += " " + patient.getId();
                             }
                             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 

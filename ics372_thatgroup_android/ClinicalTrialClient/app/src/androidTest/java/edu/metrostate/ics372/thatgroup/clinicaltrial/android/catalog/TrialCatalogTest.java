@@ -33,7 +33,6 @@ public class TrialCatalogTest {
     TrialCatalog catalog;
     TrialManager trialManager;
 
-
     @Before
     public void setupTestHarness() {
         try {
