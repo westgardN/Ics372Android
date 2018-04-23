@@ -88,7 +88,7 @@ public class UpdatePatientState extends PatientState {
 
     @Override
     public boolean canAddReading() {
-        return true;
+        return patient != null && Objects.equals(patient.getStatusId(), PatientStatus.ACTIVE_ID);
     }
 
     @Override

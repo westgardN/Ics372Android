@@ -1,13 +1,17 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
@@ -127,7 +131,37 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
     }
 
     private void getPatientStatus(Patient patient) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Example");
+        List<PatientStatus> types = null;
+        try {
+            types = machine.getApplication().getModel().getPatientStatuses();
+        } catch (TrialCatalogException e) {
 
+        }
+        if (types != null) {
+            final String[] real = new String[types.size()];
+
+            for (int i = 0; i < types.size(); i++) {
+                real[i] = types.get(i).getId();
+            }
+
+            b.setItems(real, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    patient.setStatusId(real[which]);
+                    PatientState state = (PatientState)machine.getCurrentState();
+                    state.setPatient(patient);
+                    presenter.setPatient(patient);
+                    presenter.updateView();
+                    dialog.dismiss();
+                }
+
+            });
+
+            b.show();
+        }
     }
 
     private boolean isDateOnOrAfter(LocalDate ldA, LocalDate ldB) {
