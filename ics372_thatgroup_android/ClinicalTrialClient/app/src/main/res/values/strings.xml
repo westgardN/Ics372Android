@@ -12,9 +12,11 @@
     <string name="err_clinic_fill_out_name_and_id">Please fill out both the name and id fields. The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
+    <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
+    <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
     <string name="intent_updated_or_added">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>
     <string name="intent_update_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.clinic</string>
-    <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
+    <string name="intent_update_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.patient</string>
     <string name="main_add_reading">Add Reading</string>
     <string name="main_clinics">Clinics</string>
     <string name="main_export">Export</string>
@@ -22,6 +24,7 @@
     <string name="main_patients">Patients</string>
     <string name="main_readings">Readings</string>
     <string name="main_view_readings">View Readings</string>
+    <string name="patient_add">Add Patient</string>
     <string name="patient_title">Patient</string>
     <string name="patients_title">Patients</string>
     <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>

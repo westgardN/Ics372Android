@@ -15,7 +15,6 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 public class ClinicActivity extends AppCompatActivity implements ClinicFragment.OnFragmentInteractionListener {
-
     private ClinicalTrialStateMachine machine;
     private ClinicPresenter presenter;
 
