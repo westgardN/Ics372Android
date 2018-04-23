@@ -25,6 +25,7 @@ class ImportActivityState extends ClinicalTrialState {
         ClinicalTrialStateMachine machine = getMachine();
 
         switch (event) {
+            case ON_CANCEL:
             case ON_PREVIOUS:
                 machine.transition();
                 break;

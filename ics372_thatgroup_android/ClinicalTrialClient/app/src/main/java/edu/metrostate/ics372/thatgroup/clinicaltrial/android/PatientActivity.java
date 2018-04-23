@@ -160,6 +160,7 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
 
             });
 
+            b.setCancelable(false);
             b.show();
         }
     }

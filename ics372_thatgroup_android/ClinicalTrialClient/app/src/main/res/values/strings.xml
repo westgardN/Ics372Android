@@ -13,6 +13,9 @@
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
     <string name="err_patient_fill_out_id">Please fill id fields The id field can only contain letters, numbers, and underscores.</string>
+    <string name="err_select_import_file">The selected file is not a valid XML or JSON import file.</string>
+    <string name="import_cancelled">The import has been cancelled.</string>
+    <string name="import_title">Select a JSON or XML file to import.</string>
     <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
     <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
     <string name="intent_updated_or_added">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>
@@ -40,6 +43,7 @@
     <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>
     <string name="regex_no_special_chars_allow_spaces">^[A-Za-z0-9_\\s]+$</string>
     <string name="save">Save</string>
+    <string name="select_import_file">Please select the XML or JSON file to import.</string>
     <string name="title_activity_clinic">Clinic</string>
     <string name="trial_name">android</string>
 
