@@ -27,7 +27,7 @@ public class ReadingPresenter implements BasePresenter {
     public Reading getReading() {
         if (view != null) {
             if (reading == null) {
-                reading = ReadingFactory.getReading(ReadingFactory.PRETTY_WEIGHT);
+                reading = ReadingFactory.getReading(view.getType());
             }
 
             reading.setId(view.getReadingId());

@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,6 +23,7 @@ import java.time.format.DateTimeParseException;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 
 public class ReadingFragment extends Fragment implements ReadingView,
         Button.OnClickListener, TextWatcher {
@@ -74,36 +76,49 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
         ((Button)getView().findViewById(R.id.reading_save_btn)).setOnClickListener(this);
 
+        Spinner type = ((Spinner) getView().findViewById(R.id.reading_type_spinner));
         EditText date = ((EditText) getView().findViewById(R.id.reading_date_txt));
         EditText time = ((EditText) getView().findViewById(R.id.reading_time_txt));
+        EditText value = ((EditText) getView().findViewById(R.id.reading_value_txt));
         date.setFocusable(false);
         time.setFocusable(false);
 
-        date.setOnClickListener(new View.OnClickListener() {
+        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment dialogFragment = new DatePickDialog();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 3) {
+                    value.setFocusable(false);
+                    value.setOnClickListener(v -> {
+                        DialogFragment bpDialog = new BloodPressureDialog();
+                        bpDialog.show(getActivity().getFragmentManager(), "bpPicker");
 
-                // Show the time picker dialog fragment
-                dialogFragment.show(getActivity().getFragmentManager(), "datePicker");
+                    });
+                }
+                if (position != 3) {
+                    value.setOnClickListener(null);
+                    value.setFocusable(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //value.setFocusable(true);
             }
         });
 
-        time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialogFragment = new TimePickerFragment();
+        date.setOnClickListener(v -> {
+            DialogFragment dialogFragment = new DatePickDialog();
 
-                // Show the time picker dialog fragment
-                dialogFragment.show(getActivity().getFragmentManager(), "timePicker");
-            }
+            // Show the time picker dialog fragment
+            dialogFragment.show(getActivity().getFragmentManager(), "datePicker");
         });
 
-//        TextView id = (TextView)getView().findViewById(R.id.clinic_id);
-//        TextView name = (TextView)getView().findViewById(R.id.clinic_name);
-//
-//        id.addTextChangedListener(this);
-//        name.addTextChangedListener(this);
+        time.setOnClickListener(v -> {
+            DialogFragment dialogFragment = new TimePickerFragment();
+
+            // Show the time picker dialog fragment
+            dialogFragment.show(getActivity().getFragmentManager(), "timePicker");
+        });
     }
 
     @Override
@@ -222,15 +237,19 @@ public class ReadingFragment extends Fragment implements ReadingView,
     @Override
     public void setType(String type) {
         int i = 0;
-        for (String s : getResources().getStringArray(R.array.reading_types)) {
-            if (type.equals(s)) {
-                break;
-            } else {
-                i++;
+        if (type.equals(Reading.class.getName())) {
+            ((Spinner)getView().findViewById(R.id.reading_type_spinner)).setSelection(0);
+            //TODO
+        } else {
+            for (String s : getResources().getStringArray(R.array.reading_types)) {
+                if (type.equals(s)) {
+                    break;
+                } else {
+                    i++;
+                }
             }
+            ((Spinner)getView().findViewById(R.id.reading_type_spinner)).setSelection(i);
         }
-        ((Spinner)getView().findViewById(R.id.reading_type_spinner)).setSelection(i);
-
     }
 
     @Override

@@ -92,4 +92,6 @@
     <string name="reading_title">Reading</string>
     <string name="readings_title">Readings</string>
     <string name="save_reading">Save</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="systolic">Systolic</string>
 </resources>
