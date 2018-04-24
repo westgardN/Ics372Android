@@ -1,134 +1,118 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity;
 
-import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.Toast;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingActivity;
-//import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingFragment;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity.ReadingActivity;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity.ReadingFragment;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
-import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-
-public class ReadingsActivity extends AppCompatActivity {
-
-    public static final String CLINIC = "clinic";
-    public static final String PATIENT = "patient";
-    public static final String ADD_EDIT_READING = "addEditReadingFrag";
-    private boolean twoPane;
-    private ReadingsPresenter readingsPresenter;
-    private List<Reading> readings;
-    private View.OnClickListener readingOnClickListener;
-    FloatingActionButton addNewReadingFab;
+public class ReadingsActivity extends AppCompatActivity implements ReadingsFragment.OnFragmentInteractionListener {
+    ReadingsPresenter presenter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_readings);
-        ClinicalTrialModel model = ((ClinicalTrialClient) getApplication()).getModel();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        final ClinicalTrialModel model = machine.getApplication().getModel();
+        final ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
+        state.setCurrentActivity(this);
+        presenter = new ReadingsPresenter();
 
-        addNewReadingFab = findViewById(R.id.add_new_reading_fab);
-
-        if (findViewById(R.id.reading_detail_container) != null) {
-            twoPane = true;
-        }
-
-        View recyclerView = findViewById(R.id.reading_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) findViewById(R.id.reading_list), model);
-        setupListeners();
-    }
-
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView, ClinicalTrialModel model) {
-        Bundle intentBundle = getIntent().getExtras();
         try {
-            if (intentBundle != null) {
-                Object bean = getBeanFromBundle(intentBundle);
-                if (bean instanceof Clinic) {
-                    readingsPresenter = new ReadingsPresenter(model, ((Clinic) bean));
-                    readings = readingsPresenter.getReadings();
-                } else if (bean instanceof Patient) {
-                    readingsPresenter = new ReadingsPresenter(model, ((Patient) bean));
-                    readings = readingsPresenter.getReadings();
-                }
-            } else {
-                readingsPresenter = new ReadingsPresenter(model);
-                readings = readingsPresenter.getReadings();
-            }
+
+            presenter.setReadings(model.getReadings());
+
+            ReadingsFragment fragment = ReadingsFragment.newInstance();
+            fragment.setPresenter(presenter);
+
+            getFragmentManager().beginTransaction().add(R.id.fragment_readings, fragment).commit();
         } catch (TrialCatalogException e) {
-            e.printStackTrace();
         }
-        List<Reading> readingsTestList = new LinkedList<>();
-        Reading readingTest = ReadingFactory.getReading("weight");
-        readingTest.setId("TEST");
-        readingTest.setClinicId("FOO");
-        readingTest.setPatientId("BAR");
-        readingTest.setValue("125");
-        readingTest.setDate(LocalDateTime.now());
-        readingsTestList.add(readingTest);
-        recyclerView.setAdapter(new ReadingListAdapter(this, readingsTestList, readingsPresenter));
     }
 
-    private Object getBeanFromBundle(Bundle bundle) {
-        return bundle.containsKey(CLINIC) ? bundle.getSerializable(CLINIC) : bundle.getSerializable(PATIENT);
+    public void onClick(View view) {
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+
+        machine.process(ClinicalTrialEvent.ON_ADD);
     }
 
-    public View.OnClickListener getReadingOnClickListener() {
-        return readingOnClickListener;
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        machine.process(ClinicalTrialEvent.ON_PREVIOUS);
     }
 
-    public void setupListeners() {
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-        readingOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Reading reading = (Reading) view.getTag();
-                readingsPresenter.setActiveReading(reading);
-//                if (twoPane) {
-//                    Bundle arguments = new Bundle();
-//                    arguments.putSerializable(ReadingFragment.READING_TAG, reading);
-//                    ReadingFragment fragment = new ReadingFragment();
-//                    fragment.setArguments(arguments);
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.reading_detail_container, fragment)
-//                            .commit();
-//                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, ReadingActivity.class);
-                    intent.putExtra(ReadingFragment.READING_TAG, reading);
-                    context.startActivity(intent);
-                //}
+    }
+
+    /**
+     * Dispatch incoming result to the correct fragment.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        final ClinicalTrialModel model = machine.getApplication().getModel();
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ReadingState.UPDATE_READING || requestCode == ReadingState.ADD_READING) {
+                if (data != null) {
+                    Object obj = data.getSerializableExtra(getResources().getString(R.string.intent_updated_or_added));
+                    if (obj instanceof Reading) {
+                        Reading reading = (Reading) obj;
+
+                        try {
+                            String msg = "";
+                            if (model.updateOrAdd(reading)) {
+                                if (requestCode == ReadingState.ADD_READING) {
+                                    msg = getString(R.string.reading_added);
+                                    if (presenter != null) {
+                                        presenter.addReading(reading);
+                                    }
+                                } else {
+                                    msg = getString(R.string.reading_updated);
+                                    if (presenter != null) {
+                                        presenter.updateReading(reading);
+                                    }
+                                }
+
+                                msg += " " + reading.getId();
+                            }
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                        } catch (TrialCatalogException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                }
             }
-        };
-
-        addNewReadingFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, AddEditReadingActivity.class);
-                intent.putExtra(AddEditReadingActivity.ADD, AddEditReadingActivity.ADD);
-                context.startActivity(intent);
-            }
-        });
+        }
     }
 }

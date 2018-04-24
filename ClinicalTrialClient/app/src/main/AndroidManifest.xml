@@ -43,12 +43,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.ReadingsActivity" />
         </activity>
-        <activity
-            android:name=".addeditreadingactivity.AddEditReadingActivity"
-            android:label="@string/title_activity_add_edit_reading"
-            android:theme="@style/AppTheme.NoActionBar">
+        <!--<activity-->
+            <!--android:name=".addeditreadingactivity.AddEditReadingActivity"-->
+            <!--android:label="@string/title_activity_add_edit_reading"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
 
-        </activity>
+        <!--</activity>-->
+        <activity android:name=".clinicsactivity.ClinicsActivity" />
+        <activity
+            android:name=".clinicactivity.ClinicActivity"
+            android:label="@string/title_activity_clinic"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ImportActivity" />
+        <activity android:name=".patientsactivity.PatientsActivity" />
+        <activity android:name=".patientactivity.PatientActivity"/>
     </application>
 
 </manifest>

@@ -28,7 +28,9 @@
         <item>Blood Pressure</item>
     </string-array>
     <string name="add_edit_reading_clr_btn_lbl">Clear</string>
-    <string name="add_edit_reading_submit_btn_lbl">Submit</string>
+    <string name="add_edit_reading_submit_btn_lbl">Save</string>
+    <string name="reading_updated">Reading Updated: </string>
+    <string name="reading_added">Reading Added: </string>
 
     <string name="reading_detail_clinic_id_lbl">Clinic ID: %1$s</string>
     <string name="reading_detail_patient_id_lbl">Patient ID: %1$s</string>
@@ -42,4 +44,52 @@
     <string name="patient_bean_tag">patient</string>
     <string name="reading_bean_tag">reading</string>
     <string name="title_activity_add_edit_reading">AddEditReadingActivity</string>
+
+
+    <string name="clinic_add">Add Clinic</string>
+    <string name="clinic_added">Clinic Added: </string>
+    <string name="clinic_id">ID</string>
+    <string name="clinic_name">Name</string>
+    <string name="clinic_title">Clinic</string>
+    <string name="clinic_updated">Clinic Updated: </string>
+    <string name="clinics_title">Clinics</string>
+    <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
+    <string name="err_clinic_fill_out_name_and_id">Please fill out both the name and id fields. The id field can only contain letters, numbers, and underscores.</string>
+    <string name="err_clinic_not_added">Unable to add the clinic.</string>
+    <string name="err_clinic_not_updated">Unable to update the clinic.</string>
+    <string name="err_patient_fill_out_id">Please fill id fields The id field can only contain letters, numbers, and underscores.</string>
+    <string name="err_reading_fill_out_id">Reading ID must be filled.  It may contain only letters, numbers, and underscores.</string>
+
+    <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
+    <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
+
+    <string name="intent_updated_or_added">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>
+
+    <string name="intent_update_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.clinic</string>
+    <string name="intent_update_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.patient</string>
+
+    <string name="intent_add_reading">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.reading</string>
+    <string name="intent_update_reading">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.reading</string>
+
+    <string name="main_view_readings">View Readings</string>
+    <string name="patient_add">Add Patient</string>
+    <string name="patient_added">Patient Added: </string>
+    <string name="patient_end_date">END</string>
+    <string name="patient_end_trial">End Trial</string>
+    <string name="patient_id">ID</string>
+    <string name="patient_start_date">START</string>
+    <string name="patient_start_trial">Start Trial</string>
+    <string name="patient_status">STATUS</string>
+    <string name="patient_title">Patient</string>
+    <string name="patient_updated">Patient Updated: </string>
+    <string name="patients_title">Patients</string>
+    <string name="patient_status_title">Select the reason the patient ended the trial</string>
+    <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>
+    <string name="regex_no_special_chars_allow_spaces">^[A-Za-z0-9_\\s]+$</string>
+    <string name="save">Save</string>
+    <string name="title_activity_clinic">Clinic</string>
+    <string name="reading_add">Add Reading</string>
+    <string name="reading_title">Reading</string>
+    <string name="readings_title">Readings</string>
+    <string name="save_reading">Save</string>
 </resources>

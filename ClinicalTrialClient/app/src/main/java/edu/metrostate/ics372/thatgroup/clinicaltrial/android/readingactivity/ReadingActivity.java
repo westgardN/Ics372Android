@@ -1,71 +1,93 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.addeditreadingactivity.AddEditReadingActivity;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.ReadingsActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 
-public class ReadingActivity extends AppCompatActivity {
-    Reading selectedReading;
-    FloatingActionButton editReadingFab;
+public class ReadingActivity extends AppCompatActivity implements ReadingFragment.OnFragmentInteractionListener {
+    private ClinicalTrialStateMachine machine;
+    private ReadingPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reading);
-        Toolbar toolbar = findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
 
-        editReadingFab = findViewById(R.id.edit_reading_fab);
+        machine = ((ClinicalTrialClient)getApplication()).getMachine();
+        ClinicalTrialState current = (ClinicalTrialState) machine.getCurrentState();
+        current.setCurrentActivity(this);
+        presenter = new ReadingPresenter(machine);
 
+        Intent intent = getIntent();
+        Reading reading = null;
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        if (intent.hasExtra(getResources().getString(R.string.intent_update_reading))) {
+            Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_update_reading));
+
+            if (obj instanceof Reading) {
+                reading = (Reading) obj;
+            }
         }
 
-        if (savedInstanceState == null) {
-            Bundle arguments = new Bundle();
-            selectedReading = (Reading) getIntent().getSerializableExtra(ReadingFragment.READING_TAG);
-            arguments.putSerializable(
-                    ReadingFragment.READING_TAG, selectedReading);
-            ReadingFragment fragment = new ReadingFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.reading_detail_container, fragment)
-                    .commit();
+        if (reading == null) {
+            reading = ReadingFactory.getReading(ReadingFactory.WEIGHT);
         }
-        setupListeners();
+
+        presenter.setReading(reading);
+        ReadingFragment fragment = ReadingFragment.newInstance(reading);
+        fragment.setPresenter(presenter);
+
+        getFragmentManager().beginTransaction().add(R.id.fragment_reading_holder, fragment).commit();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            navigateUpTo(new Intent(this, ReadingsActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        machine.process(ClinicalTrialEvent.ON_CANCEL);
     }
 
-    private void setupListeners() {
-        editReadingFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, AddEditReadingActivity.class);
-                intent.putExtra(ReadingFragment.READING_TAG, selectedReading);
-                System.out.println(selectedReading.toString());
-                context.startActivity(intent);
-            }
-        });
+
+
+    public void setDateAndTimePickerListeners() {
+//        EditText time = ((EditText)findViewById(R.id.reading_time_txt));
+//        time.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFragment dFragment = new TimePickerFragment();
+//
+//                // Show the time picker dialog fragment
+//                dFragment.show(getSupportFragmentManager(), "timePicker");
+//            }
+//        });
+    }
+
+    @Override
+    public void onSaveClicked() {
+        ReadingState state = (ReadingState)machine.getCurrentState();
+
+        state.setReading(presenter.getReading());
+        machine.process(ClinicalTrialEvent.ON_OK);
+    }
+
+    @Override
+    public void onInputError() {
+
+    }
+
+    @Override
+    public void onInputOk() {
+
     }
 }

@@ -1,51 +1,42 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity;
 
 import java.util.List;
-
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.BasePresenter;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
-public class ReadingsPresenter {
-    ClinicalTrialModel model;
-    private List<Reading> readings;
-    private Reading activeReading;
+public class ReadingsPresenter implements BasePresenter {
+    private ReadingsView view = null;
 
-    public ReadingsPresenter(ClinicalTrialModel model) throws TrialCatalogException {
-        this.model = model;
-        readings = model.getReadings();
+    private List<Reading> readings = null;
+
+    public void setView(ReadingsView view){ this.view = view; }
+
+    public void setReadings(List<Reading> readings) { this.readings = readings; }
+
+    public void addReading(Reading reading) {
+        if (readings != null) {
+            readings.add(reading);
+        }
     }
 
-    public ReadingsPresenter(ClinicalTrialModel model, Clinic clinic) throws TrialCatalogException {
-        this.model = model;
-        readings = model.getJournal(clinic);
+    public void updateReading(Reading reading) {
+        if (readings != null && readings.contains(reading)) {
+            readings.remove(reading);
+            readings.add(reading);
+        }
     }
 
-    public ReadingsPresenter(ClinicalTrialModel model, Patient patient) throws TrialCatalogException {
-        this.model = model;
-        readings = model.getJournal(patient);
+    @Override
+    public void subscribe(){
+        updateView();
     }
 
-    public List<Reading> getReadings() {
-        return readings;
-    }
+    @Override
+    public void unsubscribe(){ }
 
-    public Reading getActiveReading() {
-        return activeReading;
-    }
-
-    public void setActiveReading(Reading activeReading) {
-        this.activeReading = activeReading;
-    }
-
-    public String getReadingId(Reading reading) {
-        return reading.getId();
-    }
-
-    public String getReadingType(Reading reading) {
-        return ReadingFactory.getPrettyReadingType(reading);
+    public void  updateView() {
+        if (view != null && readings != null) {
+            view.setReadings(readings);
+        }
     }
 }
