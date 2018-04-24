@@ -1,11 +1,9 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +16,6 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ImportingState;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.MainActivityState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
@@ -41,8 +38,8 @@ public class ImportActivity extends AppCompatActivity {
 
         File mPath = new File(getExternalFilesDir(null) +
                 File.separator + getString(R.string.app_name));
-        FileDialog fileDialog = new FileDialog(this, mPath, getString(R.string.select_import_file), null);
-        fileDialog.addFileListener(new FileDialog.FileSelectedListener() {
+        SelectFileDialog selectFileDialog = new SelectFileDialog(this, mPath, getString(R.string.select_import_file), null);
+        selectFileDialog.addFileListener(new SelectFileDialog.FileSelectedListener() {
             @Override
             public void fileSelected(File file) {
                 Log.d(getClass().getName(), "selected file " + file.toString());
@@ -60,7 +57,7 @@ public class ImportActivity extends AppCompatActivity {
             }
         });
 
-        fileDialog.showDialog();
+        selectFileDialog.showDialog();
     }
 
     /**

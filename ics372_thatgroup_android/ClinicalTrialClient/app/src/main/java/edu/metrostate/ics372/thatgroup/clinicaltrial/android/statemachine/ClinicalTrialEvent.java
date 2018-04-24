@@ -25,5 +25,7 @@ public enum ClinicalTrialEvent {
     ON_ADD_READING,
     ON_IMPORT_FILE_INVALID,
     ON_IMPORT_BEGIN,
-    ON_IMPORT_END
+    ON_IMPORT_END,
+    ON_EXPORT_BEGIN,
+    ON_EXPORT_END
 }
