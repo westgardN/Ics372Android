@@ -17,7 +17,7 @@ public class PatientErrorState extends ClinicalTrialState {
         Toast.makeText(
                 app.getApplicationContext(),
                 getFromActivity().getResources().getString(R.string.err_patient_fill_out_id),
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PatientErrorState extends ClinicalTrialState {
                 Toast.makeText(
                         app.getApplicationContext(),
                         getFromActivity().getResources().getString(R.string.err_patient_fill_out_id),
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
                 break;
             case ON_CANCEL:
             case ON_PREVIOUS:

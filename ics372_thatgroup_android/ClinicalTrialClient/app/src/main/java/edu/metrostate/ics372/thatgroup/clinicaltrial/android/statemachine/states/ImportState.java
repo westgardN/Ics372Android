@@ -39,7 +39,7 @@ class ImportState extends ClinicalTrialState {
                 Toast.makeText(
                         getFromActivity().getApplicationContext(),
                         getFromActivity().getResources().getString(R.string.import_cancelled),
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
                 getCurrentActivity().finish();
                 machine.transition();
                 break;

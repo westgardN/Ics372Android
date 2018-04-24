@@ -14,10 +14,6 @@ public class ImportingState extends ClinicalTrialState {
         super(machine, context);
 
         Log.d(getClass().getName(), getFromActivity().getResources().getString(R.string.import_started));
-        Toast.makeText(
-                getFromActivity().getApplicationContext(),
-                getFromActivity().getResources().getString(R.string.import_started),
-                Toast.LENGTH_SHORT).show();
     }
 
     private String message;
@@ -40,7 +36,7 @@ public class ImportingState extends ClinicalTrialState {
                 Toast.makeText(
                         getFromActivity().getApplicationContext(),
                         msg,
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
                 getCurrentActivity().finish();
                 machine.transition();
                 machine.transition();

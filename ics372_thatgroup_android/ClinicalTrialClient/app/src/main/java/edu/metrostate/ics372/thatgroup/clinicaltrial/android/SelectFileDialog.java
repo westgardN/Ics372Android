@@ -87,7 +87,6 @@ public class SelectFileDialog {
                 File chosenFile = getChosenFile(fileChosen);
                 if (chosenFile.isDirectory()) {
                     loadFileList(chosenFile);
-                    dialog.cancel();
                     dialog.dismiss();
                     showDialog();
                 } else fireFileSelectedEvent(chosenFile);

@@ -105,7 +105,7 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
                         if (ld != null) {
                             Toast.makeText(
                                     machine.getApplication(), Strings.ERR_DATE_MSG,
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 } else {
@@ -117,7 +117,7 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
                         if (ld != null) {
                             Toast.makeText(
                                     machine.getApplication(), Strings.ERR_DATE_MSG,
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -195,18 +195,32 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
 
     @Override
     public void onViewReadingsClicked() {
-        PatientState state = (PatientState)machine.getCurrentState();
+        Patient patient = presenter.getPatient();
+        try {
+            machine.getApplication().getModel().updateOrAdd(patient);
+            PatientState state = (PatientState) machine.getCurrentState();
 
-        state.setPatient(presenter.getPatient());
-        machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
+            state.setPatient(presenter.getPatient());
+            machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
+        } catch (TrialCatalogException e) {
+            Toast.makeText(
+                    getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onAddReadingClicked() {
-        PatientState state = (PatientState)machine.getCurrentState();
+        Patient patient = presenter.getPatient();
+        try {
+            machine.getApplication().getModel().updateOrAdd(patient);
+            PatientState state = (PatientState) machine.getCurrentState();
 
-        state.setPatient(presenter.getPatient());
-        machine.process(ClinicalTrialEvent.ON_ADD_READING);
+            state.setPatient(presenter.getPatient());
+            machine.process(ClinicalTrialEvent.ON_ADD_READING);
+        } catch (TrialCatalogException e) {
+            Toast.makeText(
+                    getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
