@@ -9,14 +9,14 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 
-public class ImportingState extends ClinicalTrialState {
-    public ImportingState(ClinicalTrialStateMachine machine, Context context) {
+public class ExportingState extends ClinicalTrialState {
+    public ExportingState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
-        Log.d(getClass().getName(), getFromActivity().getResources().getString(R.string.import_started));
+        Log.d(getClass().getName(), getFromActivity().getResources().getString(R.string.export_started));
         Toast.makeText(
                 getFromActivity().getApplicationContext(),
-                getFromActivity().getResources().getString(R.string.import_started),
+                getFromActivity().getResources().getString(R.string.export_started),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -33,9 +33,9 @@ public class ImportingState extends ClinicalTrialState {
         switch (event) {
             case ON_SELECT:
                 break;
-            case ON_IMPORT_END:
+            case ON_EXPORT_END:
                 String msg = message != null ? message :
-                        getFromActivity().getResources().getString(R.string.import_complete);
+                        getFromActivity().getResources().getString(R.string.export_complete);
                 Toast.makeText(
                         getFromActivity().getApplicationContext(),
                         msg,
@@ -46,10 +46,10 @@ public class ImportingState extends ClinicalTrialState {
                 break;
             case ON_CANCEL:
             case ON_PREVIOUS:
-                Log.d(getClass().getName(), getFromActivity().getResources().getString(R.string.import_cancelled));
+                Log.d(getClass().getName(), getFromActivity().getResources().getString(R.string.export_cancelled));
                 Toast.makeText(
                         getFromActivity().getApplicationContext(),
-                        getFromActivity().getResources().getString(R.string.import_cancelled),
+                        getFromActivity().getResources().getString(R.string.export_cancelled),
                         Toast.LENGTH_SHORT).show();
                 getCurrentActivity().finish();
                 machine.transition();

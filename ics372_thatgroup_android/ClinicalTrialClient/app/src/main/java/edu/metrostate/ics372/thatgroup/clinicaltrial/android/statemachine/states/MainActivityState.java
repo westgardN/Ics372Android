@@ -20,7 +20,10 @@ public class MainActivityState extends ClinicalTrialState {
 
         switch (event) {
             case ON_IMPORT:
-                machine.transition(new ImportActivityState(machine, getContext()), true);
+                machine.transition(new ImportState(machine, getContext()), true);
+                break;
+            case ON_EXPORT:
+                machine.transition(new ExportState(machine, getContext()), true);
                 break;
             case ON_CLINICS:
                 machine.transition(new ClinicsState(machine, getContext()), true);

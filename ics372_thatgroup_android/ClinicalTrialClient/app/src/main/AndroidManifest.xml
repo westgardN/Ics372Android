@@ -29,7 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ImportActivity" />
         <activity android:name=".PatientsActivity" />
-        <activity android:name=".PatientActivity"></activity>
+        <activity android:name=".PatientActivity" />
+        <activity android:name=".ExportActivity"></activity>
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -12,7 +11,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDialog {
+public class SelectFileDialog {
     private static final String PARENT_DIR = "..";
     private static final String DEFAULT_TITLE = "Select a file";
     private final String TAG = getClass().getName();
@@ -31,8 +30,8 @@ public class FileDialog {
         void actionCancelled();
     }
 
-    private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<FileDialog.FileSelectedListener>();
-    private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<FileDialog.DirectorySelectedListener>();
+    private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<SelectFileDialog.FileSelectedListener>();
+    private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<SelectFileDialog.DirectorySelectedListener>();
 
     private final Activity activity;
     private boolean selectDirectoryOption;
@@ -43,11 +42,11 @@ public class FileDialog {
      * @param activity
      * @param initialPath
      */
-    public FileDialog(Activity activity, File initialPath) {
+    public SelectFileDialog(Activity activity, File initialPath) {
         this(activity, initialPath, DEFAULT_TITLE, null);
     }
 
-    public FileDialog(Activity activity, File initialPath, String title, String fileEndsWith) {
+    public SelectFileDialog(Activity activity, File initialPath, String title, String fileEndsWith) {
         this.activity = activity;
 
         setFileEndsWith(fileEndsWith);
@@ -205,6 +204,33 @@ public class FileDialog {
 
     private void setFileEndsWith(String fileEndsWith) {
         this.fileEndsWith = fileEndsWith != null ? fileEndsWith.toLowerCase() : fileEndsWith;
+    }
+
+    static class ListenerList<L> {
+        private List<L> listenerList = new ArrayList<L>();
+
+        public interface FireHandler<L> {
+            void fireEvent(L listener);
+        }
+
+        public void add(L listener) {
+            listenerList.add(listener);
+        }
+
+        public void fireEvent(FireHandler<L> fireHandler) {
+            List<L> copy = new ArrayList<L>(listenerList);
+            for (L l : copy) {
+                fireHandler.fireEvent(l);
+            }
+        }
+
+        public void remove(L listener) {
+            listenerList.remove(listener);
+        }
+
+        public List<L> getListenerList() {
+            return listenerList;
+        }
     }
 }
 
