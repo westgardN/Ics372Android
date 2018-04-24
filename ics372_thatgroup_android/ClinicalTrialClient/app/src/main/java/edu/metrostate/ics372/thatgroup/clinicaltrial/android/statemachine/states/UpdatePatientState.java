@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import java.util.Objects;
 
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.PatientActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.patientactivity.PatientActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;

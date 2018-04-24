@@ -23,8 +23,8 @@ public class FileDialog {
     public interface DirectorySelectedListener {
         void directorySelected(File directory);
     }
-    private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<FileDialog.FileSelectedListener>();
-    private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<FileDialog.DirectorySelectedListener>();
+    private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<FileSelectedListener>();
+    private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<DirectorySelectedListener>();
     private final Activity activity;
     private boolean selectDirectoryOption;
     private String fileEndsWith;
