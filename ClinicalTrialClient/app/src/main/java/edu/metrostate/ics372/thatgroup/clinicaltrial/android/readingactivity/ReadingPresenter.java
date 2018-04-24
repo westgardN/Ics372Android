@@ -1,6 +1,5 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.BasePresenter;
@@ -8,6 +7,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class ReadingPresenter implements BasePresenter {
     private ClinicalTrialStateMachine machine;
@@ -58,9 +58,9 @@ public class ReadingPresenter implements BasePresenter {
                 view.setClinicId(reading.getClinicId());
                 view.setPatientId(reading.getPatientId());
                 view.setType(ReadingFactory.getPrettyReadingType(reading));
-                view.setValue(reading.getValue() == null ? ReadingFactory.PRETTY_WEIGHT : reading.getValue().toString());
-                view.setDate(reading.getDate() == null ? LocalDate.now() : reading.getDate().toLocalDate());
-                view.setTime(reading.getDate() == null ? LocalTime.now() : LocalTime.of(reading.getDate().getHour(), reading.getDate().getMinute()));
+                view.setValue(Integer.valueOf(reading.getValue().toString()) == 0 ? Strings.EMPTY : reading.getValue().toString());
+                view.setDate(reading.getDate().toLocalDate());
+                view.setTime(LocalTime.of(reading.getDate().getHour(), reading.getDate().getMinute()));
             } else {
                 view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
             }

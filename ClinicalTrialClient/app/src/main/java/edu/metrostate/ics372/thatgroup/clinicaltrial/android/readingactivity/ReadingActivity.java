@@ -6,6 +6,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+
+import java.time.LocalDateTime;
+
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
@@ -14,6 +17,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class ReadingActivity extends AppCompatActivity implements ReadingFragment.OnFragmentInteractionListener {
     private ClinicalTrialStateMachine machine;
@@ -42,6 +46,8 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
 
         if (reading == null) {
             reading = ReadingFactory.getReading(ReadingFactory.WEIGHT);
+            reading.setValue(0);
+            reading.setDate(LocalDateTime.now());
         }
 
         presenter.setReading(reading);

@@ -12,12 +12,16 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 public class ReadingsActivity extends AppCompatActivity implements ReadingsFragment.OnFragmentInteractionListener {
-    ReadingsPresenter presenter = null;
+    private ReadingsPresenter presenter = null;
+    private final String CLINIC_ARG = "clinic";
+    private final String PATIENT_ARG = "patient";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,15 @@ public class ReadingsActivity extends AppCompatActivity implements ReadingsFragm
         presenter = new ReadingsPresenter();
 
         try {
-
-            presenter.setReadings(model.getReadings());
+            if (getIntent().hasExtra(CLINIC_ARG)) {
+                Clinic clinic = (Clinic) getIntent().getExtras().getSerializable(CLINIC_ARG);
+                presenter.setReadings(model.getJournal(clinic));
+            } else if (getIntent().hasExtra(PATIENT_ARG)) {
+                Patient patient = (Patient) getIntent().getExtras().getSerializable(PATIENT_ARG);
+                presenter.setReadings(model.getJournal(patient));
+            } else {
+                presenter.setReadings(model.getReadings());
+            }
 
             ReadingsFragment fragment = ReadingsFragment.newInstance();
             fragment.setPresenter(presenter);
