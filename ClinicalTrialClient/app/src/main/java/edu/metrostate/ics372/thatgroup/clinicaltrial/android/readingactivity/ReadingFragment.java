@@ -93,9 +93,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
                         bpDialog.show(getActivity().getFragmentManager(), "bpPicker");
 
                     });
-                }
-                if (position != 3) {
+                }else {
                     value.setOnClickListener(null);
+                    value.setFocusableInTouchMode(true);
                     value.setFocusable(true);
                 }
             }
@@ -108,15 +108,11 @@ public class ReadingFragment extends Fragment implements ReadingView,
 
         date.setOnClickListener(v -> {
             DialogFragment dialogFragment = new DatePickDialog();
-
-            // Show the time picker dialog fragment
             dialogFragment.show(getActivity().getFragmentManager(), "datePicker");
         });
 
         time.setOnClickListener(v -> {
             DialogFragment dialogFragment = new TimePickerFragment();
-
-            // Show the time picker dialog fragment
             dialogFragment.show(getActivity().getFragmentManager(), "timePicker");
         });
     }
