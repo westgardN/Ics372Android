@@ -33,7 +33,6 @@ public class TrialCatalogTest {
     TrialCatalog catalog;
     TrialManager trialManager;
 
-
     @Before
     public void setupTestHarness() {
         try {
@@ -129,6 +128,20 @@ public class TrialCatalogTest {
 
         actual = catalog.remove(patient);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetPatient() throws TrialCatalogException {
+        Patient patient = new Patient("test", TEST_TRIAL_ID, LocalDate.now(), null, PatientStatus.COMPLETED_ID);
+
+        testInsertPatient();
+        boolean expected = true;
+        boolean actual = catalog.exists(patient);
+        assertEquals(expected, actual);
+
+        Patient existingPatient = catalog.get(patient);
+
+        assertEquals(existingPatient, patient);
     }
 
     @Test
