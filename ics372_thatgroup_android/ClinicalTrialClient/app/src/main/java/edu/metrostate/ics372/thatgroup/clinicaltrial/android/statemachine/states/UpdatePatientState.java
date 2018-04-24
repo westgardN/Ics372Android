@@ -88,7 +88,19 @@ public class UpdatePatientState extends PatientState {
 
     @Override
     public boolean canAddReading() {
-        return patient != null && Objects.equals(patient.getStatusId(), PatientStatus.ACTIVE_ID);
+        boolean answer = false;
+
+        if (patient != null) {
+            Patient temp = null;
+            try {
+                temp = getMachine().getApplication().getModel().getPatient(patient.getId());
+            } catch (TrialCatalogException e) {
+                e.printStackTrace();
+            }
+
+            answer = Objects.equals(temp.getStatusId(), PatientStatus.ACTIVE_ID);
+        }
+        return answer;
     }
 
     @Override
@@ -99,6 +111,7 @@ public class UpdatePatientState extends PatientState {
     @Override
     public boolean hasReadings() {
         boolean answer = false;
+
         try {
             answer = getMachine().getApplication().getModel().hasReadings(patient);
         } catch (TrialCatalogException e) {

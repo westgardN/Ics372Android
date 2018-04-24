@@ -196,31 +196,19 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
     @Override
     public void onViewReadingsClicked() {
         Patient patient = presenter.getPatient();
-        try {
-            machine.getApplication().getModel().updateOrAdd(patient);
-            PatientState state = (PatientState) machine.getCurrentState();
+        PatientState state = (PatientState) machine.getCurrentState();
 
-            state.setPatient(presenter.getPatient());
-            machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
-        } catch (TrialCatalogException e) {
-            Toast.makeText(
-                    getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        state.setPatient(presenter.getPatient());
+        machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
     }
 
     @Override
     public void onAddReadingClicked() {
         Patient patient = presenter.getPatient();
-        try {
-            machine.getApplication().getModel().updateOrAdd(patient);
-            PatientState state = (PatientState) machine.getCurrentState();
+        PatientState state = (PatientState) machine.getCurrentState();
 
-            state.setPatient(presenter.getPatient());
-            machine.process(ClinicalTrialEvent.ON_ADD_READING);
-        } catch (TrialCatalogException e) {
-            Toast.makeText(
-                    getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        state.setPatient(presenter.getPatient());
+        machine.process(ClinicalTrialEvent.ON_ADD_READING);
     }
 
     @Override
