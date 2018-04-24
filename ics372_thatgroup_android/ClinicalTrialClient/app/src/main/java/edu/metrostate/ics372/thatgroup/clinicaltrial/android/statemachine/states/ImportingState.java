@@ -36,6 +36,7 @@ public class ImportingState extends ClinicalTrialState {
             case ON_IMPORT_END:
                 String msg = message != null ? message :
                         getFromActivity().getResources().getString(R.string.import_complete);
+                Log.d(getClass().getName(), msg);
                 Toast.makeText(
                         getFromActivity().getApplicationContext(),
                         msg,
