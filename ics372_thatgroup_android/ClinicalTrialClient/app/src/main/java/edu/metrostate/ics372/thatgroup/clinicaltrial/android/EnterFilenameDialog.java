@@ -68,7 +68,7 @@ public class EnterFilenameDialog {
                         Toast.makeText(
                                 activity.getApplicationContext(),
                                 Strings.SPECIAL_CHAR_MSG,
-                                Toast.LENGTH_SHORT).show();
+                                Toast.LENGTH_LONG).show();
                         showDialog();
                     });
                 }
