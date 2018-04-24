@@ -17,6 +17,7 @@ import java.util.List;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ImportingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.MainActivityState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
@@ -35,7 +36,7 @@ public class ImportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_import);
 
         ClinicalTrialStateMachine machine = ((ClinicalTrialClient)getApplication()).getMachine();
-        ClinicalTrialState state = new MainActivityState(machine, this);
+        ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
         state.setCurrentActivity(this);
 
         File mPath = new File(getExternalFilesDir(null) +
@@ -55,12 +56,7 @@ public class ImportActivity extends AppCompatActivity {
 
             @Override
             public void actionCancelled() {
-                Log.d(getClass().getName(), "Import cancelled");
-                Toast.makeText(
-                        getApplicationContext(),
-                        getString(R.string.import_cancelled),
-                        Toast.LENGTH_SHORT).show();
-                finish();
+                machine.process((ClinicalTrialEvent.ON_CANCEL));
             }
         });
 
@@ -82,9 +78,6 @@ public class ImportActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ClinicalTrialStateMachine machine = ((ClinicalTrialClient)getApplication()).getMachine();
-
-        machine.process(ClinicalTrialEvent.ON_CANCEL);
     }
 
     private void importFile(File file) {
@@ -127,6 +120,9 @@ public class ImportActivity extends AppCompatActivity {
                     protected void onPostExecute(String s) {
                         super.onPostExecute(s);
                         model.setImporting(false);
+                        ImportingState state = (ImportingState)machine.getCurrentState();
+
+                        state.setMessage(s);
                         machine.process(ClinicalTrialEvent.ON_IMPORT_END);
                     }
                 }.execute(file);

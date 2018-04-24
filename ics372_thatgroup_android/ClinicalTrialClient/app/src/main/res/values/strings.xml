@@ -15,6 +15,7 @@
     <string name="err_patient_fill_out_id">Please fill id fields The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_select_import_file">The selected file is not a valid XML or JSON import file.</string>
     <string name="import_cancelled">The import has been cancelled.</string>
+    <string name="import_complete">The import has been completed.</string>
     <string name="import_title">Select a JSON or XML file to import.</string>
     <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
     <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
