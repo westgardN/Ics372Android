@@ -7,8 +7,11 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.File;
+
+import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class EnterFilenameDialog {
     private final Activity activity;
@@ -40,6 +43,8 @@ public class EnterFilenameDialog {
         builder.setTitle(title);
 
         final EditText input = new EditText(activity);
+        input.setMaxLines(1);
+        input.setSingleLine();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
@@ -51,12 +56,22 @@ public class EnterFilenameDialog {
             public void onClick(DialogInterface dialog, int which) {
                 String result = input.getText().toString();
 
-                if (!result.endsWith(extToAdd)) {
-                    result += extToAdd;
-                }
+                if (validate(result)) {
+                    if (!result.endsWith(extToAdd)) {
+                        result += extToAdd;
+                    }
 
-                final String real = result;
-                activity.runOnUiThread(() -> fireFilenameEnteredEvent(real));
+                    final String real = result;
+                    activity.runOnUiThread(() -> fireFilenameEnteredEvent(real));
+                } else {
+                    activity.runOnUiThread(() -> {
+                        Toast.makeText(
+                                activity.getApplicationContext(),
+                                Strings.SPECIAL_CHAR_MSG,
+                                Toast.LENGTH_SHORT).show();
+                        showDialog();
+                    });
+                }
             }
         });
 
@@ -85,6 +100,29 @@ public class EnterFilenameDialog {
         if (listener != null) {
             listener.actionCancelled();
         }
+    }
+
+    private boolean validate(String filename) {
+        boolean answer = false;
+            if (validate(filename, true)) {
+                answer = true;
+            }
+
+        return answer;
+    }
+
+    private boolean validate(String text, boolean allowSpace) {
+        boolean answer = false;
+        String matchString = allowSpace ? activity.getString(R.string.regex_no_special_chars_allow_spaces)
+                : activity.getString(R.string.regex_no_special_chars);
+
+        if (text != null && !text.trim().isEmpty()) {
+            if (text.matches(matchString)) {
+                answer = true;
+            }
+        }
+
+        return answer;
     }
 
 }

@@ -35,9 +35,10 @@ public class ExportingState extends ClinicalTrialState {
                 break;
             case ON_EXPORT_END:
                 String msg = message != null ? message :
-                        getFromActivity().getResources().getString(R.string.export_complete);
+                        getCurrentActivity().getResources().getString(R.string.export_complete);
+                Log.d(getClass().getName(), msg);
                 Toast.makeText(
-                        getFromActivity().getApplicationContext(),
+                        getCurrentActivity().getApplicationContext(),
                         msg,
                         Toast.LENGTH_SHORT).show();
                 getCurrentActivity().finish();
