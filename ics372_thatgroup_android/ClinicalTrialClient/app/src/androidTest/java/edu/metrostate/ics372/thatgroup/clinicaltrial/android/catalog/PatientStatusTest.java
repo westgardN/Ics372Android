@@ -44,7 +44,7 @@ public class PatientStatusTest {
 
         /**
          * Test method for
-         * {@link edu.metrostate.ics372.thatgroup.clinicaltrial.beans.PatientStatus()}.
+         * {@link edu.metrostate.ics372.thatgroup.clinicaltrial.beans.PatientStatus()#}.
          */
         @Test
         public final void defaultConstructedShouldBeNotNull() {
