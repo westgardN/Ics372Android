@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class ReadingFragment extends Fragment implements ReadingView,
         Button.OnClickListener, TextWatcher {
@@ -42,6 +44,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
 
     private Reading reading;
     private String action;
+    private ArrayAdapter<Clinic> clinicAdapter;
+    private ArrayAdapter<Patient> patientAdapter;
+    private ArrayAdapter<String> typeAdapter;
 
     private ReadingFragment.OnFragmentInteractionListener mListener;
 
@@ -74,7 +79,6 @@ public class ReadingFragment extends Fragment implements ReadingView,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reading, container, false);
-        setDateAndTimePickerListeners(view);
         // Inflate the layout for this fragment
         return view;
     }
@@ -82,9 +86,6 @@ public class ReadingFragment extends Fragment implements ReadingView,
     @Override
     public void onStart() {
         super.onStart();
-        if (presenter != null) {
-            presenter.subscribe();
-        }
         ((Button)getView().findViewById(R.id.save_reading)).setOnClickListener(this);
 
         try {
@@ -113,6 +114,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
             DialogFragment dialogFragment = new TimePickerFragment();
             dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_time));
         });
+
+        if (presenter != null) {
+            presenter.subscribe();
+        }
     }
 
     private void loadClinicsSpinner() throws TrialCatalogException {
@@ -128,10 +133,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
             clinics = clinicList.toArray(clinics);
         }
 
-        ArrayAdapter<Clinic> adapter = new ArrayAdapter<Clinic>(getActivity(),
+        clinicAdapter = new ArrayAdapter<Clinic>(getActivity(),
                 android.R.layout.simple_spinner_item, clinics);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerClinic.setAdapter(adapter);
+        clinicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerClinic.setAdapter(clinicAdapter);
     }
 
     private void loadPatientsSpinner() throws TrialCatalogException {
@@ -147,10 +152,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
             patients = patientList.toArray(patients);
         }
 
-        ArrayAdapter<Patient> adapter = new ArrayAdapter<Patient>(getActivity(),
+        patientAdapter = new ArrayAdapter<Patient>(getActivity(),
                 android.R.layout.simple_spinner_item, patients);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPatient.setAdapter(adapter);
+        patientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPatient.setAdapter(patientAdapter);
     }
 
     private void loadTypeSpinner() {
@@ -160,10 +165,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         String[] types = new String[stringTypes.size()];
         types = stringTypes.toArray(types);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        typeAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, types);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerType.setAdapter(adapter);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(typeAdapter);
     }
 
     @Override
@@ -252,6 +257,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
                     weightDialog.show(getActivity().getFragmentManager(), getString(R.string.tag_weight));
                     break;
             }
+            if (presenter != null) {
+                presenter.updateView(false);
+            }
         }
     }
 
@@ -281,192 +289,154 @@ public class ReadingFragment extends Fragment implements ReadingView,
     }
 
     @Override
+    public void setDisabledSave(boolean disabled) {
+        ((Button) getView().findViewById(R.id.save_reading)).setEnabled(!disabled);
+    }
+
+    @Override
     public String getReadingId() {
         return ((TextView)getView().findViewById(R.id.reading_id)).getText().toString();
     }
 
     @Override
     public String getClinicId() {
-        return null;
+        Object obj = ((Spinner)getView().findViewById(R.id.reading_clinic)).getSelectedItem();
+        String answer = Strings.EMPTY;
+
+        if (obj instanceof Clinic) {
+            answer = ((Clinic)obj).getId();
+        }
+
+        return answer;
     }
 
     @Override
     public String getPatientId() {
-        return null;
+        Object obj = ((Spinner)getView().findViewById(R.id.reading_patient)).getSelectedItem();
+        String answer = Strings.EMPTY;
+
+        if (obj instanceof Patient) {
+            answer = ((Patient)obj).getId();
+        }
+
+        return answer;
     }
 
     @Override
     public String getType() {
-        return null;
+        Object obj = ((Spinner)getView().findViewById(R.id.reading_type)).getSelectedItem();
+        String answer = Strings.EMPTY;
+
+        if (obj instanceof String) {
+            answer = obj.toString();
+        }
+
+        return answer;
     }
 
     @Override
     public String getValue() {
-        return null;
+        return ((EditText)getView().findViewById(R.id.reading_value)).getText().toString();
     }
 
     @Override
     public LocalDate getDate() {
-        return null;
+        String date = ((TextView)getView().findViewById(R.id.reading_date)).getText().toString();
+        LocalDate answer = null;
+
+        if (date != null && !date.isEmpty()) {
+            try {
+                answer = LocalDate.parse(date);
+            } catch (DateTimeParseException ex) {
+
+            }
+        }
+
+        return answer;
     }
 
     @Override
     public LocalTime getTime() {
-        return null;
+        String time = ((TextView)getView().findViewById(R.id.reading_time)).getText().toString();
+        LocalTime answer = null;
+
+        if (time != null && !time.isEmpty()) {
+            try {
+                answer = LocalTime.parse(time);
+            } catch (DateTimeParseException ex) {
+
+            }
+        }
+
+        return answer;
     }
 
     @Override
     public void setReadingId(String id) {
-
+        ((EditText)getView().findViewById(R.id.reading_id)).setText(id);
     }
 
     @Override
     public void setClinicId(String clinicId) {
+        if (clinicId != null && !clinicId.isEmpty()) {
+            try {
+                Clinic clinic = ((ClinicalTrialClient) getActivity().getApplication()).getModel().getClinic(clinicId);
 
+                int pos = clinicAdapter.getPosition(clinic);
+
+                if (pos >= 0) {
+                    ((Spinner) getView().findViewById(R.id.reading_clinic)).setSelection(pos);
+                }
+            } catch (TrialCatalogException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void setPatientId(String patientId) {
+        if (patientId != null && !patientId.isEmpty()) {
+            try {
+                Patient patient = ((ClinicalTrialClient) getActivity().getApplication()).getModel().getPatient(patientId);
 
+                int pos = patientAdapter.getPosition(patient);
+
+                if (pos >= 0) {
+                    ((Spinner) getView().findViewById(R.id.reading_patient)).setSelection(pos);
+                }
+            } catch (TrialCatalogException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void setType(String type) {
+        if (type != null && !type.isEmpty()) {
+            int pos = typeAdapter.getPosition(type);
 
+            if (pos >= 0) {
+                ((Spinner) getView().findViewById(R.id.reading_type)).setSelection(pos);
+            }
+        }
     }
 
     @Override
     public void setValue(String value) {
-
+        ((EditText)getView().findViewById(R.id.reading_value)).setText(value);
     }
 
     @Override
     public void setDate(LocalDate date) {
-
+        ((EditText)getView().findViewById(R.id.reading_date)).setText(date != null ? date.toString() : Strings.EMPTY);
     }
 
     @Override
     public void setTime(LocalTime time) {
-
+        ((EditText)getView().findViewById(R.id.reading_time)).setText(time != null ? time.toString() : Strings.EMPTY);
     }
-
-    @Override
-    public void setDateAndTimePickerListeners(View view) {
-
-    }
-
-    @Override
-    public void setDisabledSave(boolean disabled) {
-        ((Button) getView().findViewById(R.id.save_reading)).setEnabled(!disabled);
-    }
-
-//    @Override
-//    public String getReadingId() {
-//        return ((EditText)getView().findViewById(R.id.reading_id_txt)).getText().toString();
-//    }
-//
-//    @Override
-//    public String getClinicId() {
-//        return ((EditText)getView().findViewById(R.id.reading_clinic_id_txt)).getText().toString();
-//    }
-//
-//    @Override
-//    public String getPatientId() {
-//        return ((EditText)getView().findViewById(R.id.reading_patient_id_txt)).getText().toString();
-//    }
-//
-//    @Override
-//    public String getType() {
-//        return ((Spinner)getView().findViewById(R.id.reading_type_spinner)).getSelectedItem().toString();
-//    }
-//
-//    @Override
-//    public String getValue() {
-//        return ((EditText)getView().findViewById(R.id.reading_value_txt)).getText().toString();
-//    }
-//
-//    @Override
-//    public LocalDate getDate() {
-//        String date = ((TextView)getView().findViewById(R.id.reading_date_txt)).getText().toString();
-//        LocalDate answer = null;
-//
-//        if (date != null && !date.isEmpty()) {
-//            try {
-//                answer = LocalDate.parse(date);
-//            } catch (DateTimeParseException ex) {
-//
-//            }
-//        }
-//
-//        return answer;
-//        //return LocalDate.parse(((EditText)getView().findViewById(R.id.reading_date_txt)).getText().toString());
-//    }
-//
-//    @Override
-//    public LocalTime getTime() {
-//        return LocalTime.parse(((EditText)getView().findViewById(R.id.reading_time_txt)).getText().toString());
-//    }
-//
-//    @Override
-//    public void setReadingId(String id) {
-//        ((EditText)getView().findViewById(R.id.reading_id_txt)).setText(id);
-//    }
-//
-//    @Override
-//    public void setClinicId(String clinicId) {
-//        ((EditText)getView().findViewById(R.id.reading_clinic_id_txt)).setText(clinicId);
-//    }
-//
-//    @Override
-//    public void setPatientId(String patientId) {
-//        ((EditText)getView().findViewById(R.id.reading_patient_id_txt)).setText(patientId);
-//    }
-//
-//    @Override
-//    public void setType(String type) {
-//        int i = 0;
-//        if (type.equals(Reading.class.getName())) {
-//            ((Spinner)getView().findViewById(R.id.reading_type_spinner)).setSelection(0);
-//            //TODO
-//        } else {
-//            for (String s : getResources().getStringArray(R.array.reading_types)) {
-//                if (type.equals(s)) {
-//                    break;
-//                } else {
-//                    i++;
-//                }
-//            }
-//            ((Spinner)getView().findViewById(R.id.reading_type_spinner)).setSelection(i);
-//        }
-//    }
-//
-//    @Override
-//    public void setValue(String value) {
-//        ((EditText)getView().findViewById(R.id.reading_value_txt)).setText(value);
-//    }
-//
-//    @Override
-//    public void setDate(LocalDate date) {
-//        ((EditText)getView().findViewById(R.id.reading_date_txt)).setText(date.toString());
-//    }
-//
-//    @Override
-//    public void setTime(LocalTime time) {
-//        ((EditText)getView().findViewById(R.id.reading_time_txt)).setText(time.toString());
-//    }
-//
-//    @Override
-//    public void setDisabledSave(boolean b) {
-//
-//    }
-//
-//    @Override
-//    public void setDateAndTimePickerListeners(View view) {
-//
-//    }
 
     public interface OnFragmentInteractionListener {
-        //void onTimeClicked();
         void onSaveClicked();
         void onInputError();
         void onInputOk();

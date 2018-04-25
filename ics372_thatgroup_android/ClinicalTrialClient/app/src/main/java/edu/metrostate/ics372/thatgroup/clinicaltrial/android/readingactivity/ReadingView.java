@@ -25,6 +25,5 @@ public interface ReadingView extends BaseView<ReadingPresenter> {
     void setDate(LocalDate date);
     void setTime(LocalTime time);
 
-    void setDateAndTimePickerListeners(View view);
     void setDisabledSave(boolean b);
 }
