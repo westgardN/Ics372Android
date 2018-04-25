@@ -101,4 +101,7 @@
     <string name="trial_bean_tag">trial</string>
     <string name="trial_name">android</string>
     <string name="update_reading">UPDATE_READING</string>
+    <string name="weight">Weight</string>
+    <string name="steps">Steps</string>
+    <string name="temperature">Temperature</string>
 </resources>

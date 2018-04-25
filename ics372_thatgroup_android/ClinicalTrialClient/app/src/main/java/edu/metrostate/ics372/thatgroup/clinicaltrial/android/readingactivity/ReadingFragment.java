@@ -240,10 +240,16 @@ public class ReadingFragment extends Fragment implements ReadingView,
                     dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_blood_pressure));
                     break;
                 case ReadingFactory.PRETTY_STEPS:
+                    DialogFragment stepsDialog = new StepsDialog();
+                    stepsDialog.show(getActivity().getFragmentManager(), getString(R.string.tag_steps));
                     break;
                 case ReadingFactory.PRETTY_TEMPERATURE:
+                    DialogFragment tempDialog = new TemperatureDialog();
+                    tempDialog.show(getActivity().getFragmentManager(), getString(R.string.tag_temperature));
                     break;
                 case ReadingFactory.PRETTY_WEIGHT:
+                    DialogFragment weightDialog = new WeightDialog();
+                    weightDialog.show(getActivity().getFragmentManager(), getString(R.string.tag_weight));
                     break;
             }
         }
