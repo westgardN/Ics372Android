@@ -13,6 +13,12 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
+/**
+ * The Clinic Activity allows the user to update the selected clinic or add a reading or view
+ * readings for the clinc.
+ *
+ * @author That Group
+ */
 public class ClinicActivity extends AppCompatActivity implements ClinicFragment.OnFragmentInteractionListener {
     private ClinicalTrialStateMachine machine;
     private ClinicPresenter presenter;

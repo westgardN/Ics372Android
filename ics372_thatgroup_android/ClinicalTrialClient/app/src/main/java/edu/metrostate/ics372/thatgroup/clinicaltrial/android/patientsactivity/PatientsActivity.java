@@ -105,10 +105,10 @@ public class PatientsActivity extends AppCompatActivity implements PatientsFragm
 
                                 msg += " " + patient.getId();
                             }
-                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
                         } catch (TrialCatalogException e) {
-                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 }

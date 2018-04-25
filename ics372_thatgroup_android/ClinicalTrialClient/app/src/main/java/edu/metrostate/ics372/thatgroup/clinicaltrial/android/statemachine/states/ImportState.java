@@ -3,16 +3,17 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.state
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ImportActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 
-class ImportActivityState extends ClinicalTrialState {
-    Activity activity;
-
-    public ImportActivityState(ClinicalTrialStateMachine machine, Context context) {
+class ImportState extends ClinicalTrialState {
+    public ImportState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
         Activity act = getFromActivity();
@@ -25,9 +26,25 @@ class ImportActivityState extends ClinicalTrialState {
         ClinicalTrialStateMachine machine = getMachine();
 
         switch (event) {
+            case ON_SELECT:
+                break;
+            case ON_IMPORT_BEGIN:
+                ImportingState state = new ImportingState(machine, getCurrentActivity());
+                state.setCurrentActivity(getCurrentActivity());
+                machine.transition(state, true);
+                break;
+            case ON_CANCEL:
             case ON_PREVIOUS:
+                Log.d(getClass().getName(), getFromActivity().getResources().getString(R.string.import_cancelled));
+                Toast.makeText(
+                        getFromActivity().getApplicationContext(),
+                        getFromActivity().getResources().getString(R.string.import_cancelled),
+                        Toast.LENGTH_LONG).show();
+                getCurrentActivity().finish();
                 machine.transition();
                 break;
+            default:
+                super.process(event);
         }
     }
 

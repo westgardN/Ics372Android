@@ -47,6 +47,7 @@
         <activity android:name=".ImportActivity" />
         <activity android:name=".patientsactivity.PatientsActivity" />
         <activity android:name=".patientactivity.PatientActivity"/>
+        <activity android:name=".ExportActivity"></activity>
     </application>
 
 </manifest>

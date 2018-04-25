@@ -60,6 +60,16 @@
     <string name="err_patient_fill_out_id">Please fill id fields The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_reading_fill_out_id">Reading ID must be filled.  It may contain only letters, numbers, and underscores.</string>
 
+    <string name="err_select_import_file">The selected file is not a valid XML or JSON import file.</string>
+    <string name="export_cancelled">The export has been cancelled.</string>
+    <string name="export_complete">The export has been completed.</string>
+    <string name="export_file_location">Your export file has been saved to:</string>
+    <string name="export_started">The export has started.</string>
+    <string name="export_title">Enter a name for the export file.</string>
+    <string name="import_cancelled">The import has been cancelled.</string>
+    <string name="import_complete">The import has been completed.</string>
+    <string name="import_started">The import has started.</string>
+    <string name="import_title">Select a JSON or XML file to import.</string>
     <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
     <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
 
@@ -71,6 +81,13 @@
     <string name="intent_add_reading">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.reading</string>
     <string name="intent_update_reading">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.reading</string>
 
+    <string name="json_extension">.json</string>
+    <string name="main_add_reading">Add Reading</string>
+    <string name="main_clinics">Clinics</string>
+    <string name="main_export">Export</string>
+    <string name="main_import">Import</string>
+    <string name="main_patients">Patients</string>
+    <string name="main_readings">Readings</string>
     <string name="main_view_readings">View Readings</string>
     <string name="patient_add">Add Patient</string>
     <string name="patient_added">Patient Added: </string>
@@ -87,6 +104,7 @@
     <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>
     <string name="regex_no_special_chars_allow_spaces">^[A-Za-z0-9_\\s]+$</string>
     <string name="save">Save</string>
+    <string name="select_import_file">Please select the XML or JSON file to import.</string>
     <string name="title_activity_clinic">Clinic</string>
     <string name="reading_add">Add Reading</string>
     <string name="reading_title">Reading</string>
