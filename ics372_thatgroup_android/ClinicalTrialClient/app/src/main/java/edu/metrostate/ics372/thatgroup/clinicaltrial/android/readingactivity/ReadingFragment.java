@@ -99,41 +99,19 @@ public class ReadingFragment extends Fragment implements ReadingView,
         EditText time = ((EditText) getView().findViewById(R.id.reading_time));
         EditText value = ((EditText) getView().findViewById(R.id.reading_value));
         ((TextView)getView().findViewById(R.id.reading_id)).addTextChangedListener(this);
+        value.setOnClickListener(this);
 
         date.setFocusable(false);
         time.setFocusable(false);
 
-//        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (position == 3) {
-//                    value.setFocusable(false);
-//                    value.setOnClickListener(v -> {
-//                        DialogFragment bpDialog = new BloodPressureDialog();
-//                        bpDialog.show(getActivity().getFragmentManager(), "bpPicker");
-//
-//                    });
-//                }else {
-//                    value.setOnClickListener(null);
-//                    value.setFocusableInTouchMode(true);
-//                    value.setFocusable(true);
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                //value.setFocusable(true);
-//            }
-//        });
-
         date.setOnClickListener(v -> {
             DialogFragment dialogFragment = new DatePickDialog();
-            dialogFragment.show(getActivity().getFragmentManager(), "datePicker");
+            dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_date));
         });
 
         time.setOnClickListener(v -> {
             DialogFragment dialogFragment = new TimePickerFragment();
-            dialogFragment.show(getActivity().getFragmentManager(), "timePicker");
+            dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_time));
         });
     }
 
@@ -176,7 +154,7 @@ public class ReadingFragment extends Fragment implements ReadingView,
     }
 
     private void loadTypeSpinner() {
-        Spinner spinnerPatient = ((Spinner) getView().findViewById(R.id.reading_type));
+        Spinner spinnerType = ((Spinner) getView().findViewById(R.id.reading_type));
 
         List<String> stringTypes = ReadingFactory.getPrettyReadingTypes();
         String[] types = new String[stringTypes.size()];
@@ -185,7 +163,7 @@ public class ReadingFragment extends Fragment implements ReadingView,
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPatient.setAdapter(adapter);
+        spinnerType.setAdapter(adapter);
     }
 
     @Override
@@ -243,6 +221,31 @@ public class ReadingFragment extends Fragment implements ReadingView,
                     mListener.onSaveClicked();
                 }
                 break;
+            case R.id.reading_value:
+                showAndGetValueDialog();
+                break;
+        }
+    }
+
+    private void showAndGetValueDialog() {
+        Spinner spinnerType = ((Spinner) getView().findViewById(R.id.reading_type));
+        Object selectedItem = spinnerType.getSelectedItem();
+
+        if (selectedItem != null && selectedItem instanceof String) {
+            String type = (String)selectedItem;
+
+            switch(type) {
+                case ReadingFactory.PRETTY_BLOOD_PRESSURE:
+                    DialogFragment dialogFragment = new BloodPressureDialog();
+                    dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_blood_pressure));
+                    break;
+                case ReadingFactory.PRETTY_STEPS:
+                    break;
+                case ReadingFactory.PRETTY_TEMPERATURE:
+                    break;
+                case ReadingFactory.PRETTY_WEIGHT:
+                    break;
+            }
         }
     }
 

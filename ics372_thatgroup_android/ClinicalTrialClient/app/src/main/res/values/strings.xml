@@ -21,6 +21,7 @@
     <string name="clinic_title">Clinic</string>
     <string name="clinic_updated">Clinic Updated: </string>
     <string name="clinics_title">Clinics</string>
+    <string name="diastolic">Diastolic</string>
     <string name="err_clinic">Unable to add the clinic. Please verify that Clinic ID is unique.</string>
     <string name="err_clinic_fill_out_name_and_id">Please fill out both the name and id fields. The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_clinic_not_added">Unable to add the clinic.</string>
@@ -85,6 +86,13 @@
     <string name="reading_detail_time_lbl">Time Taken: %1$s</string>
     <string name="save">Save</string>
     <string name="select_import_file">Please select the XML or JSON file to import.</string>
+    <string name="systolic">Systolic</string>
+    <string name="tag_blood_pressure">bloodPressureTag</string>
+    <string name="tag_weight">weightTag</string>
+    <string name="tag_steps">stepsTag</string>
+    <string name="tag_temperature">temperatureTag</string>
+    <string name="tag_date">dateTag</string>
+    <string name="tag_time">timeTag</string>
     <string name="title_activity_add_edit_reading">AddEditReadingActivity</string>
     <string name="title_activity_clinic">Clinic</string>
     <string name="title_edit_reading">Edit Reading: %1$s</string>

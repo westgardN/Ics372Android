@@ -27,26 +27,26 @@ public class BloodPressureDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view  = inflater.inflate(R.layout.dialog_blood_press, null);
 
-//        EditText sys = view.findViewById(R.id.systolic);
-//        EditText dia = view.findViewById(R.id.diastolic);
-//        // inflate and set the layout for the dialog
-//        // pass null as the parent view because its going in the dialog layout
-//        builder.setView(view)
-//
-//                // action buttons
-//                .setPositiveButton(OK, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        ((TextView) getActivity().findViewById(R.id.reading_value_txt)).setText(
-//                                String.format("%s/%s", sys.getText(), dia.getText())
-//                        );
-//                    }
-//                })
-//                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // remove the dialog from the screen
-//                    }
-//                });
+        EditText sys = view.findViewById(R.id.systolic);
+        EditText dia = view.findViewById(R.id.diastolic);
+        // inflate and set the layout for the dialog
+        // pass null as the parent view because its going in the dialog layout
+        builder.setView(view)
+
+                // action buttons
+                .setPositiveButton(OK, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        ((TextView) getActivity().findViewById(R.id.reading_value)).setText(
+                                String.format("%s/%s", sys.getText(), dia.getText())
+                        );
+                    }
+                })
+                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // remove the dialog from the screen
+                    }
+                });
         return builder.create();
     }
 }
