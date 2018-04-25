@@ -26,4 +26,6 @@ public interface ReadingView extends BaseView<ReadingPresenter> {
     void setTime(LocalTime time);
 
     void setDisabledSave(boolean b);
+
+    void setDisabledId(boolean b);
 }

@@ -77,8 +77,10 @@ public class ReadingPresenter implements BasePresenter {
                 }
 
                 view.setDisabledSave(false);
+                view.setDisabledId(state.canUpdate());
             } else {
 //                view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
+                view.setDisabledId(state.canUpdate());
             }
         }
     }
