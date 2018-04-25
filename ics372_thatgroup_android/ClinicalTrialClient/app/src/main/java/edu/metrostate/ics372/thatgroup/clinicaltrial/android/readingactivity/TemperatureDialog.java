@@ -17,6 +17,8 @@ public class TemperatureDialog extends DialogFragment{
     public static final String OK = "OK";
     public static final String CANCEL = "Cancel";
     public static final String MESSAGE = "Enter Temperature";
+    public static final String DECIMAL = ".";
+    public static final String DECIMAL_POSTFIX = ".0";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,13 +28,19 @@ public class TemperatureDialog extends DialogFragment{
         View view  = inflater.inflate(R.layout.dialog_temperature, null);
 
         EditText temp = view.findViewById(R.id.temperature);
+        EditText tempType = view.findViewById(R.id.temperature_type);
         // inflate and set the layout for the dialog
         // pass null as the parent view because its going in the dialog layout
         builder.setView(view)
                 .setMessage(MESSAGE)
                 // action buttons
                 .setPositiveButton(OK, (dialog, id) ->
-                        ((TextView) getActivity().findViewById(R.id.reading_value)).setText(temp.getText().toString()))
+                        ((TextView) getActivity().findViewById(R.id.reading_value))
+                                .setText(String.format("%s %s",
+                                        !temp.getText().toString().contains(DECIMAL)
+                                                ? temp.getText().toString() + DECIMAL_POSTFIX
+                                                : temp.getText().toString(),
+                                        tempType.getText().toString())))
                 .setNegativeButton(CANCEL, (dialog, id) -> {
                     // remove the dialog from the screen
                 });

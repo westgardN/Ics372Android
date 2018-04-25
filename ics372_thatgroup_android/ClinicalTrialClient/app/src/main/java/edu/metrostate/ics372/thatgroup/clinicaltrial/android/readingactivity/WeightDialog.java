@@ -26,13 +26,15 @@ public class WeightDialog extends DialogFragment {
         View view  = inflater.inflate(R.layout.dialog_weight, null);
 
         EditText weight = view.findViewById(R.id.weight);
+        EditText weightType = view.findViewById(R.id.weight_type);
         // inflate and set the layout for the dialog
         // pass null as the parent view because its going in the dialog layout
         builder.setView(view)
                 .setMessage(MESSAGE)
                 // action buttons
                 .setPositiveButton(OK, (dialog, id) ->
-                        ((TextView) getActivity().findViewById(R.id.reading_value)).setText(weight.getText().toString()))
+                        ((TextView) getActivity().findViewById(R.id.reading_value))
+                                .setText(String.format("%s %s", weight.getText().toString(), weightType.getText().toString())))
                 .setNegativeButton(CANCEL, (dialog, id) -> {
                     // remove the dialog from the screen
                 });

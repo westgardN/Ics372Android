@@ -104,4 +104,6 @@
     <string name="weight">Weight</string>
     <string name="steps">Steps</string>
     <string name="temperature">Temperature</string>
+    <string name="temperature_type">Temperature Type (F, C, etc...)</string>
+    <string name="weight_type">Weight Type (lbs, kg, etc...)</string>
 </resources>
