@@ -31,6 +31,12 @@ public class MainActivityState extends ClinicalTrialState {
             case ON_PATIENTS:
                 machine.transition(new PatientsState(machine, getContext()), true);
                 break;
+            case ON_READINGS:
+                machine.transition(new ReadingsState(machine, getContext()), true);
+                break;
+            case ON_ADD_READING:
+                machine.transition(new AddReadingState(machine, getContext()), true);
+                break;
             default:
                 super.process(event);
         }

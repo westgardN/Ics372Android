@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.clinicactivity.ClinicActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
@@ -60,6 +59,14 @@ public class UpdateClinicState extends ClinicState {
                     getCurrentActivity().finish();
                 }
                 machine.transition();
+                break;
+            case ON_VIEW_READINGS:
+                current = getCurrentActivity();
+
+                machine.transition(new ReadingsState(machine, current, clinic), true);
+                break;
+            case ON_ADD_READING:
+                machine.transition(new AddReadingState(machine, getCurrentActivity(), clinic), true);
                 break;
         }
     }

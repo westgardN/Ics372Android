@@ -16,20 +16,37 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
-        <activity android:name=".ClinicsActivity" />
         <activity
-            android:name=".ClinicActivity"
+            android:name=".readingsactivity.ReadingsActivity"
+            android:label="@string/title_reading_list"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".readingactivity.ReadingActivity"
+            android:label="@string/title_reading_detail"
+            android:parentActivityName=".readingsactivity.ReadingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingsactivity.ReadingsActivity" />
+        </activity>
+
+        <activity android:name=".clinicsactivity.ClinicsActivity" />
+        <activity
+            android:name=".clinicactivity.ClinicActivity"
             android:label="@string/title_activity_clinic"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ImportActivity" />
-        <activity android:name=".PatientsActivity" />
-        <activity android:name=".PatientActivity" />
+        <activity android:name=".patientsactivity.PatientsActivity" />
+        <activity android:name=".patientactivity.PatientActivity"/>
         <activity android:name=".ExportActivity"></activity>
     </application>
 

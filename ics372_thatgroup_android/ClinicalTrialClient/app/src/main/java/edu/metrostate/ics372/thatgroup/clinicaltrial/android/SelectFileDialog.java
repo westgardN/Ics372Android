@@ -29,9 +29,8 @@ public class SelectFileDialog {
 
         void actionCancelled();
     }
-
-    private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<SelectFileDialog.FileSelectedListener>();
-    private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<SelectFileDialog.DirectorySelectedListener>();
+    private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<FileSelectedListener>();
+    private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<DirectorySelectedListener>();
 
     private final Activity activity;
     private boolean selectDirectoryOption;
