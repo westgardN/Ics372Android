@@ -25,8 +25,14 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.importexport.TrialDataImpor
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class ImportActivity extends AppCompatActivity {
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,10 @@ public class ImportActivity extends AppCompatActivity {
                 File.separator + getString(R.string.app_name));
         SelectFileDialog selectFileDialog = new SelectFileDialog(this, mPath, getString(R.string.select_import_file), null);
         selectFileDialog.addFileListener(new SelectFileDialog.FileSelectedListener() {
+            /**
+             *
+             * @param file
+             */
             @Override
             public void fileSelected(File file) {
                 Log.d(getClass().getName(), "selected file " + file.toString());
@@ -51,6 +61,9 @@ public class ImportActivity extends AppCompatActivity {
                 });
             }
 
+            /**
+             *
+             */
             @Override
             public void actionCancelled() {
                 machine.process((ClinicalTrialEvent.ON_CANCEL));
@@ -72,6 +85,9 @@ public class ImportActivity extends AppCompatActivity {
         machine.process(ClinicalTrialEvent.ON_PREVIOUS);
     }
 
+    /**
+     *
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

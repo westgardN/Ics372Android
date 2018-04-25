@@ -15,6 +15,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
+/**
+ * @author That Group
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param view
+     */
     public void onClick(View view) {
         ClinicalTrialStateMachine machine = ((ClinicalTrialClient)getApplication()).getMachine();
 

@@ -49,11 +49,22 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         return fragment;
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +72,9 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         return inflater.inflate(R.layout.fragment_readings, container, false);
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -75,6 +89,10 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         add.setOnClickListener(this);
     }
 
+    /**
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -87,6 +105,9 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -94,6 +115,10 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         presenter = null;
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         final ClinicalTrialStateMachine machine =
@@ -136,6 +161,10 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         }
     }
 
+    /**
+     *
+     * @param readings
+     */
     @Override
     public void setReadings(List<Reading> readings) {
         ArrayAdapter<Reading> arrayAdapter = new ArrayAdapter<>(getActivity(),
@@ -143,12 +172,20 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         ((ListView)getView().findViewById(R.id.readings)).setAdapter(arrayAdapter);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleAddReading(boolean visible) {
         ((Button)getView().findViewById(R.id.add_reading)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param presenter
+     */
     @Override
     public void setPresenter(ReadingsPresenter presenter) {
         this.presenter = presenter;

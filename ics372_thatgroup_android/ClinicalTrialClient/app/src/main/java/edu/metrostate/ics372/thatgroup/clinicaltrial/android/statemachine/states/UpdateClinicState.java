@@ -14,8 +14,16 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogExce
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * @author That Group
+ */
 public class UpdateClinicState extends ClinicState {
-
+    /**
+     *
+     * @param machine
+     * @param context
+     * @param clinic
+     */
     public UpdateClinicState(ClinicalTrialStateMachine machine, Context context, Clinic clinic) {
         super(machine, context);
 
@@ -29,6 +37,10 @@ public class UpdateClinicState extends ClinicState {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -71,36 +83,61 @@ public class UpdateClinicState extends ClinicState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canUpdate() {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAddReading() {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canViewReadings() {
         return hasReadings();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean hasReadings() {
         boolean answer = false;

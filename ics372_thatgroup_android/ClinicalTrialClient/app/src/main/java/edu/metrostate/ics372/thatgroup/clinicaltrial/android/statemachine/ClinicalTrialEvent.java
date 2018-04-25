@@ -1,5 +1,8 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine;
 
+/**
+ * @author That Group
+ */
 public enum ClinicalTrialEvent {
     ON_PREVIOUS,
     ON_EXIT,

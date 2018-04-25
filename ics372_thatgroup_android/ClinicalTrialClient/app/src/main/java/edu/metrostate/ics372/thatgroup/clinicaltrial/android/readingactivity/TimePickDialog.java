@@ -13,9 +13,17 @@ import java.util.Calendar;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
+/**
+ * Aauthor That Group
+ */
 public class TimePickDialog extends DialogFragment implements android.app.TimePickerDialog.OnTimeSetListener {
     private ReadingPresenter presenter;
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         // Get a Calendar instance
@@ -39,6 +47,12 @@ public class TimePickDialog extends DialogFragment implements android.app.TimePi
         this.presenter = presenter;
     }
 
+    /**
+     *
+     * @param view
+     * @param hourOfDay
+     * @param minute
+     */
     public void onTimeSet(TimePicker view, int hourOfDay, int minute){
         TextView time = (TextView) getActivity().findViewById(R.id.reading_time);
         time.setText(LocalTime.of(hourOfDay, minute).toString());

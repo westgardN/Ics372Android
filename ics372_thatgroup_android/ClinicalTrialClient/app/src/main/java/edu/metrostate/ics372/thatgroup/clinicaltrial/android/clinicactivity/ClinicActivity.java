@@ -60,6 +60,9 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
         getFragmentManager().beginTransaction().add(R.id.fragment_clinic, fragment).commit();
     }
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         final ClinicalTrialStateMachine machine =
@@ -67,6 +70,9 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
         machine.process(ClinicalTrialEvent.ON_CANCEL);
     }
 
+    /**
+     *
+     */
     @Override
     public void onSaveClicked() {
         ClinicState state = (ClinicState)machine.getCurrentState();
@@ -75,6 +81,9 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
         machine.process(ClinicalTrialEvent.ON_OK);
     }
 
+    /**
+     *
+     */
     @Override
     public void onViewReadingsClicked() {
         ClinicState state = (ClinicState)machine.getCurrentState();
@@ -83,6 +92,9 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
         machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
     }
 
+    /**
+     *
+     */
     @Override
     public void onAddReadingClicked() {
         ClinicState state = (ClinicState)machine.getCurrentState();
@@ -91,12 +103,18 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
         machine.process(ClinicalTrialEvent.ON_ADD_READING);
     }
 
+    /**
+     *
+     */
     @Override
     public void onInputError() {
         machine.process(ClinicalTrialEvent.ON_ERROR);
         presenter.updateView(false);
     }
 
+    /**
+     *
+     */
     @Override
     public void onInputOk() {
         if (machine.getCurrentState() instanceof ClinicErrorState) {

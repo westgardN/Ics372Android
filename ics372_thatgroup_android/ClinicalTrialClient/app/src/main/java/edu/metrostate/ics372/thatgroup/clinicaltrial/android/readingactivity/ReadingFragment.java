@@ -35,6 +35,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class ReadingFragment extends Fragment implements ReadingView,
         Button.OnClickListener, TextWatcher {
 
@@ -52,6 +55,12 @@ public class ReadingFragment extends Fragment implements ReadingView,
 
     private ReadingFragment.OnFragmentInteractionListener mListener;
 
+    /**
+     *
+     * @param reading
+     * @param action
+     * @return
+     */
     public static ReadingFragment newInstance(Reading reading, String action) {
         ReadingFragment fragment = new ReadingFragment();
         Bundle args = new Bundle();
@@ -61,6 +70,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return fragment;
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +90,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
 
     }
 
+    /**
+     *
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,6 +101,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return view;
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -146,6 +165,13 @@ public class ReadingFragment extends Fragment implements ReadingView,
         spinnerClinic.setAdapter(clinicAdapter);
 
         spinnerClinic.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             *
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (presenter != null) {
@@ -153,6 +179,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
                 }
             }
 
+            /**
+             *
+             * @param parent
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if (presenter != null) {
@@ -183,6 +213,13 @@ public class ReadingFragment extends Fragment implements ReadingView,
         spinnerPatient.setAdapter(patientAdapter);
 
         spinnerPatient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             *
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (presenter != null) {
@@ -190,6 +227,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
                 }
             }
 
+            /**
+             *
+             * @param parent
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if (presenter != null) {
@@ -212,6 +253,13 @@ public class ReadingFragment extends Fragment implements ReadingView,
         spinnerType.setAdapter(typeAdapter);
 
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             *
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (!firstTime) {
@@ -226,6 +274,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
                 }
             }
 
+            /**
+             *
+             * @param parent
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if (presenter != null) {
@@ -235,16 +287,34 @@ public class ReadingFragment extends Fragment implements ReadingView,
         });
     }
 
+    /**
+     *
+     * @param s
+     * @param start
+     * @param count
+     * @param after
+     */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
+    /**
+     *
+     * @param s
+     * @param start
+     * @param before
+     * @param count
+     */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
     }
 
+    /**
+     *
+     * @param s
+     */
     @Override
     public void afterTextChanged(Editable s) {
         if(!validate()) {
@@ -282,6 +352,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return answer;
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -345,12 +419,20 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
     }
 
+    /**
+     *
+     * @param presenter
+     */
     @Override
     public void setPresenter(ReadingPresenter presenter) {
         this.presenter = presenter;
         this.presenter.setView(this);
     }
 
+    /**
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -363,6 +445,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -370,11 +455,19 @@ public class ReadingFragment extends Fragment implements ReadingView,
         presenter = null;
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledSave(boolean disabled) {
         ((Button) getView().findViewById(R.id.save_reading)).setEnabled(!disabled);
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledId(boolean disabled) {
         ((TextView)getView().findViewById(R.id.reading_id)).setInputType(disabled ?
@@ -385,11 +478,19 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getReadingId() {
         return ((TextView)getView().findViewById(R.id.reading_id)).getText().toString();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getClinicId() {
         Object obj = ((Spinner)getView().findViewById(R.id.reading_clinic)).getSelectedItem();
@@ -402,6 +503,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPatientId() {
         Object obj = ((Spinner)getView().findViewById(R.id.reading_patient)).getSelectedItem();
@@ -414,6 +519,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getType() {
         Object obj = ((Spinner)getView().findViewById(R.id.reading_type)).getSelectedItem();
@@ -426,11 +535,19 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getValue() {
         return ((EditText)getView().findViewById(R.id.reading_value)).getText().toString();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LocalDate getDate() {
         String date = ((TextView)getView().findViewById(R.id.reading_date)).getText().toString();
@@ -447,6 +564,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LocalTime getTime() {
         String time = ((TextView)getView().findViewById(R.id.reading_time)).getText().toString();
@@ -463,11 +584,19 @@ public class ReadingFragment extends Fragment implements ReadingView,
         return answer;
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void setReadingId(String id) {
         ((EditText)getView().findViewById(R.id.reading_id)).setText(id);
     }
 
+    /**
+     *
+     * @param clinicId
+     */
     @Override
     public void setClinicId(String clinicId) {
         if (clinicId != null && !clinicId.isEmpty()) {
@@ -485,6 +614,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
     }
 
+    /**
+     *
+     * @param patientId
+     */
     @Override
     public void setPatientId(String patientId) {
         if (patientId != null && !patientId.isEmpty()) {
@@ -502,6 +635,10 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
     }
 
+    /**
+     *
+     * @param type
+     */
     @Override
     public void setType(String type) {
         if (type != null && !type.isEmpty()) {
@@ -513,21 +650,36 @@ public class ReadingFragment extends Fragment implements ReadingView,
         }
     }
 
+    /**
+     *
+     * @param value
+     */
     @Override
     public void setValue(String value) {
         ((EditText)getView().findViewById(R.id.reading_value)).setText(value);
     }
 
+    /**
+     *
+     * @param date
+     */
     @Override
     public void setDate(LocalDate date) {
         ((EditText)getView().findViewById(R.id.reading_date)).setText(date != null ? date.toString() : Strings.EMPTY);
     }
 
+    /**
+     *
+     * @param time
+     */
     @Override
     public void setTime(LocalTime time) {
         ((EditText)getView().findViewById(R.id.reading_time)).setText(time != null ? time.toString() : Strings.EMPTY);
     }
 
+    /**
+     *
+     */
     public interface OnFragmentInteractionListener {
         void onSaveClicked();
         void onInputError();

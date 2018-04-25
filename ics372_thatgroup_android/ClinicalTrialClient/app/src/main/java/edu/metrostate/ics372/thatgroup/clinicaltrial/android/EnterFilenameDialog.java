@@ -13,18 +13,30 @@ import java.io.File;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class EnterFilenameDialog {
     private final Activity activity;
     private String title;
     private String extToAdd;
     private FilenameListener listener;
 
+    /**
+     *
+     */
     public interface FilenameListener {
         void filenameEntered(String filename);
 
         void actionCancelled();
     }
 
+    /**
+     *
+     * @param activity
+     * @param title
+     * @param extToAdd
+     */
     public EnterFilenameDialog(Activity activity, String title, String extToAdd) {
         this.activity = activity;
         this.title = title;
@@ -32,10 +44,18 @@ public class EnterFilenameDialog {
         listener = null;
     }
 
+    /**
+     *
+     * @param listener
+     */
     public void addFilenameListener(FilenameListener listener) {
         this.listener = listener;
     }
 
+    /**
+     *
+     * @return
+     */
     public Dialog createFilenameDialog() {
         Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -53,6 +73,11 @@ public class EnterFilenameDialog {
 
         builder.setPositiveButton(activity.getResources().getString(R.string.main_export),
                 new DialogInterface.OnClickListener() {
+                    /**
+                     *
+                     * @param dialog
+                     * @param which
+                     */
             public void onClick(DialogInterface dialog, int which) {
                 String result = input.getText().toString();
 

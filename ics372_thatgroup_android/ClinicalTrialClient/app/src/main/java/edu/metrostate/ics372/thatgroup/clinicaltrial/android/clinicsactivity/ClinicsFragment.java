@@ -51,11 +51,22 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         return fragment;
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +74,9 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         return inflater.inflate(R.layout.fragment_clinics, container, false);
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -77,6 +91,10 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         add.setOnClickListener(this);
     }
 
+    /**
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -89,6 +107,9 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -96,6 +117,10 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         presenter = null;
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         final ClinicalTrialStateMachine machine =
@@ -138,6 +163,10 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         }
     }
 
+    /**
+     *
+     * @param clinics
+     */
     @Override
     public void setClinics(List<Clinic> clinics) {
         ArrayAdapter<Clinic> arrayAdapter = new ArrayAdapter<>(getActivity(),
@@ -145,6 +174,10 @@ public class ClinicsFragment extends Fragment implements ClinicsView,
         ((ListView)getView().findViewById(R.id.clinics)).setAdapter(arrayAdapter);
     }
 
+    /**
+     *
+     * @param presenter
+     */
     @Override
     public void setPresenter(ClinicsPresenter presenter) {
         this.presenter = presenter;

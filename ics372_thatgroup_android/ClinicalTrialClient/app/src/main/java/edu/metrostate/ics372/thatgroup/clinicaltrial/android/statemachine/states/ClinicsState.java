@@ -10,9 +10,17 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 
+/**
+ * @author That GRoup
+ */
 public class ClinicsState extends ClinicalTrialState {
     private Clinic clinic;
 
+    /**
+     *
+     * @param machine
+     * @param context
+     */
     public ClinicsState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
@@ -21,15 +29,27 @@ public class ClinicsState extends ClinicalTrialState {
         act.startActivity(intent);
     }
 
+    /**
+     *
+     * @param clinic
+     */
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Clinic getClinic() {
         return clinic;
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -54,26 +74,43 @@ public class ClinicsState extends ClinicalTrialState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean hasClinic() {
         return clinic != null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAdd() {
         return true;

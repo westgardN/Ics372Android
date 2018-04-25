@@ -5,6 +5,10 @@ import java.time.LocalDate;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.BaseView;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.patientactivity.PatientPresenter;
 
+/**
+ * @author That Group
+ */
+
 public interface PatientView extends BaseView<PatientPresenter> {
 
     void setPatientId(String id);

@@ -78,6 +78,10 @@ public class ClinicFragment extends Fragment implements ClinicView,
         name.addTextChangedListener(this);
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +94,13 @@ public class ClinicFragment extends Fragment implements ClinicView,
         }
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,6 +110,10 @@ public class ClinicFragment extends Fragment implements ClinicView,
         return inflater.inflate(R.layout.fragment_clinic, container, false);
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -120,6 +135,10 @@ public class ClinicFragment extends Fragment implements ClinicView,
         }
     }
 
+    /**
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -132,6 +151,9 @@ public class ClinicFragment extends Fragment implements ClinicView,
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -139,49 +161,85 @@ public class ClinicFragment extends Fragment implements ClinicView,
         presenter = null;
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void setClinicId(String id) {
         ((TextView)getView().findViewById(R.id.clinic_id)).setText(id);
     }
 
+    /**
+     *
+     * @param name
+     */
     @Override
     public void setClinicName(String name) {
         ((TextView)getView().findViewById(R.id.clinic_name)).setText(name);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getClinicId() {
         return ((TextView)getView().findViewById(R.id.clinic_id)).getText().toString();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getClinicName() {
         return ((TextView)getView().findViewById(R.id.clinic_name)).getText().toString();
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleAddReading(boolean visible) {
         ((Button)getView().findViewById(R.id.add_reading)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleViewReadings(boolean visible) {
         ((Button)getView().findViewById(R.id.view_readings)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleSave(boolean visible) {
         ((Button)getView().findViewById(R.id.save_clinic)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledSave(boolean disabled) {
         ((Button)getView().findViewById(R.id.save_clinic)).setEnabled(!disabled);
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledId(boolean disabled) {
         ((TextView)getView().findViewById(R.id.clinic_id)).setInputType(disabled ?
@@ -192,12 +250,20 @@ public class ClinicFragment extends Fragment implements ClinicView,
         }
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledName(boolean disabled) {
         ((TextView)getView().findViewById(R.id.clinic_name)).setInputType(disabled ?
                 InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
     }
 
+    /**
+     *
+     * @param presenter
+     */
     @Override
     public void setPresenter(ClinicPresenter presenter) {
         this.presenter = presenter;

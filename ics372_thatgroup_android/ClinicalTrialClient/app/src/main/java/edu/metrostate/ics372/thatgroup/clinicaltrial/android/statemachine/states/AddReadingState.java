@@ -13,12 +13,25 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * @author That Group
+ */
 public class AddReadingState extends ReadingState {
-
+    /**
+     *
+     * @param machine
+     * @param context
+     */
     public AddReadingState(ClinicalTrialStateMachine machine, Context context) {
         this(machine, context, null);
     }
 
+    /**
+     *
+     * @param machine
+     * @param context
+     * @param obj
+     */
     public AddReadingState(ClinicalTrialStateMachine machine, Context context, Object obj) {
         super(machine, context);
         setObject(obj);
@@ -39,21 +52,34 @@ public class AddReadingState extends ReadingState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -90,6 +116,10 @@ public class AddReadingState extends ReadingState {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAdd() {
         boolean answer = false;
@@ -105,6 +135,10 @@ public class AddReadingState extends ReadingState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canUpdate() {
         return false;

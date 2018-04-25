@@ -12,8 +12,16 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * @author That Group
+ */
 public class UpdateReadingState extends ReadingState {
-
+    /**
+     *
+     * @param machine
+     * @param context
+     * @param reading
+     */
     public UpdateReadingState(ClinicalTrialStateMachine machine, Context context, Reading reading) {
         super(machine, context);
 
@@ -27,6 +35,10 @@ public class UpdateReadingState extends ReadingState {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -61,26 +73,43 @@ public class UpdateReadingState extends ReadingState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAdd() {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canUpdate() {
         boolean answer = false;

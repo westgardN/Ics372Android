@@ -12,8 +12,15 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * @author That Group
+ */
 public class AddPatientState extends PatientState {
-
+    /**
+     *
+     * @param machine
+     * @param context
+     */
     public AddPatientState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
@@ -25,6 +32,10 @@ public class AddPatientState extends PatientState {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -61,26 +72,43 @@ public class AddPatientState extends PatientState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canUpdate() {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAdd() {
         return true;
