@@ -17,9 +17,16 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
+    /**
+    * @author That Group
+    */
 public class ClinicsActivity extends AppCompatActivity implements ClinicsFragment.OnFragmentInteractionListener {
     ClinicsPresenter presenter = null;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +51,10 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         }
     }
 
+        /**
+         *
+         * @param view
+         */
     public void onClick(View view) {
         final ClinicalTrialStateMachine machine =
                 ((ClinicalTrialClient)getApplication()).getMachine();
@@ -63,6 +74,10 @@ public class ClinicsActivity extends AppCompatActivity implements ClinicsFragmen
         machine.process(ClinicalTrialEvent.ON_PREVIOUS);
     }
 
+    /**
+     *
+     * @param uri
+     */
     @Override
     public void onFragmentInteraction(Uri uri) {
 

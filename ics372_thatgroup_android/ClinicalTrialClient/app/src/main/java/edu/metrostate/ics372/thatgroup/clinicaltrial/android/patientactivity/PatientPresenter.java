@@ -6,6 +6,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 
+/**
+ * @author That Group
+ */
 public class PatientPresenter implements BasePresenter {
     private ClinicalTrialStateMachine machine;
 
@@ -13,14 +16,30 @@ public class PatientPresenter implements BasePresenter {
 
     private Patient patient = null;
 
+    /**
+     *
+     * @param machine
+     */
     public PatientPresenter(ClinicalTrialStateMachine machine) {
         this.machine = machine;
     }
 
+    /**
+     *
+     * @param view
+     */
     public void setView(PatientView view){ this.view = view; }
 
+    /**
+     *
+     * @param patient
+     */
     public void setPatient(Patient patient) { this.patient = patient; }
 
+    /**
+     *
+     * @return
+     */
     public Patient getPatient() {
         if (view != null) {
             if (patient == null) {
@@ -37,16 +56,29 @@ public class PatientPresenter implements BasePresenter {
         return patient;
     }
 
+    /**
+     *
+     */
     @Override
     public void subscribe(){ updateView(); }
 
+    /**
+     *
+     */
     @Override
     public void unsubscribe(){ }
 
+    /**
+     *
+     */
     public void  updateView() {
         updateView(true);
     }
 
+    /**
+     *
+     * @param setData
+     */
     public void  updateView(boolean setData) {
         if (view != null && patient != null) {
             ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();

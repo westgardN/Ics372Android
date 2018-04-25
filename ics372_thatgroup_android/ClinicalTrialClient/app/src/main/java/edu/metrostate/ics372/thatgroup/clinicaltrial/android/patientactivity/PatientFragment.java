@@ -38,6 +38,9 @@ public class PatientFragment extends Fragment implements PatientView,
 
     private OnFragmentInteractionListener mListener;
 
+    /**
+     *
+     */
     public PatientFragment() {
         // Required empty public constructor
     }
@@ -80,6 +83,10 @@ public class PatientFragment extends Fragment implements PatientView,
         id.addTextChangedListener(this);
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +98,13 @@ public class PatientFragment extends Fragment implements PatientView,
         }
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,6 +112,10 @@ public class PatientFragment extends Fragment implements PatientView,
         return inflater.inflate(R.layout.fragment_patient, container, false);
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -129,6 +147,10 @@ public class PatientFragment extends Fragment implements PatientView,
         }
     }
 
+    /**
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -140,6 +162,9 @@ public class PatientFragment extends Fragment implements PatientView,
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -210,11 +235,19 @@ public class PatientFragment extends Fragment implements PatientView,
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void setPatientId(String id) {
         ((TextView)getView().findViewById(R.id.patient_id)).setText(id);
     }
 
+    /**
+     *
+     * @param date
+     */
     @Override
     public void setStartDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -227,6 +260,10 @@ public class PatientFragment extends Fragment implements PatientView,
         ((TextView)getView().findViewById(R.id.patient_start_date)).setText(strDate);
     }
 
+    /**
+     *
+     * @param date
+     */
     @Override
     public void setEndDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -239,16 +276,28 @@ public class PatientFragment extends Fragment implements PatientView,
         ((TextView)getView().findViewById(R.id.patient_end_date)).setText(strDate);
     }
 
+    /**
+     *
+     * @param statusId
+     */
     @Override
     public void setStatusId(String statusId) {
         ((TextView)getView().findViewById(R.id.patient_status)).setText(statusId);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPatientId() {
         return ((TextView)getView().findViewById(R.id.patient_id)).getText().toString();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LocalDate getStartDate() {
         String date = ((TextView)getView().findViewById(R.id.patient_start_date)).getText().toString();
@@ -265,6 +314,10 @@ public class PatientFragment extends Fragment implements PatientView,
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LocalDate getEndDate() {
         String date = ((TextView)getView().findViewById(R.id.patient_end_date)).getText().toString();
@@ -281,46 +334,78 @@ public class PatientFragment extends Fragment implements PatientView,
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getStatusId() {
         return ((TextView)getView().findViewById(R.id.patient_status)).getText().toString();
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleStartTrial(boolean visible) {
         ((Button)getView().findViewById(R.id.start_trial)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleEndTrial(boolean visible) {
         ((Button)getView().findViewById(R.id.end_trial)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleAddReading(boolean visible) {
         ((Button)getView().findViewById(R.id.add_reading)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleViewReadings(boolean visible) {
         ((Button)getView().findViewById(R.id.view_readings)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param visible
+     */
     @Override
     public void setVisibleSave(boolean visible) {
         ((Button)getView().findViewById(R.id.save_patient)).setVisibility(visible ?
                 View.VISIBLE : View.GONE);
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledSave(boolean disabled) {
         ((Button)getView().findViewById(R.id.save_patient)).setEnabled(!disabled);
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledId(boolean disabled) {
         ((TextView)getView().findViewById(R.id.patient_id)).setInputType(disabled ?
@@ -331,16 +416,28 @@ public class PatientFragment extends Fragment implements PatientView,
         }
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledStartTrial(boolean disabled) {
         ((Button)getView().findViewById(R.id.start_trial)).setEnabled(!disabled);
     }
 
+    /**
+     *
+     * @param disabled
+     */
     @Override
     public void setDisabledEndTrial(boolean disabled) {
         ((Button)getView().findViewById(R.id.end_trial)).setEnabled(!disabled);
     }
 
+    /**
+     *
+     * @param presenter
+     */
     @Override
     public void setPresenter(PatientPresenter presenter) {
         this.presenter = presenter;

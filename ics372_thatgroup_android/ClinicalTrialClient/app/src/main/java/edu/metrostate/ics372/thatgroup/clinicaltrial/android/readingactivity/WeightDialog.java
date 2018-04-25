@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
+/**
+ * @author That Group
+ */
 public class WeightDialog extends DialogFragment {
     private ReadingPresenter presenter;
 
@@ -19,6 +22,11 @@ public class WeightDialog extends DialogFragment {
     public static final String CANCEL = "Cancel";
     public static final String MESSAGE = "Enter Weight";
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

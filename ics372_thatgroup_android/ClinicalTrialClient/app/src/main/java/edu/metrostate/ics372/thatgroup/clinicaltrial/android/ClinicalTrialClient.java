@@ -10,11 +10,15 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 /**
  * The Clinical Trial Client is the global application that all other activity and fragments use
  * to access the model and state machine.
+ * @author That Group
  */
 public class ClinicalTrialClient extends Application {
     private ClinicalTrialModel model;
     private ClinicalTrialStateMachine machine;
 
+    /**
+     *
+     */
     @Override
     public void onCreate() {
         super.onCreate();

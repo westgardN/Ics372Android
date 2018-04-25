@@ -18,13 +18,27 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
+/**
+ * @author That Group
+ */
 public class ReadingsState  extends ClinicalTrialState {
     private Object obj;
 
+    /**
+     *
+     * @param machine
+     * @param context
+     */
     public ReadingsState(ClinicalTrialStateMachine machine, Context context) {
         this(machine, context, null);
     }
 
+    /**
+     *
+     * @param machine
+     * @param context
+     * @param obj
+     */
     public ReadingsState(ClinicalTrialStateMachine machine, Context context, Object obj) {
         super(machine, context);
         setObject(obj);
@@ -44,10 +58,18 @@ public class ReadingsState  extends ClinicalTrialState {
         act.startActivity(intent);
     }
 
+    /**
+     *
+     * @param obj
+     */
     public void setObject(Object obj) {
         this.obj = obj;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Reading getReading() {
         Reading answer = null;
@@ -59,6 +81,10 @@ public class ReadingsState  extends ClinicalTrialState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Clinic getClinic() {
         Clinic answer = null;
@@ -70,6 +96,10 @@ public class ReadingsState  extends ClinicalTrialState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Patient getPatient() {
         Patient answer = null;
@@ -81,6 +111,10 @@ public class ReadingsState  extends ClinicalTrialState {
         return answer;
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -111,36 +145,61 @@ public class ReadingsState  extends ClinicalTrialState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean hasClinic() {
         return getClinic() != null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean hasPatient() {
         return getPatient() != null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean hasReading() {
         return getReading() != null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAdd() {
         boolean answer = true;
@@ -151,6 +210,10 @@ public class ReadingsState  extends ClinicalTrialState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAddReading() {
         boolean answer = false;

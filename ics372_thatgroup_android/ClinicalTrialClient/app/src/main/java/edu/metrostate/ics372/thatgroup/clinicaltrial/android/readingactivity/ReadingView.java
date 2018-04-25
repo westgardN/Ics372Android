@@ -8,6 +8,9 @@ import java.time.LocalTime;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.BaseView;
 
+/**
+ * @author That Group
+ */
 public interface ReadingView extends BaseView<ReadingPresenter> {
     String getReadingId();
     String getClinicId();

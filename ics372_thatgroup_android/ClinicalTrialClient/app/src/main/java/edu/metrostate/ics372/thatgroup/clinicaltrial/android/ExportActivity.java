@@ -27,8 +27,14 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.importexport.TrialDataImpor
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class ExportActivity extends AppCompatActivity {
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,10 @@ public class ExportActivity extends AppCompatActivity {
                 getString(R.string.export_title), getString(R.string.json_extension));
 
         efd.addFilenameListener(new EnterFilenameDialog.FilenameListener() {
+            /**
+             *
+             * @param filename
+             */
             @Override
             public void filenameEntered(String filename) {
                 machine.process((ClinicalTrialEvent.ON_SELECT));
@@ -51,6 +61,9 @@ public class ExportActivity extends AppCompatActivity {
                 });
             }
 
+            /**
+             *
+             */
             @Override
             public void actionCancelled() { machine.process((ClinicalTrialEvent.ON_CANCEL)); }
         });

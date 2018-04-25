@@ -17,8 +17,16 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogExce
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * @author That Group
+ */
 public class UpdatePatientState extends PatientState {
-
+    /**
+     *
+     * @param machine
+     * @param context
+     * @param patient
+     */
     public UpdatePatientState(ClinicalTrialStateMachine machine, Context context, Patient patient) {
         super(machine, context);
 
@@ -32,6 +40,10 @@ public class UpdatePatientState extends PatientState {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -76,26 +88,43 @@ public class UpdatePatientState extends PatientState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canUpdate() {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canAddReading() {
         boolean answer = false;
@@ -113,11 +142,19 @@ public class UpdatePatientState extends PatientState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canViewReadings() {
         return hasReadings();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean hasReadings() {
         boolean answer = false;
@@ -131,6 +168,10 @@ public class UpdatePatientState extends PatientState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canEndTrial() {
         boolean answer = false;
@@ -142,6 +183,10 @@ public class UpdatePatientState extends PatientState {
         return answer;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean canStartTrial() {
         boolean answer = false;

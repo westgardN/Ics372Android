@@ -16,6 +16,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class ReadingActivity extends AppCompatActivity implements ReadingFragment.OnFragmentInteractionListener {
     private ClinicalTrialStateMachine machine;
     private ReadingPresenter presenter;
@@ -84,6 +87,9 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
         getFragmentManager().beginTransaction().add(R.id.fragment_reading, fragment).commit();
     }
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         final ClinicalTrialStateMachine machine =
@@ -91,6 +97,9 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
         machine.process(ClinicalTrialEvent.ON_CANCEL);
     }
 
+    /**
+     *
+     */
     @Override
     public void onSaveClicked() {
         ReadingState state = (ReadingState)machine.getCurrentState();
@@ -99,12 +108,18 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
         machine.process(ClinicalTrialEvent.ON_OK);
     }
 
+    /**
+     *
+     */
     @Override
     public void onInputError() {
         machine.process(ClinicalTrialEvent.ON_ERROR);
         presenter.updateView(false);
     }
 
+    /**
+     *
+     */
     @Override
     public void onInputOk() {
         if (machine.getCurrentState() instanceof ReadingErrorState) {

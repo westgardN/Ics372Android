@@ -10,6 +10,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 
+/**
+ * @author That Group
+ */
 public class ReadingErrorState extends ClinicalTrialState {
     public ReadingErrorState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
@@ -20,6 +23,10 @@ public class ReadingErrorState extends ClinicalTrialState {
                 Toast.LENGTH_LONG).show();
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -43,16 +50,25 @@ public class ReadingErrorState extends ClinicalTrialState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 

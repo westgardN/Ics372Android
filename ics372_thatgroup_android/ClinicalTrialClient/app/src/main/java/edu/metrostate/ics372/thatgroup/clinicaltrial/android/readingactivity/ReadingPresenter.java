@@ -14,6 +14,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.UnitValue;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class ReadingPresenter implements BasePresenter {
     private ClinicalTrialStateMachine machine;
 
@@ -21,14 +24,30 @@ public class ReadingPresenter implements BasePresenter {
 
     private Reading reading = null;
 
+    /**
+     *
+     * @param machine
+     */
     public ReadingPresenter(ClinicalTrialStateMachine machine) {
         this.machine = machine;
     }
 
+    /**
+     *
+     * @param view
+     */
     public void setView(ReadingView view){ this.view = view; }
 
+    /**
+     *
+     * @param reading
+     */
     public void setReading(Reading reading) { this.reading = reading; }
 
+    /**
+     *
+     * @return
+     */
     public Reading getReading() {
         if (view != null) {
             reading = ReadingFactory.getReading(view.getType());
@@ -47,16 +66,29 @@ public class ReadingPresenter implements BasePresenter {
         return reading;
     }
 
+    /**
+     *
+     */
     @Override
     public void subscribe(){ updateView(); }
 
+    /**
+     *
+     */
     @Override
     public void unsubscribe(){ }
 
+    /**
+     *
+     */
     public void  updateView() {
         updateView(true);
     }
 
+    /**
+     *
+     * @param setData
+     */
     public void  updateView(boolean setData) {
         if (view != null && reading != null) {
             ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
@@ -84,6 +116,7 @@ public class ReadingPresenter implements BasePresenter {
             }
         }
     }
+
 
     private void setReadingValue() {
         Object readingValue = reading.getValue();

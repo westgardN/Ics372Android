@@ -15,6 +15,9 @@ import java.util.Locale;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
+/**
+ * @author That Group
+ */
 public class BloodPressureDialog extends DialogFragment {
     private ReadingPresenter presenter;
 
@@ -22,6 +25,11 @@ public class BloodPressureDialog extends DialogFragment {
     public static final String CANCEL = "Cancel";
     public static final String MESSAGE = "Enter Blood Pressure";
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -37,6 +45,11 @@ public class BloodPressureDialog extends DialogFragment {
                 .setMessage(MESSAGE)
                 // action buttons
                 .setPositiveButton(OK, new DialogInterface.OnClickListener() {
+                    /**
+                     *
+                     * @param dialog
+                     * @param id
+                     */
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         ((TextView) getActivity().findViewById(R.id.reading_value)).setText(
@@ -50,6 +63,11 @@ public class BloodPressureDialog extends DialogFragment {
                     }
                 })
                 .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
+                    /**
+                     *
+                     * @param dialog
+                     * @param id
+                     */
                     public void onClick(DialogInterface dialog, int id) {
                         // remove the dialog from the screen
                     }

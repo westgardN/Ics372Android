@@ -3,7 +3,10 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android.catalog;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.PatientStatus;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+/*
+*
+* @author That Group
+ */
 
 
 public class PatientStatusTest {

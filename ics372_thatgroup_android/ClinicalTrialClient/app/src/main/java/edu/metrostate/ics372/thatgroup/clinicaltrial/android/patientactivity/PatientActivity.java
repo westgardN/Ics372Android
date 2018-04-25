@@ -26,6 +26,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogExce
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
+/**
+ * @author That Group
+ */
 public class PatientActivity extends AppCompatActivity implements PatientFragment.OnFragmentInteractionListener {
     private ClinicalTrialStateMachine machine;
     private PatientPresenter presenter;
@@ -61,6 +64,9 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         getFragmentManager().beginTransaction().add(R.id.fragment_patient, fragment).commit();
     }
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         final ClinicalTrialStateMachine machine =
@@ -68,6 +74,9 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         machine.process(ClinicalTrialEvent.ON_CANCEL);
     }
 
+    /**
+     *
+     */
     @Override
     public void onSaveClicked() {
         PatientState state = (PatientState)machine.getCurrentState();
@@ -76,6 +85,9 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         machine.process(ClinicalTrialEvent.ON_OK);
     }
 
+    /**
+     *
+     */
     @Override
     public void onStartTrialClicked() {
         Patient patient = presenter.getPatient();
@@ -85,6 +97,9 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onEndTrialClicked() {
         Patient patient = presenter.getPatient();
@@ -151,6 +166,11 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
 
             b.setItems(real, new DialogInterface.OnClickListener() {
 
+                /**
+                 *
+                 * @param dialog
+                 * @param which
+                 */
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     patient.setStatusId(real[which]);
@@ -196,6 +216,9 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         return answer;
     }
 
+    /**
+     *
+     */
     @Override
     public void onViewReadingsClicked() {
         Patient patient = presenter.getPatient();
@@ -205,6 +228,9 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         machine.process(ClinicalTrialEvent.ON_VIEW_READINGS);
     }
 
+    /**
+     *
+     */
     @Override
     public void onAddReadingClicked() {
         Patient patient = presenter.getPatient();
@@ -214,12 +240,18 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
         machine.process(ClinicalTrialEvent.ON_ADD_READING);
     }
 
+    /**
+     *
+     */
     @Override
     public void onInputError() {
         machine.process(ClinicalTrialEvent.ON_ERROR);
         presenter.updateView(false);
     }
 
+    /**
+     *
+     */
     @Override
     public void onInputOk() {
         if (machine.getCurrentState() instanceof PatientErrorState) {

@@ -11,6 +11,9 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author That Gropu
+ */
 public class SelectFileDialog {
     private static final String PARENT_DIR = "..";
     private static final String DEFAULT_TITLE = "Select a file";
@@ -18,12 +21,18 @@ public class SelectFileDialog {
     private String[] fileList;
     private File currentPath;
 
+    /**
+     *
+     */
     public interface FileSelectedListener {
         void fileSelected(File file);
 
         void actionCancelled();
     }
 
+    /**
+     *
+     */
     public interface DirectorySelectedListener {
         void directorySelected(File directory);
 
@@ -45,6 +54,13 @@ public class SelectFileDialog {
         this(activity, initialPath, DEFAULT_TITLE, null);
     }
 
+    /**
+     *
+     * @param activity
+     * @param initialPath
+     * @param title
+     * @param fileEndsWith
+     */
     public SelectFileDialog(Activity activity, File initialPath, String title, String fileEndsWith) {
         this.activity = activity;
 
@@ -81,6 +97,11 @@ public class SelectFileDialog {
         }
 
         builder.setItems(fileList, new DialogInterface.OnClickListener() {
+            /**
+             *
+             * @param dialog
+             * @param which
+             */
             public void onClick(DialogInterface dialog, int which) {
                 String fileChosen = fileList[which];
                 File chosenFile = getChosenFile(fileChosen);
@@ -100,23 +121,42 @@ public class SelectFileDialog {
         return dialog;
     }
 
-
+    /**
+     *
+     * @param listener
+     */
     public void addFileListener(FileSelectedListener listener) {
         fileListenerList.add(listener);
     }
 
+    /**
+     *
+     * @param listener
+     */
     public void removeFileListener(FileSelectedListener listener) {
         fileListenerList.remove(listener);
     }
 
+    /**
+     *
+     * @param selectDirectoryOption
+     */
     public void setSelectDirectoryOption(boolean selectDirectoryOption) {
         this.selectDirectoryOption = selectDirectoryOption;
     }
 
+    /**
+     *
+     * @param listener
+     */
     public void addDirectoryListener(DirectorySelectedListener listener) {
         dirListenerList.add(listener);
     }
 
+    /**
+     *
+     * @param listener
+     */
     public void removeDirectoryListener(DirectorySelectedListener listener) {
         dirListenerList.remove(listener);
     }
@@ -169,6 +209,12 @@ public class SelectFileDialog {
             }
 
             FilenameFilter filter = new FilenameFilter() {
+                /**
+                 *
+                 * @param dir
+                 * @param filename
+                 * @return
+                 */
                 public boolean accept(File dir, String filename) {
                     File sel = new File(dir, filename);
 
@@ -207,14 +253,26 @@ public class SelectFileDialog {
     static class ListenerList<L> {
         private List<L> listenerList = new ArrayList<L>();
 
+        /**
+         *
+         * @param <L>
+         */
         public interface FireHandler<L> {
             void fireEvent(L listener);
         }
 
+        /**
+         *
+         * @param listener
+         */
         public void add(L listener) {
             listenerList.add(listener);
         }
 
+        /**
+         *
+         * @param fireHandler
+         */
         public void fireEvent(FireHandler<L> fireHandler) {
             List<L> copy = new ArrayList<L>(listenerList);
             for (L l : copy) {
@@ -222,10 +280,18 @@ public class SelectFileDialog {
             }
         }
 
+        /**
+         *
+         * @param listener
+         */
         public void remove(L listener) {
             listenerList.remove(listener);
         }
 
+        /**
+         *
+         * @return
+         */
         public List<L> getListenerList() {
             return listenerList;
         }

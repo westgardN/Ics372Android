@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
+/**
+ * @author That Group
+ */
 public class TemperatureDialog extends DialogFragment{
     private ReadingPresenter presenter;
 
@@ -21,6 +24,11 @@ public class TemperatureDialog extends DialogFragment{
     public static final String DECIMAL = ".";
     public static final String DECIMAL_POSTFIX = ".0";
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

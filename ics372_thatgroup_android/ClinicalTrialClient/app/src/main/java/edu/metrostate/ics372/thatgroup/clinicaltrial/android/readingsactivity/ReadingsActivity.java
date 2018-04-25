@@ -18,6 +18,9 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
+/**
+ * @author That Group
+ */
 public class ReadingsActivity extends AppCompatActivity implements ReadingsFragment.OnFragmentInteractionListener {
     private ReadingsPresenter presenter = null;
     private final String CLINIC_ARG = "clinic";
@@ -55,6 +58,10 @@ public class ReadingsActivity extends AppCompatActivity implements ReadingsFragm
         }
     }
 
+    /**
+     *
+     * @param view
+     */
     public void onClick(View view) {
         final ClinicalTrialStateMachine machine =
                 ((ClinicalTrialClient)getApplication()).getMachine();
@@ -74,6 +81,10 @@ public class ReadingsActivity extends AppCompatActivity implements ReadingsFragm
         machine.process(ClinicalTrialEvent.ON_PREVIOUS);
     }
 
+    /**
+     *
+     * @param uri
+     */
     @Override
     public void onFragmentInteraction(Uri uri) {
 

@@ -13,7 +13,15 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 
+/**
+ * @author That GRoup
+ */
 class ExportState extends ClinicalTrialState {
+    /**
+     *
+     * @param machine
+     * @param context
+     */
     public ExportState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
 
@@ -22,6 +30,10 @@ class ExportState extends ClinicalTrialState {
         act.startActivity(intent);
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void process(ClinicalTrialEvent event) {
         ClinicalTrialStateMachine machine = getMachine();
@@ -49,16 +61,25 @@ class ExportState extends ClinicalTrialState {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onCleanup() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onSave() {
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onReturn() {
 
