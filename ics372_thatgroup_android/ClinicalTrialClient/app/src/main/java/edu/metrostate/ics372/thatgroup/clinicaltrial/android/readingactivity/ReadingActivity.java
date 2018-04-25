@@ -3,13 +3,13 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import java.time.LocalDateTime;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
@@ -35,7 +35,6 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
         boolean updating = false;
         boolean addPatient = false;
         boolean addClinic = false;
-        boolean addNew = false;
 
         if (intent.hasExtra(getResources().getString(R.string.intent_update_reading))) {
             Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_update_reading));
@@ -60,8 +59,6 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
                 reading.setPatientId(((Patient) obj).getId());
                 addPatient = true;
             }
-        } else {
-            addNew = true;
         }
 
         String param = Strings.EMPTY;
@@ -104,11 +101,15 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
 
     @Override
     public void onInputError() {
-
+        machine.process(ClinicalTrialEvent.ON_ERROR);
+        presenter.updateView(false);
     }
 
     @Override
     public void onInputOk() {
-
+        if (machine.getCurrentState() instanceof ReadingErrorState) {
+            machine.process(ClinicalTrialEvent.ON_OK);
+        }
+        presenter.updateView(false);
     }
 }

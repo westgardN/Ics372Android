@@ -90,4 +90,13 @@ public class AddReadingState extends ReadingState {
         }
     }
 
+    @Override
+    public boolean canAdd() {
+        return true;
+    }
+
+    @Override
+    public boolean canUpdate() {
+        return false;
+    }
 }

@@ -186,6 +186,10 @@ public class ClinicFragment extends Fragment implements ClinicView,
     public void setDisabledId(boolean disabled) {
         ((TextView)getView().findViewById(R.id.clinic_id)).setInputType(disabled ?
                 InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
+
+        if (disabled) {
+            ((TextView)getView().findViewById(R.id.clinic_id)).setFocusable(false);
+        }
     }
 
     @Override

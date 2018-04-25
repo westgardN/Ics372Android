@@ -98,6 +98,8 @@ public class ReadingFragment extends Fragment implements ReadingView,
         EditText date = ((EditText) getView().findViewById(R.id.reading_date));
         EditText time = ((EditText) getView().findViewById(R.id.reading_time));
         EditText value = ((EditText) getView().findViewById(R.id.reading_value));
+        ((TextView)getView().findViewById(R.id.reading_id)).addTextChangedListener(this);
+
         date.setFocusable(false);
         time.setFocusable(false);
 
@@ -198,7 +200,39 @@ public class ReadingFragment extends Fragment implements ReadingView,
 
     @Override
     public void afterTextChanged(Editable s) {
+        if(!validate()) {
+            if (mListener != null) {
+                mListener.onInputError();
+            }
+        } else {
+            if (mListener != null) {
+                mListener.onInputOk();
+            }
+        }
+    }
 
+    private boolean validate() {
+        boolean answer = false;
+        if (presenter != null) {
+            if (validate(getReadingId(), MAX_READING_ID, false)) {
+                answer = true;
+            }
+        }
+        return answer;
+    }
+
+    private boolean validate(String text, int maxLength, boolean allowSpace) {
+        boolean answer = false;
+        String matchString = allowSpace ? getString(R.string.regex_no_special_chars_allow_spaces)
+                : getString(R.string.regex_no_special_chars);
+
+        if (text != null && !text.trim().isEmpty() && text.trim().length() <= maxLength) {
+            if (text.matches(matchString)) {
+                answer = true;
+            }
+        }
+
+        return answer;
     }
 
     @Override
@@ -239,7 +273,7 @@ public class ReadingFragment extends Fragment implements ReadingView,
 
     @Override
     public String getReadingId() {
-        return null;
+        return ((TextView)getView().findViewById(R.id.reading_id)).getText().toString();
     }
 
     @Override
@@ -313,8 +347,8 @@ public class ReadingFragment extends Fragment implements ReadingView,
     }
 
     @Override
-    public void setDisabledSave(boolean b) {
-
+    public void setDisabledSave(boolean disabled) {
+        ((Button) getView().findViewById(R.id.save_reading)).setEnabled(!disabled);
     }
 
 //    @Override

@@ -10,14 +10,14 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 
-class ReadingErrorState extends ClinicalTrialState {
+public class ReadingErrorState extends ClinicalTrialState {
     public ReadingErrorState(ClinicalTrialStateMachine machine, Context context) {
         super(machine, context);
         ClinicalTrialClient app = machine.getApplication();
         Toast.makeText(
                 app.getApplicationContext(),
-                getFromActivity().getResources().getString(R.string.err_reading_fill_out_id),//TODO add more checks for other fields
-                Toast.LENGTH_SHORT).show();
+                getFromActivity().getResources().getString(R.string.err_reading_fill_out_id),
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -32,8 +32,8 @@ class ReadingErrorState extends ClinicalTrialState {
             case ON_ERROR:
                 Toast.makeText(
                         app.getApplicationContext(),
-                        getFromActivity().getResources().getString(R.string.err_reading_fill_out_id),//TODO add more checks for other fields
-                        Toast.LENGTH_SHORT).show();
+                        getFromActivity().getResources().getString(R.string.err_reading_fill_out_id),
+                        Toast.LENGTH_LONG).show();
                 break;
             case ON_CANCEL:
             case ON_PREVIOUS:

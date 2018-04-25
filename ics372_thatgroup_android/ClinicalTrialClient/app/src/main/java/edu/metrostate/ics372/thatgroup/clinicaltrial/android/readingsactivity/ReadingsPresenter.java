@@ -50,6 +50,7 @@ public class ReadingsPresenter implements BasePresenter {
             view.setReadings(readings);
 
             view.setVisibleAddReading(state.canAdd());
+
         }
     }
 }

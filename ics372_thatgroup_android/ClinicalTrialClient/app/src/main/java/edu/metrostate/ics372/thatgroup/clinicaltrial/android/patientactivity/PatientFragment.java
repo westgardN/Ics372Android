@@ -325,6 +325,10 @@ public class PatientFragment extends Fragment implements PatientView,
     public void setDisabledId(boolean disabled) {
         ((TextView)getView().findViewById(R.id.patient_id)).setInputType(disabled ?
                 InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
+
+        if (disabled) {
+            ((TextView)getView().findViewById(R.id.patient_id)).setFocusable(false);
+        }
     }
 
     @Override
