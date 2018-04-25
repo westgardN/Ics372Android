@@ -1,13 +1,17 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.readingactivity;
 
+import android.widget.Switch;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.BasePresenter;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.BloodPressure;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.UnitValue;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class ReadingPresenter implements BasePresenter {
@@ -62,17 +66,72 @@ public class ReadingPresenter implements BasePresenter {
                 view.setClinicId(reading.getClinicId());
                 view.setPatientId(reading.getPatientId());
                 view.setType(ReadingFactory.getPrettyReadingType(reading));
-//                view.setValue(Integer.valueOf(reading.getValue().toString()) == 0 ? Strings.EMPTY : reading.getValue().toString());
-//                view.setDate(reading.getDate().toLocalDate());
-//                view.setTime(LocalTime.of(reading.getDate().getHour(), reading.getDate().getMinute()));
 
-                view.setDisabledSave(true);
-            } else {
-                if (state instanceof ReadingState) {
-                    ((ReadingState) state).setReading(getReading());
+                setReadingValue();
+
+                LocalDateTime ldt = reading.getDate();
+
+                if (ldt != null) {
+                    view.setDate(ldt.toLocalDate());
+                    view.setTime(ldt.toLocalTime());
                 }
-                view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
+
+                view.setDisabledSave(false);
+            } else {
+//                view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
             }
         }
+    }
+
+    private void setReadingValue() {
+        Object readingValue = reading.getValue();
+        String answer = Strings.EMPTY;
+
+        if (readingValue != null) {
+            String type = ReadingFactory.getReadingType(reading);
+
+            switch(type) {
+                case ReadingFactory.BLOOD_PRESSURE:
+                    if (readingValue instanceof BloodPressure.BloodPressureValue) {
+                        BloodPressure.BloodPressureValue bValue = (BloodPressure.BloodPressureValue) readingValue;
+                        if (bValue.getDiastolic() >= 0) {
+                            answer = bValue.toString();
+                        }
+                    }
+                    break;
+                case ReadingFactory.STEPS:
+                    if (readingValue instanceof Integer) {
+                        Integer sValue = (Integer) readingValue;
+                        if (sValue >= 0) {
+                            answer = "" + sValue;
+                        }
+                    }
+                    break;
+                case ReadingFactory.TEMPERATURE:
+                    if (readingValue instanceof UnitValue) {
+                        UnitValue tValue = (UnitValue) readingValue;
+                        if (tValue.getNumberValue() instanceof Double) {
+                            double dVal = (Double) tValue.getNumberValue();
+                            if (!Double.isNaN(dVal)) {
+                                answer = "" + tValue.toString();
+                            }
+                        }
+                    }
+                    break;
+                case ReadingFactory.WEIGHT:
+                    if (readingValue instanceof UnitValue) {
+                        UnitValue tValue = (UnitValue) readingValue;
+                        if (tValue.getNumberValue() instanceof Long) {
+                            long lVal = (Long) tValue.getNumberValue();
+                            if (lVal >= 0) {
+                                answer = "" + tValue.toString();
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        view.setValue(answer);
     }
 }

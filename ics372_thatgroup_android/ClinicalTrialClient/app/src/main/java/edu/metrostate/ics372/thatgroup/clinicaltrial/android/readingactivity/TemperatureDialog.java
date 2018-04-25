@@ -12,6 +12,7 @@ import android.widget.TextView;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
 public class TemperatureDialog extends DialogFragment{
+    private ReadingPresenter presenter;
 
 
     public static final String OK = "OK";
@@ -34,16 +35,28 @@ public class TemperatureDialog extends DialogFragment{
         builder.setView(view)
                 .setMessage(MESSAGE)
                 // action buttons
-                .setPositiveButton(OK, (dialog, id) ->
+                .setPositiveButton(OK, (dialog, id) -> {
+
                         ((TextView) getActivity().findViewById(R.id.reading_value))
                                 .setText(String.format("%s %s",
                                         !temp.getText().toString().contains(DECIMAL)
                                                 ? temp.getText().toString() + DECIMAL_POSTFIX
                                                 : temp.getText().toString(),
-                                        tempType.getText().toString())))
-                .setNegativeButton(CANCEL, (dialog, id) -> {
+                                        tempType.getText().toString()));
+
+                    if (presenter != null) {
+                        presenter.updateView(false);
+                    }
+
+                });
+                builder.setNegativeButton(CANCEL, (dialog, id) -> {
                     // remove the dialog from the screen
                 });
         return builder.create();
     }
+
+    void setPresenter(ReadingPresenter presenter) {
+        this.presenter = presenter;
+    }
+
 }

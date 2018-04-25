@@ -11,6 +11,7 @@ import android.widget.TextView;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
 public class StepsDialog extends DialogFragment {
+    private ReadingPresenter presenter;
 
     public static final String OK = "OK";
     public static final String CANCEL = "Cancel";
@@ -30,10 +31,22 @@ public class StepsDialog extends DialogFragment {
                 .setMessage(MESSAGE)
                 // action buttons
                 .setPositiveButton(OK, (dialog, id) ->
-                        ((TextView) getActivity().findViewById(R.id.reading_value)).setText(steps.getText().toString()))
-                .setNegativeButton(CANCEL, (dialog, id) -> {
+                {
+                    ((TextView) getActivity().findViewById(R.id.reading_value)).setText(steps.getText().toString());
+
+                    if (presenter != null) {
+                        presenter.updateView(false);
+                    }
+
+                });
+        builder.setNegativeButton(CANCEL, (dialog, id) -> {
                     // remove the dialog from the screen
                 });
         return builder.create();
     }
+
+    void setPresenter(ReadingPresenter presenter) {
+        this.presenter = presenter;
+    }
+
 }

@@ -18,9 +18,12 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.PatientState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.PatientStatus;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class PatientActivity extends AppCompatActivity implements PatientFragment.OnFragmentInteractionListener {
@@ -223,5 +226,48 @@ public class PatientActivity extends AppCompatActivity implements PatientFragmen
             machine.process(ClinicalTrialEvent.ON_OK);
         }
         presenter.updateView(false);
+    }
+
+    /**
+     * Dispatch incoming result to the correct fragment.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        final ClinicalTrialModel model = machine.getApplication().getModel();
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ReadingState.UPDATE_READING || requestCode == ReadingState.ADD_READING) {
+                if (data != null) {
+                    Object obj = data.getSerializableExtra(getResources().getString(R.string.intent_updated_or_added));
+                    if (obj instanceof Reading) {
+                        Reading reading = (Reading) obj;
+
+                        try {
+                            String msg = "";
+                            if (model.updateOrAdd(reading)) {
+                                if (requestCode == ReadingState.ADD_READING) {
+                                    msg = getString(R.string.reading_added);
+                                } else {
+                                    msg = getString(R.string.reading_updated);
+                                }
+
+                                msg += " " + reading.getId();
+                            }
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                        } catch (TrialCatalogException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                }
+            }
+        }
     }
 }

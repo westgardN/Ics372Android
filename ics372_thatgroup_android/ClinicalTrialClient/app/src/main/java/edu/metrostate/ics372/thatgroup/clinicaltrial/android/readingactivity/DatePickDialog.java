@@ -14,6 +14,15 @@ import java.util.Calendar;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
 public class DatePickDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    private ReadingPresenter presenter;
+    public DatePickDialog() {
+        super();
+    }
+
+    void setPresenter(ReadingPresenter presenter) {
+        this.presenter = presenter;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
@@ -29,5 +38,9 @@ public class DatePickDialog extends DialogFragment implements DatePickerDialog.O
     public void onDateSet(DatePicker view, int year, int month, int day) {
         LocalDate date = LocalDate.of(year, month+1, day);
         ((TextView) getActivity().findViewById(R.id.reading_date)).setText(date.toString());
+
+        if (presenter != null) {
+            presenter.updateView(false);
+        }
     }
 }

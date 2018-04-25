@@ -3,6 +3,7 @@ package edu.metrostate.ics372.thatgroup.clinicaltrial.android.clinicactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
@@ -11,7 +12,11 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicErrorState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ClinicState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.exceptions.TrialCatalogException;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.models.ClinicalTrialModel;
 
 /**
  * The Clinic Activity allows the user to update the selected clinic or add a reading or view
@@ -98,5 +103,48 @@ public class ClinicActivity extends AppCompatActivity implements ClinicFragment.
             machine.process(ClinicalTrialEvent.ON_OK);
         }
         presenter.updateView(false);
+    }
+
+    /**
+     * Dispatch incoming result to the correct fragment.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final ClinicalTrialStateMachine machine =
+                ((ClinicalTrialClient)getApplication()).getMachine();
+        final ClinicalTrialModel model = machine.getApplication().getModel();
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ReadingState.UPDATE_READING || requestCode == ReadingState.ADD_READING) {
+                if (data != null) {
+                    Object obj = data.getSerializableExtra(getResources().getString(R.string.intent_updated_or_added));
+                    if (obj instanceof Reading) {
+                        Reading reading = (Reading) obj;
+
+                        try {
+                            String msg = "";
+                            if (model.updateOrAdd(reading)) {
+                                if (requestCode == ReadingState.ADD_READING) {
+                                    msg = getString(R.string.reading_added);
+                                } else {
+                                    msg = getString(R.string.reading_updated);
+                                }
+
+                                msg += " " + reading.getId();
+                            }
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                        } catch (TrialCatalogException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                }
+            }
+        }
     }
 }

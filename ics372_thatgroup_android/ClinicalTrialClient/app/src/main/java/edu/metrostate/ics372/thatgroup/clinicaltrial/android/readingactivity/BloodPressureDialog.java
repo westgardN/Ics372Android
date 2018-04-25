@@ -16,6 +16,7 @@ import java.util.Locale;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
 public class BloodPressureDialog extends DialogFragment {
+    private ReadingPresenter presenter;
 
     public static final String OK = "OK";
     public static final String CANCEL = "Cancel";
@@ -41,6 +42,11 @@ public class BloodPressureDialog extends DialogFragment {
                         ((TextView) getActivity().findViewById(R.id.reading_value)).setText(
                                 String.format("%s/%s", sys.getText(), dia.getText())
                         );
+
+                        if (presenter != null) {
+                            presenter.updateView(false);
+                        }
+
                     }
                 })
                 .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
@@ -50,4 +56,9 @@ public class BloodPressureDialog extends DialogFragment {
                 });
         return builder.create();
     }
+
+    void setPresenter(ReadingPresenter presenter) {
+        this.presenter = presenter;
+    }
+
 }

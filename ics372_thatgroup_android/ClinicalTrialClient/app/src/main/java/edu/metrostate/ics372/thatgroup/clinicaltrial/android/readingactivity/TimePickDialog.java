@@ -13,7 +13,8 @@ import java.util.Calendar;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+public class TimePickDialog extends DialogFragment implements android.app.TimePickerDialog.OnTimeSetListener {
+    private ReadingPresenter presenter;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -25,17 +26,25 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         /*
             Creates a new time picker dialog.
-                TimePickerDialog(Context context, TimePickerDialog.OnTimeSetListener listener,
+                TimePickDialog(Context context, TimePickDialog.OnTimeSetListener listener,
                     int hourOfDay, int minute, boolean is24HourView)
          */
-        // Create a TimePickerDialog with current time
-        TimePickerDialog tpd = new TimePickerDialog(getActivity(),this,hour,minute,false);
-        // Return the TimePickerDialog
+        // Create a TimePickDialog with current time
+        android.app.TimePickerDialog tpd = new android.app.TimePickerDialog(getActivity(),this,hour,minute,false);
+        // Return the TimePickDialog
         return tpd;
+    }
+
+    void setPresenter(ReadingPresenter presenter) {
+        this.presenter = presenter;
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute){
         TextView time = (TextView) getActivity().findViewById(R.id.reading_time);
         time.setText(LocalTime.of(hourOfDay, minute).toString());
+
+        if (presenter != null) {
+            presenter.updateView(false);
+        }
     }
 }

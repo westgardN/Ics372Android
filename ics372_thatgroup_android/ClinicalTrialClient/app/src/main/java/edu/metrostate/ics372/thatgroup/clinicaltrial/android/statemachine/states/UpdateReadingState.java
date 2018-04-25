@@ -75,4 +75,24 @@ public class UpdateReadingState extends ReadingState {
     public void onReturn() {
 
     }
+
+    @Override
+    public boolean canAdd() {
+        return false;
+    }
+
+    @Override
+    public boolean canUpdate() {
+        boolean answer = false;
+
+        if (reading != null) {
+            if (reading.getId() != null && !reading.getId().isEmpty() &&
+                    reading.getClinicId() != null && !reading.getClinicId().isEmpty() &&
+                    reading.getPatientId() != null && !reading.getPatientId().isEmpty() &&
+                    reading.getDate() != null && reading.getValue() != null) {
+                answer = true;
+            }
+        }
+        return answer;
+    }
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 
 public class WeightDialog extends DialogFragment {
+    private ReadingPresenter presenter;
 
     public static final String OK = "OK";
     public static final String CANCEL = "Cancel";
@@ -32,12 +33,23 @@ public class WeightDialog extends DialogFragment {
         builder.setView(view)
                 .setMessage(MESSAGE)
                 // action buttons
-                .setPositiveButton(OK, (dialog, id) ->
+                .setPositiveButton(OK, (dialog, id) -> {
                         ((TextView) getActivity().findViewById(R.id.reading_value))
-                                .setText(String.format("%s %s", weight.getText().toString(), weightType.getText().toString())))
-                .setNegativeButton(CANCEL, (dialog, id) -> {
+                                .setText(String.format("%s %s", weight.getText().toString(), weightType.getText().toString()));
+
+                    if (presenter != null) {
+                        presenter.updateView(false);
+                    }
+                });
+
+                builder.setNegativeButton(CANCEL, (dialog, id) -> {
                     // remove the dialog from the screen
                 });
         return builder.create();
     }
+
+    void setPresenter(ReadingPresenter presenter) {
+        this.presenter = presenter;
+    }
+
 }

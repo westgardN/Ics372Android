@@ -14,18 +14,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.ClinicalTrialClient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
@@ -39,7 +40,7 @@ public class ReadingFragment extends Fragment implements ReadingView,
     private static final int MAX_READING_ID = 32;
     private static final String ARG_READING = "reading";
     private static final String ARG_ACTION = "action";
-
+    private boolean firstTime = true;
     private ReadingPresenter presenter;
 
     private Reading reading;
@@ -99,6 +100,7 @@ public class ReadingFragment extends Fragment implements ReadingView,
         EditText date = ((EditText) getView().findViewById(R.id.reading_date));
         EditText time = ((EditText) getView().findViewById(R.id.reading_time));
         EditText value = ((EditText) getView().findViewById(R.id.reading_value));
+
         ((TextView)getView().findViewById(R.id.reading_id)).addTextChangedListener(this);
         value.setOnClickListener(this);
 
@@ -106,12 +108,14 @@ public class ReadingFragment extends Fragment implements ReadingView,
         time.setFocusable(false);
 
         date.setOnClickListener(v -> {
-            DialogFragment dialogFragment = new DatePickDialog();
+            DatePickDialog dialogFragment = new DatePickDialog();
+            dialogFragment.setPresenter(presenter);
             dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_date));
         });
 
         time.setOnClickListener(v -> {
-            DialogFragment dialogFragment = new TimePickerFragment();
+            TimePickDialog dialogFragment = new TimePickDialog();
+            dialogFragment.setPresenter(presenter);
             dialogFragment.show(getActivity().getFragmentManager(), getString(R.string.tag_time));
         });
 
@@ -123,7 +127,9 @@ public class ReadingFragment extends Fragment implements ReadingView,
     private void loadClinicsSpinner() throws TrialCatalogException {
         Spinner spinnerClinic = ((Spinner) getView().findViewById(R.id.reading_clinic));
         Clinic[] clinics = null;
-        if (action != null && action.equals(getString(R.string.add_reading_clinic))) {
+        if (action != null &&
+                (action.equals(getString(R.string.add_reading_clinic)) ||
+                        action.equals(getString(R.string.update_reading)))) {
             Clinic clinic;
             clinic = ((ClinicalTrialClient)getActivity().getApplication()).getModel().getClinic(reading.getClinicId());
             clinics = new Clinic[] {clinic};
@@ -137,12 +143,30 @@ public class ReadingFragment extends Fragment implements ReadingView,
                 android.R.layout.simple_spinner_item, clinics);
         clinicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerClinic.setAdapter(clinicAdapter);
+
+        spinnerClinic.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
+            }
+        });
     }
 
     private void loadPatientsSpinner() throws TrialCatalogException {
         Spinner spinnerPatient = ((Spinner) getView().findViewById(R.id.reading_patient));
         Patient[] patients = null;
-        if (action != null && action.equals(getString(R.string.add_reading_patient))) {
+        if (action != null &&
+                (action.equals(getString(R.string.add_reading_patient)) ||
+                        action.equals(getString(R.string.update_reading)))) {
             Patient patient;
             patient = ((ClinicalTrialClient)getActivity().getApplication()).getModel().getPatient(reading.getPatientId());
             patients = new Patient[] {patient};
@@ -156,6 +180,22 @@ public class ReadingFragment extends Fragment implements ReadingView,
                 android.R.layout.simple_spinner_item, patients);
         patientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPatient.setAdapter(patientAdapter);
+
+        spinnerPatient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
+            }
+        });
     }
 
     private void loadTypeSpinner() {
@@ -169,6 +209,29 @@ public class ReadingFragment extends Fragment implements ReadingView,
                 android.R.layout.simple_spinner_item, types);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(typeAdapter);
+
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!firstTime) {
+                    ((EditText) getView().findViewById(R.id.reading_value)).setText(Strings.EMPTY);
+                    showAndGetValueDialog();
+                } else {
+                    firstTime = false;
+                }
+
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -222,13 +285,31 @@ public class ReadingFragment extends Fragment implements ReadingView,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.save_reading:
-                if (mListener != null) {
-                    mListener.onSaveClicked();
+                ClinicalTrialClient app = (ClinicalTrialClient) getActivity().getApplication();
+                ClinicalTrialStateMachine machine = app.getMachine();
+                ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
+
+                if (state instanceof ReadingState && presenter != null) {
+                    ((ReadingState) state).setReading(presenter.getReading());
+                    if (state.canAdd() || state.canUpdate()) {
+                        if (mListener != null) {
+                            mListener.onSaveClicked();
+                        }
+                    } else {
+                        Toast.makeText(
+                            getActivity().getApplicationContext(),
+                            getActivity().getResources().getString(R.string.err_reading_fill_out_id),
+                            Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
             case R.id.reading_value:
                 showAndGetValueDialog();
                 break;
+            default:
+                if (presenter != null) {
+                    presenter.updateView(false);
+                }
         }
     }
 
