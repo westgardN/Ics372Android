@@ -1,19 +1,5 @@
 <resources>
-    <string name="app_name">Clinical Trial Client</string>
-    <string name="trial_name">android</string>
-    <string name="main_patients">Patients</string>
-    <string name="main_clinics">Clinics</string>
-    <string name="main_readings">Readings</string>
-    <string name="main_add_reading">Add Reading</string>
-    <string name="main_export">Export</string>
-    <string name="main_import">Import</string>
-
     <string name="action_settings">Settings</string>
-    <string name="title_reading_list">Readings</string>
-    <string name="title_reading_detail">Reading Detail</string>
-
-    <string name="title_edit_reading">Edit Reading: %1$s</string>
-
     <string name="add_edit_reading_id">ID:</string>
     <string name="add_edit_reading_clinic_id">Clinic ID:</string>
     <string name="add_edit_reading_patient_id">Patient ID:</string>
@@ -21,33 +7,15 @@
     <string name="add_edit_reading_value">Value:</string>
     <string name="add_edit_reading_date">Date:</string>
     <string name="add_edit_reading_time">Time:</string>
-    <string-array name="reading_types">
-        <item>Weight</item>
-        <item>Temperature</item>
-        <item>Steps</item>
-        <item>Blood Pressure</item>
-    </string-array>
     <string name="add_edit_reading_clr_btn_lbl">Clear</string>
     <string name="add_edit_reading_submit_btn_lbl">Save</string>
-    <string name="reading_updated">Reading Updated: </string>
-    <string name="reading_added">Reading Added: </string>
-
-    <string name="reading_detail_clinic_id_lbl">Clinic ID: %1$s</string>
-    <string name="reading_detail_patient_id_lbl">Patient ID: %1$s</string>
-    <string name="reading_detail_type_lbl">Type: %1$s</string>
-    <string name="reading_detail_value_lbl">Value: %1$s</string>
-    <string name="reading_detail_date_lbl">Date Taken: %1$s</string>
-    <string name="reading_detail_time_lbl">Time Taken: %1$s</string>
-
-    <string name="trial_bean_tag">trial</string>
-    <string name="clinic_bean_tag">clinic</string>
-    <string name="patient_bean_tag">patient</string>
-    <string name="reading_bean_tag">reading</string>
-    <string name="title_activity_add_edit_reading">AddEditReadingActivity</string>
-
-
+    <string name="add_reading">ADD_READING</string>
+    <string name="add_reading_clinic">ADD_READING_CLINIC</string>
+    <string name="add_reading_patient">ADD_READING_PATIENT</string>
+    <string name="app_name">Clinical Trial Client</string>
     <string name="clinic_add">Add Clinic</string>
     <string name="clinic_added">Clinic Added: </string>
+    <string name="clinic_bean_tag">clinic</string>
     <string name="clinic_id">ID</string>
     <string name="clinic_name">Name</string>
     <string name="clinic_title">Clinic</string>
@@ -59,7 +27,6 @@
     <string name="err_clinic_not_updated">Unable to update the clinic.</string>
     <string name="err_patient_fill_out_id">Please fill id fields The id field can only contain letters, numbers, and underscores.</string>
     <string name="err_reading_fill_out_id">Reading ID must be filled.  It may contain only letters, numbers, and underscores.</string>
-
     <string name="err_select_import_file">The selected file is not a valid XML or JSON import file.</string>
     <string name="export_cancelled">The export has been cancelled.</string>
     <string name="export_complete">The export has been completed.</string>
@@ -70,17 +37,17 @@
     <string name="import_complete">The import has been completed.</string>
     <string name="import_started">The import has started.</string>
     <string name="import_title">Select a JSON or XML file to import.</string>
+    <string name="intent_add_reading_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.reading.clinic</string>
+    <string name="intent_add_reading_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.reading.patient</string>
+    <string name="intent_view_readings_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.view.readings.clinic</string>
+    <string name="intent_view_readings_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.view.readings.patient</string>
     <string name="intent_add_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.clinic</string>
     <string name="intent_add_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.patient</string>
-
     <string name="intent_updated_or_added">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.updated</string>
-
     <string name="intent_update_clinic">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.clinic</string>
     <string name="intent_update_patient">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.patient</string>
-
     <string name="intent_add_reading">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.add.reading</string>
     <string name="intent_update_reading">edu.metrostate.ics372.thatgroup.clinicaltrial.android.intents.update.reading</string>
-
     <string name="json_extension">.json</string>
     <string name="main_add_reading">Add Reading</string>
     <string name="main_clinics">Clinics</string>
@@ -103,13 +70,27 @@
     <string name="patient_status_title">Select the reason the patient ended the trial</string>
     <string name="regex_no_special_chars">^[A-Za-z0-9_]+$</string>
     <string name="regex_no_special_chars_allow_spaces">^[A-Za-z0-9_\\s]+$</string>
-    <string name="save">Save</string>
-    <string name="select_import_file">Please select the XML or JSON file to import.</string>
-    <string name="title_activity_clinic">Clinic</string>
+    <string name="patient_bean_tag">patient</string>
+    <string name="reading_bean_tag">reading</string>
     <string name="reading_add">Add Reading</string>
     <string name="reading_title">Reading</string>
     <string name="readings_title">Readings</string>
-    <string name="save_reading">Save</string>
-    <string name="diastolic">Diastolic</string>
-    <string name="systolic">Systolic</string>
+    <string name="reading_updated">Reading Updated: </string>
+    <string name="reading_added">Reading Added: </string>
+    <string name="reading_detail_clinic_id_lbl">Clinic ID: %1$s</string>
+    <string name="reading_detail_patient_id_lbl">Patient ID: %1$s</string>
+    <string name="reading_detail_type_lbl">Type: %1$s</string>
+    <string name="reading_detail_value_lbl">Value: %1$s</string>
+    <string name="reading_detail_date_lbl">Date Taken: %1$s</string>
+    <string name="reading_detail_time_lbl">Time Taken: %1$s</string>
+    <string name="save">Save</string>
+    <string name="select_import_file">Please select the XML or JSON file to import.</string>
+    <string name="title_activity_add_edit_reading">AddEditReadingActivity</string>
+    <string name="title_activity_clinic">Clinic</string>
+    <string name="title_edit_reading">Edit Reading: %1$s</string>
+    <string name="title_reading_list">Readings</string>
+    <string name="title_reading_detail">Reading Detail</string>
+    <string name="trial_bean_tag">trial</string>
+    <string name="trial_name">android</string>
+    <string name="update_reading">UPDATE_READING</string>
 </resources>

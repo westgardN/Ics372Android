@@ -10,8 +10,11 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.Clinic
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states.ReadingState;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Clinic;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.ReadingFactory;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.resources.Strings;
 
 public class ReadingActivity extends AppCompatActivity implements ReadingFragment.OnFragmentInteractionListener {
     private ClinicalTrialStateMachine machine;
@@ -29,27 +32,59 @@ public class ReadingActivity extends AppCompatActivity implements ReadingFragmen
 
         Intent intent = getIntent();
         Reading reading = null;
+        boolean updating = false;
+        boolean addPatient = false;
+        boolean addClinic = false;
+        boolean addNew = false;
 
         if (intent.hasExtra(getResources().getString(R.string.intent_update_reading))) {
             Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_update_reading));
 
             if (obj instanceof Reading) {
                 reading = (Reading) obj;
+                updating = true;
             }
+        } else if (intent.hasExtra(getResources().getString(R.string.intent_add_reading_clinic))) {
+            Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_add_reading_clinic));
+
+            if (obj instanceof Clinic) {
+                reading = ReadingFactory.getReading(ReadingFactory.WEIGHT);
+                reading.setClinicId(((Clinic) obj).getId());
+                addClinic = true;
+            }
+        } else if (intent.hasExtra(getResources().getString(R.string.intent_add_reading_patient))) {
+            Object obj = intent.getSerializableExtra(getResources().getString(R.string.intent_add_reading_patient));
+
+            if (obj instanceof Patient) {
+                reading = ReadingFactory.getReading(ReadingFactory.WEIGHT);
+                reading.setPatientId(((Patient) obj).getId());
+                addPatient = true;
+            }
+        } else {
+            addNew = true;
+        }
+
+        String param = Strings.EMPTY;
+
+        if (updating) {
+            param = getString(R.string.update_reading);
+        } else if (addPatient) {
+            param = getString(R.string.add_reading_patient);
+        } else if (addClinic) {
+            param = getString(R.string.add_reading_clinic);
+        } else {
+            param = getString(R.string.add_reading);
         }
 
         if (reading == null) {
             reading = ReadingFactory.getReading(ReadingFactory.WEIGHT);
-            //reading = new Reading();
-            reading.setValue(0);
-            reading.setDate(LocalDateTime.now());
         }
 
         presenter.setReading(reading);
-        ReadingFragment fragment = ReadingFragment.newInstance(reading);
+        ReadingFragment fragment = ReadingFragment.newInstance(reading, param);
         fragment.setPresenter(presenter);
 
-        getFragmentManager().beginTransaction().add(R.id.fragment_reading_holder, fragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.fragment_reading, fragment).commit();
     }
 
     @Override

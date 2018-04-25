@@ -16,12 +16,25 @@ import static android.app.Activity.RESULT_OK;
 public class AddReadingState extends ReadingState {
 
     public AddReadingState(ClinicalTrialStateMachine machine, Context context) {
-        super(machine, context);
+        this(machine, context, null);
+    }
 
+    public AddReadingState(ClinicalTrialStateMachine machine, Context context, Object obj) {
+        super(machine, context);
+        setObject(obj);
         Activity act = getFromActivity();
 
         if (act != null) {
             Intent intent = new Intent(act, ReadingActivity.class);
+
+            if (hasClinic()) {
+                intent.putExtra(context.getResources().getString(R.string.intent_add_reading_clinic),
+                        getClinic());
+            } else if (hasPatient()) {
+                intent.putExtra(context.getResources().getString(R.string.intent_add_reading_patient),
+                        getPatient());
+            }
+
             act.startActivityForResult(intent, ADD_READING);
         }
     }
@@ -76,4 +89,5 @@ public class AddReadingState extends ReadingState {
                 super.process(event);
         }
     }
+
 }

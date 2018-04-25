@@ -33,14 +33,15 @@ public class ReadingsActivity extends AppCompatActivity implements ReadingsFragm
         final ClinicalTrialModel model = machine.getApplication().getModel();
         final ClinicalTrialState state = (ClinicalTrialState) machine.getCurrentState();
         state.setCurrentActivity(this);
-        presenter = new ReadingsPresenter();
+        presenter = new ReadingsPresenter(machine);
 
         try {
-            if (getIntent().hasExtra(CLINIC_ARG)) {
-                Clinic clinic = (Clinic) getIntent().getExtras().getSerializable(CLINIC_ARG);
+
+            if (getIntent().hasExtra(getString(R.string.intent_view_readings_clinic))) {
+                Clinic clinic = (Clinic) getIntent().getExtras().getSerializable(getString(R.string.intent_view_readings_clinic));
                 presenter.setReadings(model.getJournal(clinic));
-            } else if (getIntent().hasExtra(PATIENT_ARG)) {
-                Patient patient = (Patient) getIntent().getExtras().getSerializable(PATIENT_ARG);
+            } else if (getIntent().hasExtra(getString(R.string.intent_view_readings_patient))) {
+                Patient patient = (Patient) getIntent().getExtras().getSerializable(getString(R.string.intent_view_readings_patient));
                 presenter.setReadings(model.getJournal(patient));
             } else {
                 presenter.setReadings(model.getReadings());

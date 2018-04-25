@@ -60,6 +60,11 @@ public class UpdateClinicState extends ClinicState {
                 }
                 machine.transition();
                 break;
+            case ON_VIEW_READINGS:
+                current = getCurrentActivity();
+
+                machine.transition(new ReadingsState(machine, current, clinic), true);
+                break;
         }
     }
 

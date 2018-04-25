@@ -63,6 +63,16 @@ public class UpdatePatientState extends PatientState {
                 }
                 machine.transition();
                 break;
+            case ON_VIEW_READINGS:
+                current = getCurrentActivity();
+
+                machine.transition(new ReadingsState(machine, current, patient), true);
+                break;
+            case ON_ADD_READING:
+                if (canAddReading()) {
+                    machine.transition(new AddReadingState(machine, getCurrentActivity(), patient), true);
+                }
+                break;
         }
     }
 

@@ -71,7 +71,7 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         final ListView viewReadings = ((ListView)getView().findViewById(R.id.readings));
         viewReadings.setOnItemClickListener(this);
 
-        final Button add = ((Button)getView().findViewById(R.id.add_reading_btn));
+        final Button add = ((Button)getView().findViewById(R.id.add_reading));
         add.setOnClickListener(this);
     }
 
@@ -129,7 +129,7 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
                 ReadingsState readingsState = (ReadingsState) state;
 
                 if (readingsState != null && reading != null) {
-                    readingsState.setReading(reading);
+                    readingsState.setObject(reading);
                     machine.process(ClinicalTrialEvent.ON_SELECT);
                 }
             }
@@ -141,6 +141,12 @@ public class ReadingsFragment extends Fragment implements ReadingsView,
         ArrayAdapter<Reading> arrayAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, readings);
         ((ListView)getView().findViewById(R.id.readings)).setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void setVisibleAddReading(boolean visible) {
+        ((Button)getView().findViewById(R.id.add_reading)).setVisibility(visible ?
+                View.VISIBLE : View.GONE);
     }
 
     @Override

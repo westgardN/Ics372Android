@@ -7,7 +7,7 @@
     tools:context=".readingsactivity.ReadingsActivity">
 
     <Button
-        android:id="@+id/add_reading_btn"
+        android:id="@+id/add_reading"
         android:layout_width="0dp"
         android:layout_height="39dp"
         android:layout_marginBottom="8dp"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/add_reading_btn"
+        app:layout_constraintBottom_toTopOf="@+id/add_reading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

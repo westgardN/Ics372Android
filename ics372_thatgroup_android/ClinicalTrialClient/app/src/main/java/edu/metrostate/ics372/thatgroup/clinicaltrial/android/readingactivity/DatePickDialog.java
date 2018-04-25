@@ -28,6 +28,6 @@ public class DatePickDialog extends DialogFragment implements DatePickerDialog.O
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         LocalDate date = LocalDate.of(year, month+1, day);
-        ((TextView) getActivity().findViewById(R.id.reading_date_txt)).setText(date.toString());
+        ((TextView) getActivity().findViewById(R.id.reading_date)).setText(date.toString());
     }
 }

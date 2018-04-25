@@ -14,19 +14,18 @@
         android:text="@string/reading_title"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_reading_holder"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_reading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <FrameLayout
-        android:id="@+id/fragment_reading_holder"
+        android:id="@+id/fragment_reading"
         android:layout_width="match_parent"
         android:layout_height="536dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/title">
-        <!--<include layout="@layout/fragment_reading"/>-->
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

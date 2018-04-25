@@ -58,9 +58,9 @@ public class ReadingPresenter implements BasePresenter {
                 view.setClinicId(reading.getClinicId());
                 view.setPatientId(reading.getPatientId());
                 view.setType(ReadingFactory.getPrettyReadingType(reading));
-                view.setValue(Integer.valueOf(reading.getValue().toString()) == 0 ? Strings.EMPTY : reading.getValue().toString());
-                view.setDate(reading.getDate().toLocalDate());
-                view.setTime(LocalTime.of(reading.getDate().getHour(), reading.getDate().getMinute()));
+//                view.setValue(Integer.valueOf(reading.getValue().toString()) == 0 ? Strings.EMPTY : reading.getValue().toString());
+//                view.setDate(reading.getDate().toLocalDate());
+//                view.setTime(LocalTime.of(reading.getDate().getHour(), reading.getDate().getMinute()));
             } else {
                 view.setDisabledSave(!(state.canUpdate() || state.canAdd()));
             }

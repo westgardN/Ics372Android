@@ -8,4 +8,6 @@ import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Reading;
 
 public interface ReadingsView extends BaseView<ReadingsPresenter> {
     void setReadings(List<Reading> readings);
+
+    void setVisibleAddReading(boolean visible);
 }

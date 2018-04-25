@@ -26,13 +26,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@id/reading_id_txt"
+                android:labelFor="@id/reading_id"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_id"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/reading_id_txt"
+                android:id="@+id/reading_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -54,18 +54,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@+id/reading_clinic_id_txt"
+                android:labelFor="@+id/reading_clinic"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_clinic_id"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/reading_clinic_id_txt"
+            <Spinner
+                android:id="@+id/reading_clinic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text" />
+                android:minHeight="45dp"
+                android:minWidth="234dp"
+                android:textSize="18sp"
+                android:spinnerMode="dropdown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,19 +81,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@id/reading_patient_id_txt"
+                android:labelFor="@id/reading_patient"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_patient_id"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/reading_patient_id_txt"
+            <Spinner
+                android:id="@+id/reading_patient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text"
-                android:minWidth="75dp" />
+                android:minHeight="45dp"
+                android:minWidth="234dp"
+                android:textSize="18sp"
+                android:spinnerMode="dropdown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -107,19 +108,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@id/reading_type_spinner"
+                android:labelFor="@id/reading_type"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_type"
                 android:textSize="18sp" />
 
             <Spinner
-                android:id="@+id/reading_type_spinner"
+                android:id="@+id/reading_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/reading_types"
                 android:minHeight="45dp"
                 android:minWidth="234dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:spinnerMode="dropdown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -134,19 +135,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@id/reading_value_txt"
+                android:labelFor="@id/reading_value"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_value"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/reading_value_txt"
+                android:id="@+id/reading_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:minWidth="75dp" />
+                android:minWidth="75dp"
+                android:focusable="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -161,18 +163,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@id/reading_date_txt"
+                android:labelFor="@id/reading_date"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_date"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/reading_date_txt"
+                android:id="@+id/reading_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="date" />
+                android:inputType="date"
+                android:focusable="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -187,18 +190,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@id/reading_time_txt"
+                android:labelFor="@id/reading_time"
                 android:minWidth="75dp"
                 android:text="@string/add_edit_reading_time"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/reading_time_txt"
+                android:id="@+id/reading_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="time" />
+                android:inputType="time"
+                android:focusable="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -208,17 +212,17 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/add_edit_reading_clr_btn"
+                android:id="@+id/clear_reading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="@string/add_edit_reading_clr_btn_lbl" />
 
             <Button
-                android:id="@+id/reading_save_btn"
+                android:id="@+id/save_reading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/save_reading" />
+                android:text="@string/save" />
         </LinearLayout>
     </LinearLayout>
 
