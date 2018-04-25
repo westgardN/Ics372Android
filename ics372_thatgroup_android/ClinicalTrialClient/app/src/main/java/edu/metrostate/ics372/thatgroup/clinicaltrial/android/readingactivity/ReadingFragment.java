@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.app.DialogFragment;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -372,6 +373,16 @@ public class ReadingFragment extends Fragment implements ReadingView,
     @Override
     public void setDisabledSave(boolean disabled) {
         ((Button) getView().findViewById(R.id.save_reading)).setEnabled(!disabled);
+    }
+
+    @Override
+    public void setDisabledId(boolean disabled) {
+        ((TextView)getView().findViewById(R.id.reading_id)).setInputType(disabled ?
+                InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
+
+        if (disabled) {
+            ((TextView)getView().findViewById(R.id.reading_id)).setFocusable(false);
+        }
     }
 
     @Override
