@@ -28,7 +28,7 @@ public class StepsTest {
             Steps steps = new Steps(PATIENT_ID, ID, DATE, INTEGER_VALUE, CLINIC_ID);
             String result = steps.toString();
             DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
-            String expected = "Steps taken on " + steps.getDate().format(formatter) + " is: " + steps.getValue();
+            String expected = "Steps taken on " + steps.getDate().format(formatter) + " at clinic with id: test for patient with id: test is: " + steps.getValue();
 
             assertEquals(expected, result);
         }
@@ -40,7 +40,7 @@ public class StepsTest {
         public final void testToStringWithNullDate() {
             Steps steps = new Steps(PATIENT_ID, ID, null, INTEGER_VALUE, CLINIC_ID);
             String result = steps.toString();
-            String expected = "Steps taken is: " + steps.getValue();
+            String expected = "Steps taken at clinic with id: test for patient with id: test is: " + steps.getValue();
 
             assertEquals(expected, result);
         }
