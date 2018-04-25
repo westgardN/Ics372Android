@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".readingactivity.ReadingActivity">
+    <LinearLayout
+        android:id="@+id/add_edit_reading_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|center"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <LinearLayout
+            android:id="@+id/reading_id_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_id_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/reading_id"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_id"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/reading_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reading_clinic_id_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_clinic_id_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@+id/reading_clinic"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_clinic_id"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/reading_clinic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="45dp"
+                android:minWidth="234dp"
+                android:textSize="18sp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reading_patient_id_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_patient_id_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/reading_patient"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_patient_id"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/reading_patient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="45dp"
+                android:minWidth="234dp"
+                android:textSize="18sp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reading_type_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_type_lbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/reading_type"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_type"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/reading_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="45dp"
+                android:minWidth="234dp"
+                android:textSize="18sp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reading_value_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_value_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/reading_value"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_value"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/reading_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:minWidth="75dp"
+                android:focusable="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reading_date_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_date_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/reading_date"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_date"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/reading_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="date"
+                android:focusable="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reading_time_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_edit_reading_time_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@id/reading_time"
+                android:minWidth="75dp"
+                android:text="@string/add_edit_reading_time"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/reading_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="time"
+                android:focusable="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_edit_reading_btns_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<Button-->
+                <!--android:id="@+id/clear_reading"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="6dp"-->
+                <!--android:text="@string/add_edit_reading_clr_btn_lbl" />-->
+
+            <Button
+                android:id="@+id/save_reading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

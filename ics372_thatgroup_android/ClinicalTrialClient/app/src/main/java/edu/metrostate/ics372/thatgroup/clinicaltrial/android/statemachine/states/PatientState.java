@@ -1,7 +1,6 @@
 package edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.states;
 
 import android.content.Context;
-
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialState;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.beans.Patient;

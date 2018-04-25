@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import java.util.Objects;
 
-import edu.metrostate.ics372.thatgroup.clinicaltrial.android.PatientActivity;
+import edu.metrostate.ics372.thatgroup.clinicaltrial.android.patientactivity.PatientActivity;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.R;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialEvent;
 import edu.metrostate.ics372.thatgroup.clinicaltrial.android.statemachine.ClinicalTrialStateMachine;
@@ -62,6 +62,16 @@ public class UpdatePatientState extends PatientState {
                     getCurrentActivity().finish();
                 }
                 machine.transition();
+                break;
+            case ON_VIEW_READINGS:
+                current = getCurrentActivity();
+
+                machine.transition(new ReadingsState(machine, current, patient), true);
+                break;
+            case ON_ADD_READING:
+                if (canAddReading()) {
+                    machine.transition(new AddReadingState(machine, getCurrentActivity(), patient), true);
+                }
                 break;
         }
     }
